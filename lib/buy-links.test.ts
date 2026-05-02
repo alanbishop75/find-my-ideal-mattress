@@ -3,11 +3,12 @@
  *
  * Mattress buy-links validation.
  *
- * Phase: pre-verification (all links are temporary Amazon UK search URLs).
+ * Phase: 5 — direct-ASIN links live (isTemporary: false, source: manual).
  * Rules:
  *  - Every product has a buy-links map entry
- *  - All UK links use the correct associate tag
- *  - No US links in this phase
+ *  - All UK links are direct Amazon UK ASIN URLs (/dp/<ASIN>) with the
+ *    correct associate tag
+ *  - No US links yet
  *  - All present link URLs start with https://
  */
 
@@ -15,7 +16,7 @@ import { mattressBuyLinks, getRegionLinks } from "../config/mattress/buy-links";
 import { products } from "../config/mattress/products";
 import { scoreMattress } from "../config/mattress/scoring";
 
-describe('mattress buy-links — pre-verification phase', () => {
+describe('mattress buy-links — phase 5 (direct ASIN links)', () => {
 
   it('mattressBuyLinks is importable and is an object', () => {
     expect(typeof mattressBuyLinks).toBe('object');
@@ -27,20 +28,20 @@ describe('mattress buy-links — pre-verification phase', () => {
     }
   });
 
-  it('all UK links are amazon.co.uk search URLs with correct associate tag', () => {
+  it('all UK links are amazon.co.uk direct ASIN URLs with correct associate tag', () => {
     for (const [, links] of Object.entries(mattressBuyLinks)) {
       for (const link of links.UK ?? []) {
-        expect(link.url).toMatch(/amazon\.co\.uk/);
-        expect(link.url).toContain('tag=findmyidealmattress-21');
+        expect(link.url).toMatch(/^https:\/\/www\.amazon\.co\.uk\/dp\/[A-Z0-9]{10}\?tag=findmyidealmattress-21$/);
         expect(link.expectedDomain).toBe('amazon.co.uk');
       }
     }
   });
 
-  it('all UK links are temporary in this phase (no SiteStripe yet)', () => {
+  it('all UK links are non-temporary in phase 5 (verified direct ASINs)', () => {
     for (const [, links] of Object.entries(mattressBuyLinks)) {
       for (const link of links.UK ?? []) {
-        expect(link.isTemporary).toBe(true);
+        expect(link.isTemporary).toBe(false);
+        expect(link.source).toBe('manual');
       }
     }
   });
@@ -87,8 +88,8 @@ describe('mattress buy-links — pre-verification phase', () => {
     expect(typeof scoreMattress).toBe('function');
   });
 
-  it('product catalogue has at least 30 products', () => {
-    expect(products.length).toBeGreaterThanOrEqual(30);
+  it('product catalogue has at least 15 products (Amazon-UK-only verified)', () => {
+    expect(products.length).toBeGreaterThanOrEqual(15);
   });
 
   it('all products have a ukAmazonVerification status', () => {

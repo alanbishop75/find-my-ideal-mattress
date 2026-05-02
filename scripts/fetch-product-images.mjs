@@ -19,10 +19,16 @@ const HEADERS = {
   "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
 };
 
-// Extract productId → ASIN from buy-links.ts
+// Extract productId → ASIN from buy-links.ts (direct-ASIN format).
 const buyLinksPath = path.resolve(__dirname, "../config/mattress/buy-links.ts");
 const buyLinksSource = fs.readFileSync(buyLinksPath, "utf8");
-const re = /"([^"]+)":\s*affiliateLink\("[^"]+",\s*"([^"]+)"\)/g;
+// Match patterns like:
+//   "product-id": {
+//     UK: [
+//       {
+//         ...
+//         url: `https://www.amazon.co.uk/dp/<ASIN>?tag=${UK_TAG}`,
+const re = /"([^"]+)":\s*\{[\s\S]*?url:\s*`https:\/\/www\.amazon\.co\.uk\/dp\/([A-Z0-9]{10})/g;
 const asinMap = {};
 let m;
 while ((m = re.exec(buyLinksSource)) !== null) asinMap[m[1]] = m[2];
