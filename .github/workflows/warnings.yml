@@ -1,0 +1,92 @@
+name: CI - Warning Checks
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  warning-checks:
+    name: warning-checks
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build app
+        run: npm run build
+
+      - name: Start production server
+        run: |
+          npm run start > next-start.log 2>&1 &
+
+      - name: Wait for app to respond
+        run: |
+          for i in {1..60}; do
+            if curl -fsS http://127.0.0.1:3000/ > /dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+          echo "App did not start in time"
+          cat next-start.log || true
+          exit 1
+
+      - name: Warning check - homepage metadata
+        run: |
+          set -euo pipefail
+          curl -fsS http://127.0.0.1:3000/ > homepage.html
+          if ! grep -qi '<title>' homepage.html; then
+            echo "Homepage metadata check failed: missing <title> tag"
+            grep -Eio '<head[^>]*>.*</head>|<title[^>]*>.*</title>' homepage.html || head -n 80 homepage.html
+            exit 1
+          fi
+          if ! grep -Eqi '<link[^>]+rel="canonical"' homepage.html; then
+            echo "Homepage metadata check failed: missing canonical link tag"
+            grep -Eio '<head[^>]*>.*</head>|<link[^>]+rel="canonical"[^>]*>|<title[^>]*>.*</title>' homepage.html || head -n 80 homepage.html
+            exit 1
+          fi
+
+      - name: Warning check - robots and sitemap
+        run: |
+          curl -fsS http://127.0.0.1:3000/robots.txt > robots.txt
+          curl -fsS http://127.0.0.1:3000/sitemap.xml > sitemap.xml
+          grep -qi 'User-agent' robots.txt
+          grep -qi '<urlset' sitemap.xml
+
+      - name: Warning check - results noindex
+        run: |
+          curl -fsS http://127.0.0.1:3000/results > results.html
+          grep -Eqi 'noindex' results.html
+
+      - name: Warning check - contact page
+        run: |
+          curl -fsS http://127.0.0.1:3000/contact > contact.html
+          grep -qi 'Contact' contact.html
+
+      - name: Upload warning artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: warning-check-artifacts
+          path: |
+            next-start.log
+            homepage.html
+            results.html
+            robots.txt
+            sitemap.xml
+            contact.html
+          if-no-files-found: ignore
