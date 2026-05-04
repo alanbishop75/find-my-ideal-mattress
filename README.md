@@ -1,8 +1,8 @@
-﻿# FindMyIdealMattress
+﻿# FindYourIdealMattress
 
 > AI-powered mattress recommendation tool for the UK market.
 
-Live site: **https://www.findmyidealmattress.com**
+Live site: **https://www.findyouridealmattress.com**
 
 ---
 
@@ -32,7 +32,7 @@ npm run dev        # http://localhost:3000
 Set up `.env.local` (copy from `.env.example`):
 
 ```
-NEXT_PUBLIC_SITE_URL=https://www.findmyidealmattress.com
+NEXT_PUBLIC_SITE_URL=https://www.findyouridealmattress.com
 NEXT_PUBLIC_GA4_ID=<your-ga4-id>
 ADMIN_PASSWORD=<secure-value>
 ADMIN_TOKEN_SECRET=<secure-value>
@@ -78,9 +78,9 @@ npx tsx scripts/validate-affiliate-links.mjs     # validate live UK affiliate li
 ## Affiliate Programme
 
 - Retailer: Amazon UK
-- Associate tag: `findmyidealmattress-21`
+- Associate tag: `findyouridealmattress-21`
 - Current phase: **pre-verification** - all links are temporary Amazon search URLs
-- Next step: manually verify ASINs and replace search URLs with direct `amazon.co.uk/dp/<ASIN>?tag=findmyidealmattress-21` links
+- Next step: manually verify ASINs and replace search URLs with direct `amazon.co.uk/dp/<ASIN>?tag=findyouridealmattress-21` links
 
 See AFFILIATE-READINESS-PLAN.md for the full verification roadmap.
 
@@ -92,7 +92,7 @@ Hosted on Vercel. Set these environment variables before deploying:
 
 | Variable | Value |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | `https://www.findmyidealmattress.com` |
+| `NEXT_PUBLIC_SITE_URL` | `https://www.findyouridealmattress.com` |
 | `NEXT_PUBLIC_GA4_ID` | your GA4 measurement ID |
 | `ADMIN_PASSWORD` | secure random string |
 | `ADMIN_TOKEN_SECRET` | secure random string (32+ chars) |
@@ -102,4 +102,4 @@ Hosted on Vercel. Set these environment variables before deploying:
 
 ## Platform Architecture
 
-This repo is one product in the FindMyIdeal platform. Only `config/mattress/` and `app/mattress/` are mattress-specific. All other code is shared infrastructure.
+This repo is one product in the FindYourIdeal platform. Only `config/mattress/` and `app/mattress/` are mattress-specific. All other code is shared infrastructure.

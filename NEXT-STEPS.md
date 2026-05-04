@@ -1,4 +1,4 @@
-# FindMyIdealMattress - Next Steps
+# FindYourIdealMattress - Next Steps
 
 See AFFILIATE-READINESS-PLAN.md for affiliate verification steps.
 See README.md for deployment checklist.
@@ -8,7 +8,7 @@ See README.md for deployment checklist.
 1. Replace all placeholder.png images in config/mattress/products.ts
 2. Add affiliate disclosure to results page
 3. Verify ASINs for all 30 products (all are NEEDS_MANUAL_REVIEW)
-4. Replace temporary buy-links with verified amazon.co.uk/dp/ASIN?tag=findmyidealmattress-21 links
+4. Replace temporary buy-links with verified amazon.co.uk/dp/ASIN?tag=findyouridealmattress-21 links
 
 ## Phase 2 - Before Promotion
 
@@ -24,7 +24,7 @@ See README.md for deployment checklist.
 
 ## Vercel Environment Variables
 
-- NEXT_PUBLIC_SITE_URL=https://www.findmyidealmattress.com
+- NEXT_PUBLIC_SITE_URL=https://www.findyouridealmattress.com
 - NEXT_PUBLIC_GA4_ID=<mattress GA4 measurement ID>
 - ADMIN_PASSWORD=<strong random string>
 - ADMIN_TOKEN_SECRET=<strong random string>

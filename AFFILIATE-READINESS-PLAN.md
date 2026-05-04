@@ -1,6 +1,6 @@
-# FindMyIdealMattress - Affiliate Readiness Plan
+# FindYourIdealMattress - Affiliate Readiness Plan
 
-Amazon UK Associates tag: findmyidealmattress-21
+Amazon UK Associates tag: findyouridealmattress-21
 
 ## Current State
 
@@ -17,7 +17,7 @@ For each product in config/mattress/products.ts:
 4. Update ukAmazonVerification.status to AMAZON_UK_VERIFIED_EXACT
 5. Update ukAmazonVerification.evidence with the product title from Amazon
 6. Update the buy-link URL in config/mattress/buy-links.ts:
-   https://www.amazon.co.uk/dp/ASIN?tag=findmyidealmattress-21
+   https://www.amazon.co.uk/dp/ASIN?tag=findyouridealmattress-21
 7. Set isTemporary: false on the updated link
 
 ## Phase 2 - SiteStripe Links
