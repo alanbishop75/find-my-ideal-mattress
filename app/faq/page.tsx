@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Header } from "../../components/Header";
 
 export const metadata: Metadata = {
   title: 'FAQ — FindYourIdealMattress',
@@ -94,6 +95,7 @@ const faqJsonLd = {
 export default function FAQPage() {
   return (
     <>
+      <Header />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}

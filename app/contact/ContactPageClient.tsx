@@ -1,5 +1,6 @@
 "use client";
 
+import { Header } from "../../components/Header";
 import { RegionViewBanner } from "../../components/RegionViewBanner";
 import { useRegion } from "../../core/geo/RegionContext";
 
@@ -11,7 +12,9 @@ export default function ContactPageClient() {
     : "UK support tip: when reporting price or availability issues, include your postcode area and the retailer.";
 
   return (
-    <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px", lineHeight: 1.8 }}>
+    <>
+      <Header />
+      <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px", lineHeight: 1.8 }}>
       <RegionViewBanner audience="content" />
 
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>Contact Us</h1>
@@ -37,5 +40,6 @@ export default function ContactPageClient() {
         <li>{regionalSupportNote}</li>
       </ul>
     </div>
+    </>
   );
 }

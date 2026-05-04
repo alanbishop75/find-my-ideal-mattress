@@ -1,5 +1,6 @@
 "use client";
 
+import { Header } from "../../components/Header";
 import { RegionViewBanner } from "../../components/RegionViewBanner";
 import { useRegion } from "../../core/geo/RegionContext";
 
@@ -17,7 +18,9 @@ export default function AboutPageClient() {
     : "UK visitors see retailer links and product recommendations chosen for the UK market.";
 
   return (
-    <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px", lineHeight: 1.8 }}>
+    <>
+      <Header />
+      <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px", lineHeight: 1.8 }}>
       <RegionViewBanner audience="content" />
 
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>About FindYourIdealMattress</h1>
@@ -68,5 +71,6 @@ export default function AboutPageClient() {
         Have a suggestion or spotted an error? Email us at <a href="mailto:hello@findyouridealmattress.com">hello@findyouridealmattress.com</a>.
       </p>
     </div>
+    </>
   );
 }
