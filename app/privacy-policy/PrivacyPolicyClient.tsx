@@ -1,6 +1,5 @@
 "use client";
 
-import { Header } from "../../components/Header";
 import { RegionViewBanner } from "../../components/RegionViewBanner";
 import { useRegion } from "../../core/geo/RegionContext";
 
@@ -8,9 +7,7 @@ export default function PrivacyPolicyClient() {
   const { region } = useRegion();
 
   return (
-    <>
-      <Header />
-      <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px", lineHeight: 1.7 }}>
+    <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px", lineHeight: 1.7 }}>
       <RegionViewBanner audience="legal" />
 
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>Privacy Policy</h1>
@@ -93,6 +90,5 @@ export default function PrivacyPolicyClient() {
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>6. Changes</h2>
       <p>We may update this policy and will update the last updated date above.</p>
     </div>
-    </>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { Header } from "../../components/Header";
 import { RegionViewBanner } from "../../components/RegionViewBanner";
 import { useRegion } from "../../core/geo/RegionContext";
 
@@ -11,9 +10,7 @@ export default function TermsPageClient() {
     : null;
 
   return (
-    <>
-      <Header />
-      <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px", lineHeight: 1.8 }}>
+    <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px", lineHeight: 1.8 }}>
       <RegionViewBanner audience="legal" />
 
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8 }}>Terms of Use</h1>
@@ -68,6 +65,5 @@ export default function TermsPageClient() {
         Questions? Email <a href="mailto:hello@findmyidealmattress.com">hello@findmyidealmattress.com</a>.
       </p>
     </div>
-    </>
   );
 }
