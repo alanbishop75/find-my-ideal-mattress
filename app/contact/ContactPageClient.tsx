@@ -23,8 +23,8 @@ export default function ContactPageClient() {
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>Email</h2>
       <p>
         The best way to reach us is by email: {" "}
-        <a href="mailto:hello@findmyidealmattress.com" style={{ fontWeight: 600 }}>
-          hello@findmyidealmattress.com
+        <a href="mailto:hello@findyouridealmattress.com" style={{ fontWeight: 600 }}>
+          hello@findyouridealmattress.com
         </a>
       </p>
       <p>We aim to respond within 2 business days.</p>

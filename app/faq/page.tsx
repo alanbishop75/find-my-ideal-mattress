@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'FAQ — FindMyIdealMattress',
-  description: 'Frequently asked questions about quiz logic, recommendations, affiliate links, and pricing caveats on FindMyIdealMattress.',
+  title: 'FAQ — FindYourIdealMattress',
+  description: 'Frequently asked questions about quiz logic, recommendations, affiliate links, and pricing caveats on FindYourIdealMattress.',
   robots: { index: true, follow: true },
   alternates: {
     canonical: '/faq',
@@ -66,7 +66,7 @@ const faqSections = [
     items: [
       {
         q: 'Who should I contact for support or corrections?',
-        a: 'Email hello@findmyidealmattress.com and include the page URL and a short description of your question or issue.',
+        a: 'Email hello@findyouridealmattress.com and include the page URL and a short description of your question or issue.',
       },
       {
         q: 'Can I suggest a mattress to add to the catalogue?',
@@ -103,7 +103,7 @@ export default function FAQPage() {
         <p style={{ color: '#666', marginBottom: 28, fontSize: 14 }}>Last updated: April 2026</p>
 
         <p>
-          This page answers common questions about how FindMyIdealMattress works, how recommendations are generated,
+          This page answers common questions about how FindYourIdealMattress works, how recommendations are generated,
           and what to expect when visiting retailer links.
         </p>
 

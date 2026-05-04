@@ -47,8 +47,8 @@ function resolveActiveTheme(categoryId: string): ThemeName {
 export async function generateMetadata(): Promise<Metadata> {
   const categoryId = await resolveCategoryIdForRequest();
   const config = categoryRegistry[categoryId];
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `https://www.findmyideal${categoryId}.com`;
-  const title = config?.meta.title ?? "FindMyIdealMattress — Find Your Perfect Mattress";
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `https://www.findyourideal${categoryId}.com`;
+  const title = config?.meta.title ?? "FindYourIdealMattress — Find Your Perfect Mattress";
   const description = config?.meta.description ?? "Answer a few quick questions and get your personalised mattress recommendations. Free, no sign-up required.";
   const ogImage = "/opengraph-image";
   return {
@@ -62,14 +62,14 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       url: siteUrl,
-      siteName: 'FindMyIdealMattress',
+      siteName: 'FindYourIdealMattress',
       type: 'website',
       images: [
         {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: 'FindMyIdealMattress share image',
+          alt: 'FindYourIdealMattress share image',
         },
       ],
     },
@@ -77,7 +77,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: 'summary_large_image',
       title,
       description,
-      site: '@FMIdealMattress',
+      site: '@FYIdealMattress',
       images: [ogImage],
     },
   };

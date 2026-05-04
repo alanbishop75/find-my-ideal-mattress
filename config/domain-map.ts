@@ -3,8 +3,10 @@
  * This is a single-product site — only mattress domains are mapped here.
  */
 export const domainCategoryMap: Record<string, string> = {
-  'findmyidealmattress.com':     'mattress',
-  'www.findmyidealmattress.com': 'mattress',
+  'findyouridealmattress.com':     'mattress',
+  'www.findyouridealmattress.com': 'mattress',
+  'findmyidealmattress.com':       'mattress',
+  'www.findmyidealmattress.com':   'mattress',
 };
 
 export const defaultCategoryId = 'mattress';

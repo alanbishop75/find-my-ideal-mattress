@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { mattressSeoPages } from '../config/mattress/seo-pages';
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.findmyidealmattress.com').replace(/\/$/, '');
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.findyouridealmattress.com').replace(/\/$/, '');
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();

@@ -19,7 +19,7 @@ import { mattressSeoPages } from "../../../config/mattress/seo-pages";
 const CORE_PAGES = [
   {
     url: "/",
-    title: "FindMyIdeal — Personalised Product Recommendations",
+    title: "FindYourIdeal — Personalised Product Recommendations",
     description: "Answer a few quick questions and get a free, personalised product recommendation.",
     robots: "index, follow",
     updated: "Apr 2026",
@@ -28,7 +28,7 @@ const CORE_PAGES = [
   },
   {
     url: "/mattress/questionnaire",
-    title: "Mattress Finder — FindMyIdealMattress",
+    title: "Mattress Finder — FindYourIdealMattress",
     description: "Answer a few quick questions to find your ideal mattress.",
     robots: "index, follow",
     updated: "May 2026",
@@ -37,7 +37,7 @@ const CORE_PAGES = [
   },
   {
     url: "/mattress/results",
-    title: "Your Mattress Recommendations — FindMyIdealMattress",
+    title: "Your Mattress Recommendations — FindYourIdealMattress",
     description: "Your personalised mattress recommendations based on how you sleep.",
     robots: "noindex, follow",
     updated: "May 2026",
@@ -46,8 +46,8 @@ const CORE_PAGES = [
   },
   {
     url: "/about",
-    title: "About FindMyIdeal",
-    description: "FindMyIdeal helps you find the right product through a personalised quiz.",
+    title: "About FindYourIdeal",
+    description: "FindYourIdeal helps you find the right product through a personalised quiz.",
     robots: "index, follow",
     updated: "Apr 2026",
     notes: "Static page",
@@ -55,8 +55,8 @@ const CORE_PAGES = [
   },
   {
     url: "/privacy-policy",
-    title: "Privacy Policy — FindMyIdeal",
-    description: "How FindMyIdeal collects, uses and protects your personal information.",
+    title: "Privacy Policy — FindYourIdeal",
+    description: "How FindYourIdeal collects, uses and protects your personal information.",
     robots: "index, follow",
     updated: "Apr 2026",
     notes: "UK GDPR",
@@ -64,7 +64,7 @@ const CORE_PAGES = [
   },
   {
     url: "/admin",
-    title: "Theme Admin — FindMyIdeal",
+    title: "Theme Admin — FindYourIdeal",
     description: "",
     robots: "noindex, nofollow",
     updated: "Apr 2026",
@@ -897,7 +897,7 @@ function AffiliateTab() {
       </TableWrap>
 
       <div style={{ fontSize: 12, color: "#9ca3af", display: "flex", flexDirection: "column", gap: 4 }}>
-        <p style={{ margin: 0 }}>UK Amazon links use tag <code>findmyidealmattress-21</code> and <code>rel=&quot;sponsored&quot;</code> on rendered CTAs.</p>
+        <p style={{ margin: 0 }}>UK Amazon links use tag <code>findyouridealmattress-21</code> and <code>rel=&quot;sponsored&quot;</code> on rendered CTAs.</p>
         <p style={{ margin: 0 }}>US Amazon links are direct product URLs. Add the US Associates tag once the Amazon.com account is approved.</p>
         <p style={{ margin: 0 }}>John Lewis and Dunelm links are temporary search URLs. Add Awin IDs when those retailer accounts are registered.</p>
       </div>

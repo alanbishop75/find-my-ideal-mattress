@@ -6,8 +6,8 @@ import { useRegion } from "../../core/geo/RegionContext";
 export default function AboutPageClient() {
   const { region } = useRegion();
   const intro = region === "US"
-    ? "FindMyIdealMattress is a free tool that helps you find the right mattress for how you sleep - no sign-up, no ads, and no pop-ups."
-    : "FindMyIdealMattress is a free tool that matches you with the right mattress for how you sleep - no sign-up, no ads, and no pop-ups.";
+    ? "FindYourIdealMattress is a free tool that helps you find the right mattress for how you sleep - no sign-up, no ads, and no pop-ups."
+    : "FindYourIdealMattress is a free tool that matches you with the right mattress for how you sleep - no sign-up, no ads, and no pop-ups.";
   const amazonDisclosure = region === "UK"
     ? "As an Amazon Associate, we earn from qualifying purchases on eligible Amazon UK links."
     : null;
@@ -20,7 +20,7 @@ export default function AboutPageClient() {
     <div style={{ maxWidth: 720, margin: "0 auto", padding: "40px 20px", lineHeight: 1.8 }}>
       <RegionViewBanner audience="content" />
 
-      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>About FindMyIdealMattress</h1>
+      <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>About FindYourIdealMattress</h1>
       <p style={{ fontSize: 17 }}>{intro}</p>
       <p>{regionalSummary}</p>
 
@@ -59,13 +59,13 @@ export default function AboutPageClient() {
 
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>Who&rsquo;s behind this</h2>
       <p>
-        FindMyIdealMattress was built to cut through the noise of mattress marketing and give people a straightforward,
+        FindYourIdealMattress was built to cut through the noise of mattress marketing and give people a straightforward,
         honest recommendation based on how they actually sleep — nothing to buy, sign up for, or sit through.
       </p>
 
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>Get in touch</h2>
       <p>
-        Have a suggestion or spotted an error? Email us at <a href="mailto:hello@findmyidealmattress.com">hello@findmyidealmattress.com</a>.
+        Have a suggestion or spotted an error? Email us at <a href="mailto:hello@findyouridealmattress.com">hello@findyouridealmattress.com</a>.
       </p>
     </div>
   );

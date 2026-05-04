@@ -14,13 +14,13 @@ export default function PrivacyPolicyClient() {
       <p style={{ color: "#666", marginBottom: 24, fontSize: 14 }}>Last updated: April 2026</p>
 
       <p>
-        This policy explains what data FindMyIdealMattress collects, how it is used, and the privacy rights that may apply to you.
+        This policy explains what data FindYourIdealMattress collects, how it is used, and the privacy rights that may apply to you.
       </p>
 
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>1. Who we are</h2>
       <p>
-        FindMyIdealMattress is a free online mattress recommendation tool available at <strong>findmyidealmattress.com</strong>.
-        Contact: <a href="mailto:hello@findmyidealmattress.com">hello@findmyidealmattress.com</a>.
+        FindYourIdealMattress is a free online mattress recommendation tool available at <strong>findyouridealmattress.com</strong>.
+        Contact: <a href="mailto:hello@findyouridealmattress.com">hello@findyouridealmattress.com</a>.
       </p>
 
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>2. Data we collect</h2>

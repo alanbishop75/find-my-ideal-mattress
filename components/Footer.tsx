@@ -19,7 +19,7 @@ export function Footer() {
       }}
     >
       <p style={{ margin: "0 0 6px 0" }}>
-        &copy; {new Date().getFullYear()} FindMyIdealPillow. All rights reserved.
+        &copy; {new Date().getFullYear()} FindYourIdealMattress. All rights reserved.
       </p>
       <p style={{ margin: "0 0 6px 0" }}>
         <em>
@@ -44,7 +44,7 @@ export function Footer() {
           Terms
         </Link>
         <a
-          href="https://x.com/FMIdealPillow"
+          href="https://x.com/FYIdealMattress"
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: tokens.textSecondary, textDecoration: "underline" }}
