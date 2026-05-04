@@ -1,89 +1,133 @@
 "use client";
 
 import Link from "next/link";
-import { useTheme } from "../core/theme";
+import Image from "next/image";
 import { useRegion } from "../core/geo/RegionContext";
 import { getHomepageIntro } from "../core/geo/content";
 
+const FOREST = "#1a3d2f";
+const GREEN  = "#3bb273";
+const WHITE  = "#ffffff";
+const SURFACE = "#f6fbf7";
+const BORDER  = "#cbe3d3";
+const TEXT_PRIMARY   = "#1a3d2f";
+const TEXT_SECONDARY = "#4b6b57";
+
 export default function HomePageClient() {
-  const { tokens } = useTheme();
   const { region, isLoading } = useRegion();
   const intro = getHomepageIntro(isLoading ? "UK" : region);
   const popularGuides: { href: string; label: string }[] = [];
 
+  const features = [
+    { icon: "📋", title: "Quick & easy", text: "A few quick questions, under 2 minutes" },
+    { icon: "🎯", title: "Personalised picks", text: "Scored against how you sleep" },
+    { icon: "🛏️", title: "Better sleep", text: "Right mattress. Better nights." },
+    { icon: "💷", title: "Every budget", text: "From value to premium" },
+  ];
+
   return (
-    <div style={{ width: "100%", background: tokens.background, display: "flex", flexDirection: "column", alignItems: "center", padding: "40px 16px 40px" }}>
-      <main style={{ width: "100%", maxWidth: 600 }}>
-        <div style={{ textAlign: "center", marginBottom: 36 }}>
-          <h1 style={{ fontSize: 36, fontWeight: 800, color: tokens.textPrimary, margin: "0 0 12px 0", letterSpacing: -0.5 }}>
-            Find your ideal <span style={{ color: tokens.accent }}>mattress</span>.
+    <div style={{ width: "100%", background: SURFACE }}>
+      {/* HERO */}
+      <section
+        style={{
+          background: "linear-gradient(135deg, #1a3d2f 0%, #1e4d38 55%, #245c42 100%)",
+          color: WHITE,
+          padding: "48px 20px 48px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div aria-hidden style={{ position: "absolute", top: -100, right: -100, width: 340, height: 340, borderRadius: "50%", border: `2px solid ${GREEN}`, opacity: 0.15 }} />
+        <div aria-hidden style={{ position: "absolute", bottom: -60, left: -60, width: 200, height: 200, borderRadius: "50%", background: GREEN, opacity: 0.07 }} />
+
+        <div style={{ maxWidth: 640, margin: "0 auto", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 24 }}>
+          <Image
+            src="/images/pillowLogo.PNG"
+            alt="Find My Ideal Mattress"
+            width={120}
+            height={120}
+            priority
+            style={{ borderRadius: "50%", display: "block", boxShadow: "0 12px 40px -8px rgba(0,0,0,0.5)" }}
+          />
+          <h1 style={{ fontSize: "clamp(28px, 5vw, 44px)", fontWeight: 800, margin: 0, letterSpacing: -0.8, lineHeight: 1.1 }}>
+            Find My <span style={{ color: GREEN }}>Ideal Mattress</span>
           </h1>
-          <p style={{ fontSize: 17, color: tokens.textSecondary, margin: 0, maxWidth: 480, marginLeft: "auto", marginRight: "auto", lineHeight: 1.6 }}>
+          <p style={{ fontSize: "clamp(15px, 1.8vw, 17px)", color: "rgba(255,255,255,0.78)", margin: 0, lineHeight: 1.6, maxWidth: 520 }}>
             {intro}
           </p>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginTop: 8 }}>
+            <Link
+              href="/mattress/questionnaire"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                background: GREEN,
+                color: FOREST,
+                borderRadius: 999,
+                padding: "16px 40px",
+                fontWeight: 800,
+                fontSize: 16,
+                textDecoration: "none",
+                letterSpacing: 0.2,
+                boxShadow: "0 8px 24px -8px rgba(59,178,115,0.6)",
+              }}
+            >
+              Start fitting
+            </Link>
+            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Under 2 minutes · No sign-up</span>
+          </div>
         </div>
-        <div style={{ background: tokens.surface, border: `1px solid ${tokens.border}`, borderRadius: 12, padding: "20px 24px", marginBottom: 28, display: "flex", gap: 24, flexWrap: "wrap", justifyContent: "center" }}>
-          {[
-            { step: "1", text: "Answer a few quick questions" },
-            { step: "2", text: "Our engine scores every product against your answers" },
-            { step: "3", text: "Get your personalised top picks - free, instantly" },
-          ].map(({ step, text }) => (
-            <div key={step} style={{ display: "flex", alignItems: "flex-start", gap: 10, flex: "1 1 160px", minWidth: 160 }}>
-              <span style={{ background: tokens.accent, color: "#fff", borderRadius: "50%", width: 24, height: 24, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, flexShrink: 0, marginTop: 1 }}>{step}</span>
-              <p style={{ margin: 0, fontSize: 14, color: tokens.textSecondary, lineHeight: 1.5 }}>{text}</p>
+      </section>
+
+      {/* FEATURE STRIP */}
+      <section style={{ background: SURFACE, padding: "28px 20px", borderBottom: `1px solid ${BORDER}` }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 20 }}>
+          {features.map(({ icon, title, text }) => (
+            <div key={title} style={{ background: WHITE, border: `1px solid ${BORDER}`, borderRadius: 14, padding: "20px 22px", display: "flex", flexDirection: "column", gap: 8 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <span style={{ fontSize: 28, lineHeight: 1 }}>{icon}</span>
+                <h3 style={{ margin: 0, fontSize: 16, fontWeight: 700, color: TEXT_PRIMARY }}>{title}</h3>
+              </div>
+              <p style={{ margin: 0, fontSize: 14, color: TEXT_SECONDARY, lineHeight: 1.5 }}>{text}</p>
             </div>
           ))}
         </div>
-        <Link
-          href="/mattress/questionnaire"
-          style={{
-            marginTop: 20,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            background: tokens.accent,
-            color: "#fff",
-            borderRadius: 10,
-            height: 52,
-            fontWeight: 700,
-            fontSize: 18,
-            textDecoration: "none",
-            letterSpacing: 0.2,
-          }}
-        >
-          Start fitting {"->"}
-        </Link>
-        <p style={{ fontSize: 13, color: tokens.textSecondary, textAlign: "center", margin: 0, marginTop: 16 }}>
-          Takes under 2 minutes - No sign-up required
-        </p>
-        {popularGuides.length > 0 && (
-        <section style={{ marginTop: 24 }} aria-label="Popular mattress guides">
-          <h2 style={{ fontSize: 18, fontWeight: 700, color: tokens.textPrimary, margin: "0 0 12px 0" }}>
-            Popular mattress guides
-          </h2>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-            {popularGuides.map((guide) => (
-              <Link
-                key={guide.href}
-                href={guide.href}
-                style={{
-                  fontSize: 14,
-                  color: tokens.textPrimary,
-                  background: tokens.surface,
-                  border: `1px solid ${tokens.border}`,
-                  borderRadius: 999,
-                  padding: "8px 12px",
-                  textDecoration: "none",
-                }}
-              >
-                {guide.label}
-              </Link>
+      </section>
+
+      {/* HOW IT WORKS */}
+      <section style={{ padding: "32px 20px 16px" }}>
+        <div style={{ maxWidth: 880, margin: "0 auto" }}>
+          <h2 style={{ fontSize: 26, fontWeight: 800, color: TEXT_PRIMARY, textAlign: "center", margin: "0 0 32px 0", letterSpacing: -0.5 }}>How it works</h2>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 16 }}>
+            {[
+              { step: "1", text: "Answer a few quick questions about how you sleep" },
+              { step: "2", text: "Our engine scores every mattress against your answers" },
+              { step: "3", text: "Get your personalised top picks — free, instantly" },
+            ].map(({ step, text }) => (
+              <div key={step} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 14, padding: "22px 22px 24px", display: "flex", alignItems: "flex-start", gap: 14 }}>
+                <span style={{ background: GREEN, color: FOREST, borderRadius: "50%", width: 32, height: 32, flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 15, fontWeight: 800 }}>{step}</span>
+                <p style={{ margin: 0, fontSize: 15, color: TEXT_PRIMARY, lineHeight: 1.55 }}>{text}</p>
+              </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* POPULAR GUIDES */}
+      {popularGuides.length > 0 && (
+        <section style={{ padding: "24px 20px 48px" }}>
+          <div style={{ maxWidth: 880, margin: "0 auto" }} aria-label="Popular mattress guides">
+            <h2 style={{ fontSize: 20, fontWeight: 700, color: TEXT_PRIMARY, margin: "0 0 16px 0", textAlign: "center" }}>Popular mattress guides</h2>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10, justifyContent: "center" }}>
+              {popularGuides.map((guide) => (
+                <Link key={guide.href} href={guide.href} style={{ fontSize: 14, fontWeight: 600, color: TEXT_PRIMARY, background: WHITE, border: `1px solid ${BORDER}`, borderRadius: 999, padding: "10px 16px", textDecoration: "none" }}>
+                  {guide.label}
+                </Link>
+              ))}
+            </div>
+          </div>
         </section>
-        )}
-      </main>
+      )}
     </div>
   );
 }

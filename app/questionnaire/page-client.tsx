@@ -2,7 +2,6 @@
 import React, { Suspense } from 'react';
 import { mattressQuestionnaire } from '../../config/mattress/questionnaire';
 import { useAppState } from '../client-providers';
-import { useTheme } from '../../core/theme';
 import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Questionnaire } from '../../core/types';
@@ -33,7 +32,6 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	const resolvedQuestionnaire = questionnaireProp ?? mattressQuestionnaire;
 	const questions = resolvedQuestionnaire.questions;
 	const { answers, setAnswer } = useAppState();
-	const { tokens } = useTheme();
 	const [isHydrated, setIsHydrated] = useState(false);
 	const [current, setCurrent] = useState(0);
 	const router = useRouter();
@@ -119,46 +117,53 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	const progress = Math.round(((current + 1) / stepCount) * 100);
 
 	return (
-		<div style={{ background: tokens.background, display: "flex", flexDirection: "column", alignItems: "center", padding: "24px 16px" }}>
-			<main style={{ width: "100%", maxWidth: 440, display: "flex", flexDirection: "column", gap: 20 }}>
-				{isHydrated && <span data-testid="questionnaire-ready" style={{ display: "none" }}>ready</span>}
+		<div style={{
+			minHeight: "100vh",
+			backgroundImage: "url('/images/a-soft-inviting-mattress.jpeg')",
+			backgroundSize: "cover",
+			backgroundPosition: "center 40%",
+			display: "flex",
+			flexDirection: "column",
+			alignItems: "center",
+			justifyContent: "flex-start",
+			padding: "16px 16px 40px",
+			position: "relative",
+		}}>
+			{/* Forest overlay for readability */}
+			<div style={{
+				position: "absolute",
+				inset: 0,
+				background: "rgba(26, 61, 47, 0.55)",
+				zIndex: 0,
+			}} />
 
-				{current > 0 && (
-					<button
-						type="button"
-						data-testid="question-back"
-						disabled={!isHydrated}
-						onClick={handleBack}
-						style={{
-							alignSelf: "flex-start",
-							background: "none",
-							border: `1px solid ${tokens.border}`,
-							borderRadius: 8,
-							padding: "10px 18px",
-							color: tokens.textSecondary,
-							fontSize: 15,
-							fontWeight: 500,
-							cursor: "pointer",
-							display: "flex",
-							alignItems: "center",
-							gap: 6,
-							minHeight: 44,
-						}}
-					>
-						← Back
-					</button>
-				)}
+			<main style={{
+				width: "100%",
+				maxWidth: 440,
+				display: "flex",
+				flexDirection: "column",
+				gap: 20,
+				position: "relative",
+				zIndex: 1,
+				background: "rgba(255,255,255,0.08)",
+				border: "1px solid rgba(255,255,255,0.15)",
+				borderRadius: 20,
+				padding: 28,
+				backdropFilter: "blur(12px)",
+				WebkitBackdropFilter: "blur(12px)",
+			}}>
+				{isHydrated && <span data-testid="questionnaire-ready" style={{ display: "none" }}>ready</span>}
 
 				<div>
 					<div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 6 }}>
-						<span style={{ fontSize: 13, color: tokens.accent, fontWeight: 600 }}>{progress}% complete</span>
+						<span style={{ fontSize: 13, color: "#ffffff", fontWeight: 700 }}>{progress}% complete</span>
 					</div>
-					<div style={{ background: tokens.surfaceAlt, borderRadius: 8, height: 6, width: "100%" }}>
-						<div style={{ background: tokens.accent, height: 6, borderRadius: 8, width: `${progress}%`, transition: "width 0.3s" }} />
+					<div style={{ background: "rgba(255,255,255,0.15)", borderRadius: 8, height: 6, width: "100%" }}>
+						<div style={{ background: "#3bb273", height: 6, borderRadius: 8, width: `${progress}%`, transition: "width 0.3s", boxShadow: "0 0 8px rgba(59,178,115,0.6)" }} />
 					</div>
 				</div>
 
-				<h2 style={{ fontSize: 21, fontWeight: 700, color: tokens.textPrimary, textAlign: "left", margin: 0 }}>{questionText}</h2>
+				<h2 style={{ fontSize: 22, fontWeight: 700, color: "#ffffff", textAlign: "left", margin: 0, textShadow: "0 1px 4px rgba(0,0,0,0.4)", lineHeight: 1.35 }}>{questionText}</h2>
 
 				<div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
 					{q.options.map((option: { id: string; label: string }) => {
@@ -174,17 +179,19 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 								style={{
 									width: "100%",
 									padding: "14px 20px",
-									border: `2px solid ${selected ? tokens.accent : tokens.border}`,
-									background: selected ? tokens.accentSoft : tokens.surface,
-									color: selected ? tokens.accent : tokens.textPrimary,
-									borderRadius: 10,
+									border: selected ? "2px solid #3bb273" : "1px solid rgba(255,255,255,0.28)",
+									background: selected ? "rgba(59,178,115,0.22)" : "rgba(255,255,255,0.1)",
+									backdropFilter: "blur(10px)",
+									WebkitBackdropFilter: "blur(10px)",
+									color: "#ffffff",
+									borderRadius: 12,
 									fontSize: 16,
 									fontWeight: selected ? 600 : 400,
 									textAlign: "center",
 									cursor: "pointer",
 									outline: "none",
 									transition: "all 0.15s",
-									boxShadow: selected ? `0 2px 8px ${tokens.accentSoft}` : "none",
+									boxShadow: selected ? "0 2px 12px rgba(59,178,115,0.4)" : "0 1px 4px rgba(0,0,0,0.2)",
 								}}
 							>
 								{label}
@@ -192,6 +199,32 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 						);
 					})}
 				</div>
+
+				{current > 0 && (
+					<button
+						type="button"
+						data-testid="question-back"
+						disabled={!isHydrated}
+						onClick={handleBack}
+						style={{
+							alignSelf: "flex-start",
+							background: "rgba(255,255,255,0.1)",
+							border: "1px solid rgba(255,255,255,0.3)",
+							borderRadius: 8,
+							padding: "10px 18px",
+							color: "rgba(255,255,255,0.85)",
+							fontSize: 15,
+							fontWeight: 500,
+							cursor: "pointer",
+							display: "flex",
+							alignItems: "center",
+							gap: 6,
+							minHeight: 44,
+						}}
+					>
+						Back
+					</button>
+				)}
 			</main>
 		</div>
 	);
