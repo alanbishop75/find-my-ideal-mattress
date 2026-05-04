@@ -31,7 +31,7 @@ describe('mattress buy-links — phase 5 (direct ASIN links)', () => {
   it('all UK links are amazon.co.uk direct ASIN URLs with correct associate tag', () => {
     for (const [, links] of Object.entries(mattressBuyLinks)) {
       for (const link of links.UK ?? []) {
-        expect(link.url).toMatch(/^https:\/\/www\.amazon\.co\.uk\/dp\/[A-Z0-9]{10}\?tag=findmyidealmattress-21$/);
+        expect(link.url).toMatch(/^https:\/\/www\.amazon\.co\.uk\/dp\/[A-Z0-9]{10}\?tag=findyouridealmattress-21$/);
         expect(link.expectedDomain).toBe('amazon.co.uk');
       }
     }
