@@ -164,7 +164,7 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
               {page.intro}
             </p>
 
-            {ctaButton("Find My Perfect Mattress")}
+            {ctaButton("Find Your Ideal Mattress")}
 
             <p
               style={{
