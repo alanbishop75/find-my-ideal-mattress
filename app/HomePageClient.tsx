@@ -48,7 +48,7 @@ export default function HomePageClient() {
 
         <div style={{ maxWidth: 640, margin: "0 auto", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 24 }}>
           <Image
-            src="/images/pillowLogo.PNG"
+            src="/images/logo.PNG"
             alt="Find Your Ideal Mattress"
             width={120}
             height={120}
