@@ -5,13 +5,13 @@
  *
  * Phase 5 (direct-link milestone, 2026-05-02):
  *   Every entry uses an Amazon UK direct ASIN URL of the form
- *     https://www.amazon.co.uk/dp/<ASIN>?tag=findmyidealmattress-21
+ *     https://www.amazon.co.uk/dp/<ASIN>?tag=findyouridealmattress-21
  *   These URLs are Associates-compliant without needing SiteStripe.
  *
  * STATUS: All entries have isTemporary: false and source: 'manual'.
  *
  * BEFORE LIVE LAUNCH:
- * 1. Register the affiliate tag "findmyidealmattress-21" with Amazon Associates UK.
+ * 1. Register the affiliate tag "findyouridealmattress-21" with Amazon Associates UK.
  * 2. Re-run scripts/validate-affiliate-links.mjs to confirm each ASIN still
  *    resolves on Amazon UK (ASINs occasionally get retired or rebranded).
  */
@@ -19,7 +19,7 @@ import type { BuyLinks } from "../../core/geo/types";
 import type { Region } from "../../core/geo/types";
 
 const REVIEW_DATE = "2026-05-02";
-const UK_TAG = "findmyidealmattress-21";
+const UK_TAG = "findyouridealmattress-21";
 
 export const mattressBuyLinks: Record<string, BuyLinks> = {
   "jayBe-truecore-hybrid-2000": {
