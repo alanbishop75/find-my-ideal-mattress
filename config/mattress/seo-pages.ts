@@ -1,7 +1,7 @@
 /**
  * config/mattress/seo-pages.ts
  *
- * SEO landing page definitions for FindMyIdealMattress (UK market).
+ * SEO landing page definitions for FindYourIdealMattress (UK market).
  *
  * PHASE 1 STUB — pages array is intentionally empty at launch.
  * SEO content is a post-launch activity (Phase 5 of the playbook).
