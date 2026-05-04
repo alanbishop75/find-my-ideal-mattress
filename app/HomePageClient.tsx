@@ -16,7 +16,13 @@ const TEXT_SECONDARY = "#4b6b57";
 export default function HomePageClient() {
   const { region, isLoading } = useRegion();
   const intro = getHomepageIntro(isLoading ? "UK" : region);
-  const popularGuides: { href: string; label: string }[] = [];
+  const popularGuides = [
+    { href: "/mattress/best-mattress-for-side-sleepers-uk", label: "Side sleepers" },
+    { href: "/mattress/best-mattress-for-back-pain-uk", label: "Back pain" },
+    { href: "/mattress/best-hybrid-mattress-uk", label: "Hybrid mattresses" },
+    { href: "/mattress/best-cooling-mattress-uk", label: "Hot sleepers" },
+    { href: "/mattress/best-budget-mattress-uk", label: "Budget picks" },
+  ];
 
   const features = [
     { icon: "📋", title: "Quick & easy", text: "A few quick questions, under 2 minutes" },
