@@ -6,6 +6,13 @@ import { usePathname } from "next/navigation";
 export function Header() {
   const pathname = usePathname();
   if (pathname === "/") return null;
+  // Hide on SEO landing pages: /mattress/<slug> where slug is not questionnaire/results.
+  if (pathname) {
+    const seg = pathname.split("/").filter(Boolean);
+    if (seg[0] === "mattress" && seg.length === 2 && seg[1] !== "questionnaire" && seg[1] !== "results") {
+      return null;
+    }
+  }
   return (
     <header
       style={{
