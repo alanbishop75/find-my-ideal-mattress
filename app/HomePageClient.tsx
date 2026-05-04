@@ -43,14 +43,14 @@ export default function HomePageClient() {
         <div style={{ maxWidth: 640, margin: "0 auto", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 24 }}>
           <Image
             src="/images/pillowLogo.PNG"
-            alt="Find My Ideal Mattress"
+            alt="Find Your Ideal Mattress"
             width={120}
             height={120}
             priority
             style={{ borderRadius: "50%", display: "block", boxShadow: "0 12px 40px -8px rgba(0,0,0,0.5)" }}
           />
           <h1 style={{ fontSize: "clamp(28px, 5vw, 44px)", fontWeight: 800, margin: 0, letterSpacing: -0.8, lineHeight: 1.1 }}>
-            Find My <span style={{ color: GREEN }}>Ideal Mattress</span>
+            Find Your <span style={{ color: GREEN }}>Ideal Mattress</span>
           </h1>
           <p style={{ fontSize: "clamp(15px, 1.8vw, 17px)", color: "rgba(255,255,255,0.78)", margin: 0, lineHeight: 1.6, maxWidth: 520 }}>
             {intro}
