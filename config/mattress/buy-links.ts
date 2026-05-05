@@ -20,6 +20,26 @@ import type { Region } from "../../core/geo/types";
 
 const REVIEW_DATE = "2026-05-02";
 const UK_TAG = "findyouridealmattress-21";
+const US_TAG = "findyouridealmattress-20";
+/** US Amazon link with tag embedded directly into /dp/ URL. */
+export function usLink(asin: string): BuyLinks {
+  return {
+    UK: [],
+    US: [
+      {
+        retailerKey: "amazon-us",
+        retailerName: "Amazon US",
+        region: "US",
+        url: `https://www.amazon.com/dp/${asin}?tag=${US_TAG}`,
+        expectedDomain: "amazon.com",
+        isTemporary: false,
+        source: "manual",
+        notes: `Verified ASIN ${asin} on Amazon US ${REVIEW_DATE}; tag=${US_TAG} embedded.`,
+        isPrimary: true,
+      },
+    ],
+  };
+}
 
 export const mattressBuyLinks: Record<string, BuyLinks> = {
   "jayBe-truecore-hybrid-2000": {
