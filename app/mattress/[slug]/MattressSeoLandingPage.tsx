@@ -226,7 +226,7 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
           href={`/mattress/${pageSlug}`}
           style={{ margin: 0, fontSize: 13, color: tokens.textPrimary, fontWeight: 700, textDecoration: "none" }}
         >
-          Read full guide for this topic ->
+          Read full guide for this topic {"->"}
         </Link>
 
         <a
