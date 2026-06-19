@@ -2,8 +2,9 @@
 import { useAppState } from '../client-providers';
 import { useRouter } from 'next/navigation';
 import { Suspense, useEffect, useState } from 'react';
-import { ResultsCard } from '../../components/ResultsCard';
+import { ResultCardContainer } from '../../components/result-card';
 import { Button } from '../../components/Button';
+import type { RecommendationData, UserProfile } from '../../core/types';
 import { Product } from '../../core/types';
 import { ScoringEngine } from '../../lib/scoring';
 import { categoryRegistry } from '../../config/registry';
@@ -228,11 +229,94 @@ function ResultsPageInner({
     return undefined;
   }
 
-  const cards = [
-    { label: 'Best Match', product: best },
-    { label: 'Strong Alternative', product: alt },
-    { label: 'Best Value', product: budget },
+  function toBadgeData(reasons: string[]): { label: string; icon: React.ReactNode }[] {
+    const iconMap: Record<string, React.ReactNode> = {
+      pressure: '🛏️',
+      support: '🧱',
+      cooling: '❄️',
+      value: '💷',
+      motion: '🤫',
+      edge: '↔️',
+      partner: '👥',
+      comfort: '☁️',
+    };
+
+    return reasons.slice(0, 3).map((reason) => {
+      const lower = reason.toLowerCase();
+      const key = Object.keys(iconMap).find((candidate) => lower.includes(candidate)) ?? 'comfort';
+      return { label: reason, icon: iconMap[key] };
+    });
+  }
+
+  function toTechnicalDetails(product: typeof scored[0]): { label: string; value: string; translation: string }[] {
+    const details: { label: string; value: string; translation: string }[] = [];
+    const firmness = String(product.attributes.firmness ?? '');
+    const construction = String(product.attributes.construction ?? '');
+    const position = String(product.attributes.sleepPosition ?? '');
+    const backSupport = String(product.attributes.backSupport ?? '');
+    const cooling = Boolean(product.attributes.cooling);
+
+    if (firmness) {
+      details.push({
+        label: 'Firmness',
+        value: firmness,
+        translation: `${firmness.charAt(0).toUpperCase() + firmness.slice(1)} feel aligns with the way this mattress supports your sleep profile.`,
+      });
+    }
+    if (construction) {
+      details.push({
+        label: 'Construction',
+        value: construction,
+        translation: `${construction.replace(/-/g, ' ')} construction shapes how this mattress balances contouring, support, and airflow.`,
+      });
+    }
+    if (position) {
+      details.push({
+        label: 'Sleep Position',
+        value: position,
+        translation: `This mattress is a stronger fit for ${position.replace(/-/g, ' ')} sleepers than a generic one-size-fits-all option.`,
+      });
+    }
+    if (backSupport) {
+      details.push({
+        label: 'Support Profile',
+        value: backSupport,
+        translation: `${backSupport.charAt(0).toUpperCase() + backSupport.slice(1)} support helps explain why this landed near the top of your shortlist.`,
+      });
+    }
+    if (cooling) {
+      details.push({
+        label: 'Cooling',
+        value: 'Yes',
+        translation: 'This mattress includes cooling-oriented materials, which matters more if you run warm through the night.',
+      });
+    }
+
+    return details.slice(0, 4);
+  }
+
+  function toRecommendationData(product: typeof scored[0], label: 'Best Match' | 'Strong Alternative' | 'Best Value', bestReasons?: string[]): RecommendationData {
+    return {
+      productId: product.id,
+      productName: product.name,
+      brand: product.brand,
+      imageUrl: product.imageUrl,
+      label,
+      diagnosticExplanation: getSummary(product, bestReasons),
+      badges: toBadgeData(getBullets(product)),
+      affiliateUrl: getRegionLinks(product.id, region)[0]?.url ?? '',
+      technicalDetails: toTechnicalDetails(product),
+      fitScore: typeof product._score === 'number' ? product._score : undefined,
+      priceHint: getPriceHint(product),
+    };
+  }
+
+  const mainRecommendation = toRecommendationData(best, 'Best Match');
+  const alternatives: RecommendationData[] = [
+    toRecommendationData(alt, 'Strong Alternative', best._reasons as string[]),
+    toRecommendationData(budget, 'Best Value', best._reasons as string[]),
   ];
+  const userProfile: UserProfile = { answers };
 
   // Fire results_viewed once on mount
   useEffect(() => {
@@ -299,38 +383,25 @@ function ResultsPageInner({
 
         <RegionSelector />
 
-        <p style={{ width: "100%", margin: 0, fontSize: 12, color: "rgba(255,255,255,0.55)", lineHeight: 1.5 }}>
-          <em>{affiliateDisclosure}</em>
-        </p>
-        <p style={{ width: "100%", margin: 0, fontSize: 12, color: "rgba(255,255,255,0.55)", lineHeight: 1.5 }}>
-          Prices and availability are set by retailers and may change at any time. Always confirm the current price before purchasing.
-        </p>
-        <div style={{ display: "flex", flexDirection: "column", gap: 16, width: "100%" }}>
-          {cards.map(({ label, product }, i) => (
-            <ResultsCard
-              key={label}
-              label={label}
-              isBest={i === 0}
-              image={product.imageUrl}
-              title={`${product.brand} ${product.name}`}
-              explanation={getSummary(product, i > 0 ? (best._reasons as string[]) : undefined)}
-              badges={getBullets(product)}
-              priceTier={String(product.attributes.priceTier ?? '')}
-              priceHint={getPriceHint(product)}
-              buyLinks={getRegionLinks(product.id, region)}
-              onCtaClick={() => trackEvent('affiliate_click', { product_id: product.id, slot: label, position: i })}
-            />
-          ))}
+        <ResultCardContainer mainRecommendation={mainRecommendation} alternatives={alternatives} userProfile={userProfile} />
+        <div style={{ width: "100%", marginTop: 16 }}>
+          <p style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", lineHeight: 1.5, margin: 0 }}>
+            <em>{affiliateDisclosure}</em>
+          </p>
+          <p style={{ fontSize: 12, color: "rgba(255,255,255,0.55)", lineHeight: 1.5, margin: 0 }}>
+            Prices and availability are set by retailers and may change at any time. Always confirm the current price before purchasing.
+          </p>
         </div>
         <Button
           onClick={() => {
+            trackEvent('start_again_clicked', { from: 'results' });
             reset();
             router.push(homeHref);
           }}
           variant="primary"
           style={{ marginTop: 32, width: "100%", fontWeight: 700, fontSize: 16 }}
         >
-          Start again
+          ← Start again
         </Button>
       </main>
     </div>

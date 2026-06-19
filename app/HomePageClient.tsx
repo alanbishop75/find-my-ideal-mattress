@@ -17,6 +17,7 @@ export default function HomePageClient() {
   const { region, isLoading } = useRegion();
   const intro = getHomepageIntro(isLoading ? "UK" : region);
   const popularGuides = [
+    { href: "/mattress/best-mattress", label: "Best mattress (hub)" },
     { href: "/mattress/best-mattress-for-side-sleepers-uk", label: "Side sleepers" },
     { href: "/mattress/best-mattress-for-back-pain-uk", label: "Back pain" },
     { href: "/mattress/best-hybrid-mattress-uk", label: "Hybrid mattresses" },
@@ -61,26 +62,50 @@ export default function HomePageClient() {
           <p style={{ fontSize: "clamp(15px, 1.8vw, 17px)", color: "rgba(255,255,255,0.78)", margin: 0, lineHeight: 1.6, maxWidth: 520 }}>
             {intro}
           </p>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, marginTop: 8 }}>
-            <Link
-              href="/mattress/questionnaire"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                background: GREEN,
-                color: FOREST,
-                borderRadius: 999,
-                padding: "16px 40px",
-                fontWeight: 800,
-                fontSize: 16,
-                textDecoration: "none",
-                letterSpacing: 0.2,
-                boxShadow: "0 8px 24px -8px rgba(59,178,115,0.6)",
-              }}
-            >
-              Start fitting
-            </Link>
-            <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Under 2 minutes · No sign-up</span>
+          <div style={{ display: "flex", flexDirection: "row", alignItems: "flex-start", gap: 12, flexWrap: "wrap", justifyContent: "center", marginTop: 8 }}>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <Link
+                href="/mattress/questionnaire"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  background: GREEN,
+                  color: FOREST,
+                  borderRadius: 999,
+                  padding: "16px 40px",
+                  fontWeight: 800,
+                  fontSize: 16,
+                  textDecoration: "none",
+                  letterSpacing: 0.2,
+                  boxShadow: "0 8px 24px -8px rgba(59,178,115,0.6)",
+                }}
+              >
+                Start fitting
+              </Link>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Fitting in less than a minute</span>
+            </div>
+            <span style={{ fontWeight: 700, color: "#ffffff", fontSize: 16, display: "flex", alignItems: "center", paddingTop: 14 }}>Or</span>
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+              <Link
+                href="/mattress/best-mattress#quick-buy-starting-points"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  background: GREEN,
+                  color: FOREST,
+                  borderRadius: 999,
+                  padding: "16px 40px",
+                  fontWeight: 800,
+                  fontSize: 16,
+                  textDecoration: "none",
+                  letterSpacing: 0.2,
+                  boxShadow: "0 8px 24px -8px rgba(59,178,115,0.6)",
+                }}
+              >
+                Quick Buy
+              </Link>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.55)" }}>Top-rated picks, ready to shop</span>
+            </div>
           </div>
         </div>
       </section>
@@ -114,6 +139,46 @@ export default function HomePageClient() {
                 <span style={{ background: GREEN, color: FOREST, borderRadius: "50%", width: 32, height: 32, flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 15, fontWeight: 800 }}>{step}</span>
                 <p style={{ margin: 0, fontSize: 15, color: TEXT_PRIMARY, lineHeight: 1.55 }}>{text}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section style={{ padding: "0 20px 26px" }}>
+        <div
+          style={{
+            maxWidth: 860,
+            margin: "0 auto",
+            background: WHITE,
+            border: `1px solid ${BORDER}`,
+            borderRadius: 14,
+            padding: "16px 18px",
+          }}
+          aria-label="Help and trust links"
+        >
+          <p style={{ margin: "0 0 10px 0", fontSize: 14, color: TEXT_SECONDARY }}>
+            Learn more before you start
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+            {[
+              { href: "/mattress/best-mattress", label: "Best mattress hub" },
+              { href: "/about", label: "How our recommendations work" },
+              { href: "/contact", label: "Contact support" },
+              { href: "/privacy-policy", label: "Privacy and cookies" },
+              { href: "/terms", label: "Terms of use" },
+            ].map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                style={{
+                  fontSize: 14,
+                  fontWeight: 600,
+                  color: TEXT_PRIMARY,
+                  textDecoration: "none",
+                }}
+              >
+                {item.label}
+              </Link>
             ))}
           </div>
         </div>

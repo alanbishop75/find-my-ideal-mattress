@@ -1,5 +1,6 @@
 
 import type { BuyLinks } from '../geo/types';
+export * from './result-card';
 
 // ── UK Amazon Verification ────────────────────────────────────────────────────
 
