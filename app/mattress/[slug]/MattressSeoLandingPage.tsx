@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { useRegion } from "../../../core/geo/RegionContext";
@@ -9,42 +9,42 @@ import type { MattressSeoPage } from "../../../config/mattress/seo-pages";
 import { mattressSeoPageMap } from "../../../config/mattress/seo-pages";
 
 const quickBuyBySlug: Record<string, { productId: string; bestFor: string; buttonLabel: string }> = {
-  "best-mattress-for-side-sleepers-uk": {
+  "best-mattress-for-side-sleepers": {
     productId: "silentnight-3zone-memory-foam",
     bestFor: "Built for softer pressure relief at the shoulder and hip.",
     buttonLabel: "Shop side-sleeper pick",
   },
-  "best-mattress-for-back-pain-uk": {
+  "best-mattress-for-back-pain": {
     productId: "nectar-classic-hybrid-25cm",
     bestFor: "Built for stronger lumbar support with a balanced medium-firm feel.",
     buttonLabel: "Shop back-support pick",
   },
-  "best-mattress-for-heavy-people-uk": {
+  "best-mattress-for-heavy-people": {
     productId: "sealy-steeple-ortho-plus",
     bestFor: "Built for heavier loads, firmer support, and reinforced structure.",
     buttonLabel: "Shop heavier-sleeper pick",
   },
-  "best-mattress-for-couples-uk": {
+  "best-mattress-for-couples": {
     productId: "simba-hybrid-pro",
     bestFor: "Built for motion control, airflow, and shared-bed stability.",
     buttonLabel: "Shop couples pick",
   },
-  "best-cooling-mattress-uk": {
+  "best-cooling-mattress": {
     productId: "dormeo-octasmart-hybrid",
     bestFor: "Built for hotter sleepers who need better airflow overnight.",
     buttonLabel: "Shop cooling pick",
   },
-  "best-hybrid-mattress-uk": {
+  "best-hybrid-mattress": {
     productId: "otty-original-hybrid-2000",
     bestFor: "Built for balanced spring support with foam comfort up top.",
     buttonLabel: "Shop hybrid pick",
   },
-  "best-budget-mattress-uk": {
+  "best-budget-mattress": {
     productId: "jayBe-truecore-hybrid-2000",
     bestFor: "Built for value-first shoppers who still need balanced support.",
     buttonLabel: "Shop budget pick",
   },
-  "best-mattress-under-500-uk": {
+  "best-mattress-under-500": {
     productId: "inofia-12in-hybrid",
     bestFor: "Built to hit under-GBP500 budgets while keeping hybrid support.",
     buttonLabel: "Shop under-GBP500 pick",
@@ -52,20 +52,20 @@ const quickBuyBySlug: Record<string, { productId: string; bestFor: string; butto
 };
 
 const quickBuyReasonBySlug: Record<string, string> = {
-  "best-mattress-for-side-sleepers-uk": "We use this preset because side sleepers usually need extra pressure relief at hips and shoulders before anything else.",
-  "best-mattress-for-back-pain-uk": "We use this preset because this topic is mainly about lumbar support and stable medium-firm alignment.",
-  "best-mattress-for-heavy-people-uk": "We use this preset because heavier sleepers usually need stronger structure and firmer long-term support.",
-  "best-mattress-for-couples-uk": "We use this preset because couples usually prioritize motion control, stability, and cooling across the whole bed.",
-  "best-cooling-mattress-uk": "We use this preset because this guide focuses on airflow and temperature control first.",
-  "best-hybrid-mattress-uk": "We use this preset because the guide is specifically about hybrid build quality and all-round balance.",
-  "best-budget-mattress-uk": "We use this preset because budget shoppers usually need the best support-per-pound starting point.",
-  "best-mattress-under-500-uk": "We use this preset because it fits a strict under-GBP500 target while keeping a balanced hybrid setup.",
+  "best-mattress-for-side-sleepers": "We use this preset because side sleepers usually need extra pressure relief at hips and shoulders before anything else.",
+  "best-mattress-for-back-pain": "We use this preset because this topic is mainly about lumbar support and stable medium-firm alignment.",
+  "best-mattress-for-heavy-people": "We use this preset because heavier sleepers usually need stronger structure and firmer long-term support.",
+  "best-mattress-for-couples": "We use this preset because couples usually prioritize motion control, stability, and cooling across the whole bed.",
+  "best-cooling-mattress": "We use this preset because this guide focuses on airflow and temperature control first.",
+  "best-hybrid-mattress": "We use this preset because the guide is specifically about hybrid build quality and all-round balance.",
+  "best-budget-mattress": "We use this preset because budget shoppers usually need the best support-per-pound starting point.",
+  "best-mattress-under-500": "We use this preset because it fits a strict under-GBP500 target while keeping a balanced hybrid setup.",
 };
 
 /**
  * Renders an SEO landing page for a mattress keyword.
  *
- * Structure (locked — every page follows this layout for scalability):
+ * Structure (locked - every page follows this layout for scalability):
  *   1. Breadcrumb (visual)
  *   2. <article>
  *        H1 + intro + primary CTA + reassurance row
@@ -339,14 +339,14 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
           <a href="/" style={{ color: tokens.textSecondary, textDecoration: "none" }}>
             Home
           </a>
-          <span style={{ margin: "0 6px" }}>›</span>
+          <span style={{ margin: "0 6px" }}>{">"}</span>
           <a
             href="/mattress/questionnaire"
             style={{ color: tokens.textSecondary, textDecoration: "none" }}
           >
             Mattress finder
           </a>
-          <span style={{ margin: "0 6px" }}>›</span>
+          <span style={{ margin: "0 6px" }}>{">"}</span>
           <span style={{ color: tokens.textPrimary }}>{page.keyword}</span>
         </nav>
 
@@ -400,7 +400,7 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
                 margin: 0,
               }}
             >
-              Takes under 2 minutes · No sign-up · UK retailers
+              Takes under 2 minutes - No sign-up - Top retailers
             </p>
           </header>
 
@@ -476,7 +476,7 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
               {[
                 "Answer a few quick questions about how you sleep",
                 "We match against mattresses verified on UK Amazon, scoring on fit, temperature and budget",
-                "Get a shortlist with reasons — not a single pushed product",
+                "Get a shortlist with reasons - not a single pushed product",
               ].map((step, i) => (
                 <li key={i} style={bodyStyle}>
                   {step}
@@ -620,7 +620,7 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
                       fontWeight: 600,
                     }}
                   >
-                    {p.h1} →
+                    {p.h1} {"->"}
                   </a>
                 </li>
               ))}
@@ -631,3 +631,4 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -14,32 +14,32 @@ const BORDER = "#cbe3d3";
 const TEXT2 = "#4b6b57";
 
 const quickBuyBySlug: Record<string, { productId: string; bestFor: string; buttonLabel: string }> = {
-  "best-mattress-for-side-sleepers-uk": {
+  "best-mattress-for-side-sleepers": {
     productId: "silentnight-3zone-memory-foam",
     bestFor: "Built for softer pressure relief at the shoulder and hip.",
     buttonLabel: "Shop side-sleeper pick",
   },
-  "best-mattress-for-back-pain-uk": {
+  "best-mattress-for-back-pain": {
     productId: "nectar-classic-hybrid-25cm",
     bestFor: "Built for stronger lumbar support with a balanced medium-firm feel.",
     buttonLabel: "Shop back-support pick",
   },
-  "best-mattress-for-heavy-people-uk": {
+  "best-mattress-for-heavy-people": {
     productId: "sealy-steeple-ortho-plus",
     bestFor: "Built for heavier loads, firmer support, and reinforced structure.",
     buttonLabel: "Shop heavier-sleeper pick",
   },
-  "best-mattress-for-couples-uk": {
+  "best-mattress-for-couples": {
     productId: "simba-hybrid-pro",
     bestFor: "Built for motion control, airflow, and shared-bed stability.",
     buttonLabel: "Shop couples pick",
   },
-  "best-cooling-mattress-uk": {
+  "best-cooling-mattress": {
     productId: "dormeo-octasmart-hybrid",
     bestFor: "Built for hotter sleepers who need better airflow overnight.",
     buttonLabel: "Shop cooling pick",
   },
-  "best-budget-mattress-uk": {
+  "best-budget-mattress": {
     productId: "jayBe-truecore-hybrid-2000",
     bestFor: "Built for value-first shoppers who still need balanced support.",
     buttonLabel: "Shop budget pick",
@@ -107,7 +107,7 @@ export default function HubQuickBuySection() {
                 </div>
               </div>
               <Link href={`/mattress/${slug}`} style={{ color: FOREST, textDecoration: "none", fontSize: 13, fontWeight: 700 }}>
-                Open the full guide →
+                Open the full guide {"->"}
               </Link>
               <a
                 href={buyLink ?? `/mattress/${slug}`}

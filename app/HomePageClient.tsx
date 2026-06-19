@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -18,18 +18,18 @@ export default function HomePageClient() {
   const intro = getHomepageIntro(isLoading ? "UK" : region);
   const popularGuides = [
     { href: "/mattress/best-mattress", label: "Best mattress (hub)" },
-    { href: "/mattress/best-mattress-for-side-sleepers-uk", label: "Side sleepers" },
-    { href: "/mattress/best-mattress-for-back-pain-uk", label: "Back pain" },
-    { href: "/mattress/best-hybrid-mattress-uk", label: "Hybrid mattresses" },
-    { href: "/mattress/best-cooling-mattress-uk", label: "Hot sleepers" },
-    { href: "/mattress/best-budget-mattress-uk", label: "Budget picks" },
+    { href: "/mattress/best-mattress-for-side-sleepers", label: "Side sleepers" },
+    { href: "/mattress/best-mattress-for-back-pain", label: "Back pain" },
+    { href: "/mattress/best-hybrid-mattress", label: "Hybrid mattresses" },
+    { href: "/mattress/best-cooling-mattress", label: "Hot sleepers" },
+    { href: "/mattress/best-budget-mattress", label: "Budget picks" },
   ];
 
   const features = [
-    { icon: "📋", title: "Quick & easy", text: "A few quick questions, under 2 minutes" },
-    { icon: "🎯", title: "Personalised picks", text: "Scored against how you sleep" },
-    { icon: "🛏️", title: "Better sleep", text: "Right mattress. Better nights." },
-    { icon: "💷", title: "Every budget", text: "From value to premium" },
+    { icon: "Q", title: "Quick & easy", text: "A few quick questions, under 2 minutes" },
+    { icon: "P", title: "Personalised picks", text: "Scored against how you sleep" },
+    { icon: "S", title: "Better sleep", text: "Right mattress. Better nights." },
+    { icon: "$", title: "Every budget", text: "From value to premium" },
   ];
 
   return (
@@ -45,7 +45,6 @@ export default function HomePageClient() {
         }}
       >
         <div aria-hidden style={{ position: "absolute", top: -100, right: -100, width: 340, height: 340, borderRadius: "50%", border: `2px solid ${GREEN}`, opacity: 0.15 }} />
-        <div aria-hidden style={{ position: "absolute", bottom: -60, left: -60, width: 200, height: 200, borderRadius: "50%", background: GREEN, opacity: 0.07 }} />
 
         <div style={{ maxWidth: 640, margin: "0 auto", position: "relative", display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: 24 }}>
           <Image
@@ -133,7 +132,7 @@ export default function HomePageClient() {
             {[
               { step: "1", text: "Answer a few quick questions about how you sleep" },
               { step: "2", text: "Our engine scores every mattress against your answers" },
-              { step: "3", text: "Get your personalised top picks — free, instantly" },
+              { step: "3", text: "Get your personalised top picks - free, instantly" },
             ].map(({ step, text }) => (
               <div key={step} style={{ background: SURFACE, border: `1px solid ${BORDER}`, borderRadius: 14, padding: "22px 22px 24px", display: "flex", alignItems: "flex-start", gap: 14 }}>
                 <span style={{ background: GREEN, color: FOREST, borderRadius: "50%", width: 32, height: 32, flexShrink: 0, display: "inline-flex", alignItems: "center", justifyContent: "center", fontSize: 15, fontWeight: 800 }}>{step}</span>
@@ -202,3 +201,4 @@ export default function HomePageClient() {
     </div>
   );
 }
+

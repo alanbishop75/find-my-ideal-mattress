@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { mattressSeoPages, mattressSeoPageMap } from "../../../config/mattress/seo-pages";
 import MattressSeoLandingPage from "./MattressSeoLandingPage";
 
@@ -7,12 +7,24 @@ type Props = { params: Promise<{ slug: string }> };
 
 const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.findmyidealmattress.com").replace(/\/$/, "");
 
+const LEGACY_UK_SLUG_REDIRECTS: Record<string, string> = {
+  "best-mattress-for-side-sleepers-uk": "best-mattress-for-side-sleepers",
+  "best-mattress-for-back-pain-uk": "best-mattress-for-back-pain",
+  "best-mattress-for-heavy-people-uk": "best-mattress-for-heavy-people",
+  "best-mattress-for-couples-uk": "best-mattress-for-couples",
+  "best-cooling-mattress-uk": "best-cooling-mattress",
+  "best-hybrid-mattress-uk": "best-hybrid-mattress",
+  "best-budget-mattress-uk": "best-budget-mattress",
+  "best-mattress-under-500-uk": "best-mattress-under-500",
+};
+
 export function generateStaticParams() {
   return mattressSeoPages.map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  if (LEGACY_UK_SLUG_REDIRECTS[slug]) return {};
   const page = mattressSeoPageMap[slug];
   if (!page) return {};
   return {
@@ -31,6 +43,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
+  const redirectedSlug = LEGACY_UK_SLUG_REDIRECTS[slug];
+  if (redirectedSlug) {
+    permanentRedirect(`/mattress/${redirectedSlug}`);
+  }
   const page = mattressSeoPageMap[slug];
   if (!page) notFound();
 
@@ -67,7 +83,7 @@ export default async function Page({ params }: Props) {
     "@type": "Article",
     headline: page.h1,
     description: page.metaDescription,
-    inLanguage: "en-GB",
+    inLanguage: "en",
     mainEntityOfPage: pageUrl,
     dateModified: `${page.lastReviewed}T00:00:00Z`,
     datePublished: `${page.lastReviewed}T00:00:00Z`,

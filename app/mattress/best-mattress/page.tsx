@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { mattressSeoPageMap } from "../../../config/mattress/seo-pages";
 import HubQuickBuySection from "./HubQuickBuySectionClient";
@@ -24,14 +24,14 @@ export const metadata: Metadata = {
 };
 
 const coreGuides = [
-  "best-mattress-for-side-sleepers-uk",
-  "best-mattress-for-back-pain-uk",
-  "best-mattress-for-heavy-people-uk",
-  "best-mattress-for-couples-uk",
-  "best-cooling-mattress-uk",
-  "best-hybrid-mattress-uk",
-  "best-budget-mattress-uk",
-  "best-mattress-under-500-uk",
+  "best-mattress-for-side-sleepers",
+  "best-mattress-for-back-pain",
+  "best-mattress-for-heavy-people",
+  "best-mattress-for-couples",
+  "best-cooling-mattress",
+  "best-hybrid-mattress",
+  "best-budget-mattress",
+  "best-mattress-under-500",
 ];
 
 const guideCards = coreGuides.map((slug) => mattressSeoPageMap[slug]).filter((page) => Boolean(page));
@@ -49,7 +49,7 @@ export default function BestMattressHubPage() {
         <div style={{ maxWidth: 920, margin: "0 auto" }}>
           <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 18 }}>
             <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
-            <span style={{ margin: "0 6px" }}>›</span>
+              <span style={{ margin: "0 6px" }}>{">"}</span>
             <span>Best Mattress</span>
           </div>
 

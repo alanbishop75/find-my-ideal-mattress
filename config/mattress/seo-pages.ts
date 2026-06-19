@@ -13,20 +13,20 @@
  * ──────────────────────────────────────────────────────────────────────────
  *
  *   Sleep position cluster
- *     1. best-mattress-for-side-sleepers-uk
- *     2. best-mattress-for-back-pain-uk
+ *     1. best-mattress-for-side-sleepers
+ *     2. best-mattress-for-back-pain
  *
  *   Body type cluster
- *     3. best-mattress-for-heavy-people-uk
- *     4. best-mattress-for-couples-uk
+ *     3. best-mattress-for-heavy-people
+ *     4. best-mattress-for-couples
  *
  *   Temperature / material cluster
- *     5. best-cooling-mattress-uk
- *     6. best-hybrid-mattress-uk
+ *     5. best-cooling-mattress
+ *     6. best-hybrid-mattress
  *
  *   Budget cluster
- *     7. best-budget-mattress-uk
- *     8. best-mattress-under-500-uk
+ *     7. best-budget-mattress
+ *     8. best-mattress-under-500
  */
 
 export interface MattressSeoSection {
@@ -57,12 +57,12 @@ const lastReviewed = "2026-06-18";
 // ──────────────────────────────────────────────────────────────────────────
 
 const sideSleepersUk: MattressSeoPage = {
-  slug: "best-mattress-for-side-sleepers-uk",
-  keyword: "best mattress for side sleepers uk",
-  metaTitle: "Best Mattress for Side Sleepers UK 2026 - FindYourIdeal",
+  slug: "best-mattress-for-side-sleepers",
+  keyword: "best mattress for side sleepers",
+  metaTitle: "Best Mattress for Side Sleepers 2026 - FindYourIdeal",
   metaDescription:
     "Side sleeping puts pressure on hips and shoulders — the wrong mattress makes it worse. Take our 2-minute quiz for a UK-matched recommendation.",
-  h1: "Best Mattress for Side Sleepers (UK Guide)",
+  h1: "Best Mattress for Side Sleepers (Guide)",
   intro:
     "Side sleeping is the most common position in the UK, but most mattresses are designed around back sleepers. The result: hip and shoulder pressure that builds through the night, leaving you stiff by morning. This guide explains exactly what side sleepers need from a mattress and how to find one that actually holds up.",
   whoItIsFor: [
@@ -155,9 +155,9 @@ const sideSleepersUk: MattressSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-mattress-for-back-pain-uk",
-    "best-cooling-mattress-uk",
-    "best-hybrid-mattress-uk",
+    "best-mattress-for-back-pain",
+    "best-cooling-mattress",
+    "best-hybrid-mattress",
   ],
   lastReviewed,
 };
@@ -167,12 +167,12 @@ const sideSleepersUk: MattressSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const backPainUk: MattressSeoPage = {
-  slug: "best-mattress-for-back-pain-uk",
-  keyword: "best mattress for back pain uk",
-  metaTitle: "Best Mattress for Back Pain UK 2026 - FindYourIdeal",
+  slug: "best-mattress-for-back-pain",
+  keyword: "best mattress for back pain",
+  metaTitle: "Best Mattress for Back Pain 2026 - FindYourIdeal",
   metaDescription:
     "The wrong mattress can make back pain worse. Learn what to look for and take our 2-minute quiz to find a matched UK option.",
-  h1: "Best Mattress for Back Pain (UK Guide)",
+  h1: "Best Mattress for Back Pain (Guide)",
   intro:
     "A mattress does not cure back pain, but a poorly matched one can absolutely make it worse. The key is spinal alignment: your mattress needs to hold the spine in a neutral position across the whole night, regardless of whether you sleep on your back, side, or a mix of both. This guide covers what that means in practice and what to look for.",
   whoItIsFor: [
@@ -254,9 +254,9 @@ const backPainUk: MattressSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-mattress-for-side-sleepers-uk",
-    "best-hybrid-mattress-uk",
-    "best-mattress-for-heavy-people-uk",
+    "best-mattress-for-side-sleepers",
+    "best-hybrid-mattress",
+    "best-mattress-for-heavy-people",
   ],
   lastReviewed,
 };
@@ -266,12 +266,12 @@ const backPainUk: MattressSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const heavyPeopleUk: MattressSeoPage = {
-  slug: "best-mattress-for-heavy-people-uk",
-  keyword: "best mattress for heavy people uk",
-  metaTitle: "Best Mattress for Heavy People UK 2026 - FindYourIdeal",
+  slug: "best-mattress-for-heavy-people",
+  keyword: "best mattress for heavy people",
+  metaTitle: "Best Mattress for Heavy People 2026 - FindYourIdeal",
   metaDescription:
     "Heavier sleepers need deeper support and durable construction. Find a UK-matched mattress in 2 minutes.",
-  h1: "Best Mattress for Heavier Sleepers (UK Guide)",
+  h1: "Best Mattress for Heavier Sleepers (Guide)",
   intro:
     "Standard mattresses are generally calibrated for people around 70–85 kg. If you are significantly above that range, the same mattress behaves differently: comfort layers compress further, edges sag sooner, and support core ratings become less reliable. This guide covers what changes — and what to look for — when choosing a mattress as a heavier sleeper.",
   whoItIsFor: [
@@ -353,9 +353,9 @@ const heavyPeopleUk: MattressSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-mattress-for-back-pain-uk",
-    "best-hybrid-mattress-uk",
-    "best-budget-mattress-uk",
+    "best-mattress-for-back-pain",
+    "best-hybrid-mattress",
+    "best-budget-mattress",
   ],
   lastReviewed,
 };
@@ -365,12 +365,12 @@ const heavyPeopleUk: MattressSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const couplesUk: MattressSeoPage = {
-  slug: "best-mattress-for-couples-uk",
-  keyword: "best mattress for couples uk",
-  metaTitle: "Best Mattress for Couples UK 2026 - FindYourIdeal",
+  slug: "best-mattress-for-couples",
+  keyword: "best mattress for couples",
+  metaTitle: "Best Mattress for Couples 2026 - FindYourIdeal",
   metaDescription:
     "Couples often have different needs from a mattress. Learn how to find a UK option that works for both of you.",
-  h1: "Best Mattress for Couples (UK Guide)",
+  h1: "Best Mattress for Couples (Guide)",
   intro:
     "Buying a mattress as a couple is harder than buying one for yourself, because two people sharing a bed often have different weights, sleep positions, and temperature preferences. The best mattress for couples is one that handles motion transfer well, suits both body profiles, and does not create a compromise that neither person is happy with.",
   whoItIsFor: [
@@ -447,9 +447,9 @@ const couplesUk: MattressSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-cooling-mattress-uk",
-    "best-hybrid-mattress-uk",
-    "best-mattress-for-side-sleepers-uk",
+    "best-cooling-mattress",
+    "best-hybrid-mattress",
+    "best-mattress-for-side-sleepers",
   ],
   lastReviewed,
 };
@@ -459,12 +459,12 @@ const couplesUk: MattressSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const coolingUk: MattressSeoPage = {
-  slug: "best-cooling-mattress-uk",
-  keyword: "best cooling mattress uk",
-  metaTitle: "Best Cooling Mattress UK 2026 - FindYourIdeal",
+  slug: "best-cooling-mattress",
+  keyword: "best cooling mattress",
+  metaTitle: "Best Cooling Mattress 2026 - FindYourIdeal",
   metaDescription:
     "If you sleep hot, your mattress may be the cause. Find out what actually helps and get a UK-matched recommendation.",
-  h1: "Best Cooling Mattress (UK Guide)",
+  h1: "Best Cooling Mattress (Guide)",
   intro:
     "Sleeping hot disrupts sleep quality even when you do not fully wake up. If you regularly throw the duvet off in the night, wake sweating, or feel uncomfortably warm by 3am, your mattress construction is often a bigger factor than the room temperature. This guide explains which mattress properties genuinely help with heat regulation — and which marketing claims to ignore.",
   whoItIsFor: [
@@ -546,9 +546,9 @@ const coolingUk: MattressSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-mattress-for-couples-uk",
-    "best-hybrid-mattress-uk",
-    "best-mattress-for-side-sleepers-uk",
+    "best-mattress-for-couples",
+    "best-hybrid-mattress",
+    "best-mattress-for-side-sleepers",
   ],
   lastReviewed,
 };
@@ -558,12 +558,12 @@ const coolingUk: MattressSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const hybridUk: MattressSeoPage = {
-  slug: "best-hybrid-mattress-uk",
-  keyword: "best hybrid mattress uk",
-  metaTitle: "Best Hybrid Mattress UK 2026 - FindYourIdeal",
+  slug: "best-hybrid-mattress",
+  keyword: "best hybrid mattress",
+  metaTitle: "Best Hybrid Mattress 2026 - FindYourIdeal",
   metaDescription:
     "Hybrid mattresses combine springs and foam for a balanced feel. Find the right UK option for your sleep style in 2 minutes.",
-  h1: "Best Hybrid Mattress (UK Guide)",
+  h1: "Best Hybrid Mattress (Guide)",
   intro:
     "Hybrid mattresses combine a pocket-sprung support core with one or more foam or latex comfort layers. The result is a mattress that aims to give you the pressure relief and contouring of foam without the heat retention and lack of bounce associated with all-foam designs. This guide explains when a hybrid is the right choice — and when another type might serve you better.",
   whoItIsFor: [
@@ -656,9 +656,9 @@ const hybridUk: MattressSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-mattress-for-back-pain-uk",
-    "best-cooling-mattress-uk",
-    "best-mattress-for-couples-uk",
+    "best-mattress-for-back-pain",
+    "best-cooling-mattress",
+    "best-mattress-for-couples",
   ],
   lastReviewed,
 };
@@ -668,9 +668,9 @@ const hybridUk: MattressSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const budgetUk: MattressSeoPage = {
-  slug: "best-budget-mattress-uk",
-  keyword: "best budget mattress uk",
-  metaTitle: "Best Budget Mattress UK 2026 - FindYourIdeal",
+  slug: "best-budget-mattress",
+  keyword: "best budget mattress",
+  metaTitle: "Best Budget Mattress 2026 - FindYourIdeal",
   metaDescription:
     "You do not need to spend a fortune to sleep well. Find the best-value UK mattress for your needs in 2 minutes.",
   h1: "Best Budget Mattress UK (Under £400 Guide)",
@@ -755,9 +755,9 @@ const budgetUk: MattressSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-mattress-under-500-uk",
-    "best-hybrid-mattress-uk",
-    "best-mattress-for-heavy-people-uk",
+    "best-mattress-under-500",
+    "best-hybrid-mattress",
+    "best-mattress-for-heavy-people",
   ],
   lastReviewed,
 };
@@ -767,12 +767,12 @@ const budgetUk: MattressSeoPage = {
 // ──────────────────────────────────────────────────────────────────────────
 
 const under500Uk: MattressSeoPage = {
-  slug: "best-mattress-under-500-uk",
-  keyword: "best mattress under 500 uk",
-  metaTitle: "Best Mattress Under £500 UK 2026 - FindYourIdeal",
+  slug: "best-mattress-under-500",
+  keyword: "best mattress under 500",
+  metaTitle: "Best Mattress Under £500 2026 - FindYourIdeal",
   metaDescription:
     "A £500 budget gets you into quality territory. Find the best UK mattress at this price point for your sleep style.",
-  h1: "Best Mattress Under £500 (UK Guide)",
+  h1: "Best Mattress Under £500 (Guide)",
   intro:
     "Five hundred pounds is a meaningful budget for a mattress — enough to access genuine pocket-spring construction, decent foam density, and trial periods that give you time to be sure. This guide covers what the £300–500 UK market actually offers and how to make a well-informed choice within it.",
   whoItIsFor: [
@@ -849,9 +849,9 @@ const under500Uk: MattressSeoPage = {
     },
   ],
   relatedSlugs: [
-    "best-budget-mattress-uk",
-    "best-hybrid-mattress-uk",
-    "best-mattress-for-side-sleepers-uk",
+    "best-budget-mattress",
+    "best-hybrid-mattress",
+    "best-mattress-for-side-sleepers",
   ],
   lastReviewed,
 };
