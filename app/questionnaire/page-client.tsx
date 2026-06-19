@@ -1,5 +1,6 @@
 "use client";
 import React, { Suspense } from 'react';
+import Link from 'next/link';
 import { mattressQuestionnaire } from '../../config/mattress/questionnaire';
 import { useAppState } from '../client-providers';
 import { useState, useEffect, useRef } from 'react';
@@ -34,6 +35,14 @@ function trackEvent(name: string, params?: Record<string, string | number>) {
 function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath = '/mattress/results' }: Props) {
 	const resolvedQuestionnaire = questionnaireProp ?? mattressQuestionnaire;
 	const questions = resolvedQuestionnaire.questions;
+	const popularGuides = [
+		{ href: '/mattress/best-mattress', label: 'Best mattress (hub)' },
+		{ href: '/mattress/best-mattress-for-side-sleepers', label: 'Side sleepers' },
+		{ href: '/mattress/best-mattress-for-back-pain', label: 'Back pain' },
+		{ href: '/mattress/best-hybrid-mattress', label: 'Hybrid mattresses' },
+		{ href: '/mattress/best-cooling-mattress', label: 'Hot sleepers' },
+		{ href: '/mattress/best-budget-mattress', label: 'Budget picks' },
+	];
 	const { answers, setAnswer, reset } = useAppState();
 	const { setAbandonQuiz } = useContext(QuizAbandonContext);
 	const [isHydrated, setIsHydrated] = useState(false);
@@ -248,6 +257,39 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 					</button>
 				)}
 			</main>
+
+			<section style={{ width: '100%', maxWidth: 760, position: 'relative', zIndex: 1, marginTop: 16 }} aria-label="Mattress guide menu">
+				<div style={{
+					background: 'rgba(255,255,255,0.10)',
+					border: '1px solid rgba(255,255,255,0.18)',
+					borderRadius: 16,
+					padding: 16,
+					backdropFilter: 'blur(10px)',
+					WebkitBackdropFilter: 'blur(10px)',
+				}}>
+					<p style={{ margin: '0 0 12px 0', color: '#ffffff', fontSize: 14, fontWeight: 700 }}>Mattress guide menu</p>
+					<div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+						{popularGuides.map((guide) => (
+							<Link
+								key={guide.href}
+								href={guide.href}
+								style={{
+									fontSize: 13,
+									fontWeight: 700,
+									color: '#ffffff',
+									background: 'rgba(255,255,255,0.12)',
+									border: '1px solid rgba(255,255,255,0.30)',
+									borderRadius: 999,
+									padding: '8px 12px',
+									textDecoration: 'none',
+								}}
+							>
+								{guide.label}
+							</Link>
+						))}
+					</div>
+				</div>
+			</section>
 		</div>
 	);
 }

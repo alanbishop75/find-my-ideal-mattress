@@ -327,7 +327,7 @@ function ResultsPageInner({
   if (!hasAnswers) {
     return (
       <div style={{ minHeight: "100vh", background: "#f6fbf7", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "24px 16px" }}>
-        <main style={{ width: "100%", maxWidth: 440, display: "flex", flexDirection: "column", alignItems: "center", gap: 16, textAlign: "center" }}>
+        <main style={{ width: "100%", maxWidth: 520, display: "flex", flexDirection: "column", alignItems: "center", gap: 16, textAlign: "center" }}>
           <h2 style={{ margin: 0, fontSize: 24, fontWeight: 700, color: "#1a3d2f" }}>Let&apos;s start with the quiz</h2>
           <p style={{ margin: 0, color: "#4b6b57", lineHeight: 1.6 }}>
             We need your answers before we can build personalised mattress matches. Redirecting you now.
@@ -362,7 +362,7 @@ function ResultsPageInner({
 
       <main style={{
         width: "100%",
-        maxWidth: 440,
+        maxWidth: 520,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
