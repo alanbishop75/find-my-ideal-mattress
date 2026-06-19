@@ -21,9 +21,13 @@ import type { Region } from "../../core/geo/types";
 const REVIEW_DATE = "2026-05-02";
 const UK_TAG = "findyouridealmattress-21";
 const US_TAG = "findyouridealmattress-20";
-/** US Amazon link with tag embedded directly into /dp/ URL. */
-export function usLink(asin: string): BuyLinks {
-  const query = encodeURIComponent(asin.trim());
+/**
+ * US Amazon search fallback.
+ * Product-name queries are more reliable than raw ASIN queries when catalog
+ * mappings differ between UK and US marketplaces.
+ */
+export function usLink(queryText: string): BuyLinks {
+  const query = encodeURIComponent(queryText.trim());
   return {
     UK: [],
     US: [
@@ -36,7 +40,7 @@ export function usLink(asin: string): BuyLinks {
         expectedDomain: "amazon.com",
         isTemporary: false,
         source: "manual",
-        notes: `Amazon US search link for ASIN ${asin} (${REVIEW_DATE}); tag=${US_TAG} embedded.`,
+        notes: `Amazon US search link for query \"${queryText}\" (${REVIEW_DATE}); tag=${US_TAG} embedded.`,
         isPrimary: true,
       },
     ],
@@ -207,7 +211,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: usLink("B0GSS36HF8").US,
+    US: usLink("Emma Original Lite mattress").US,
   },
   "nectar-hybrid-lite-20cm": {
     UK: [
@@ -222,7 +226,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: usLink("B0F8CK9GWF").US,
+    US: usLink("Nectar Hybrid Lite 20cm mattress").US,
   },
   "nectar-classic-hybrid-25cm": {
     UK: [
@@ -237,7 +241,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: usLink("B0GPR7JP8M").US,
+    US: usLink("Nectar Classic Hybrid 25cm mattress").US,
   },
   "otty-original-hybrid-2000": {
     UK: [
@@ -252,7 +256,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: usLink("B01HS66RM8").US,
+    US: usLink("Otty Original Hybrid 2000 mattress").US,
   },
   "sealy-steeple-ortho-plus": {
     UK: [
@@ -282,7 +286,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: usLink("B09MR3FQK3").US,
+    US: usLink("Dormeo Octasmart Hybrid mattress").US,
   },
   "silentnight-miracoil-ortho": {
     UK: [
@@ -312,7 +316,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: usLink("B076PLV4Z7").US,
+    US: usLink("Simba Hybrid Pro 28cm mattress").US,
   },
 };
 
