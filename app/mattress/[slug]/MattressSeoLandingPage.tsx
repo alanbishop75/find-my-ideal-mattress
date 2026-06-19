@@ -210,6 +210,58 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
             ))}
           </div>
 
+          {/* Quick Buy vs Quiz */}
+          <section
+            style={{
+              ...cardStyle,
+              display: "flex",
+              flexDirection: "column",
+              gap: 10,
+            }}
+          >
+            <h2 style={h2Style}>Quick Buy vs Quiz</h2>
+            <p style={bodyStyle}>
+              Use <strong>Quick Buy</strong> if you already know the topic you care about and want a fast preset pick. Use the <strong>quiz</strong> if you want a fuller match based on your sleep position, body profile, and budget.
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+              <a
+                href="/mattress/best-mattress#quick-buy-starting-points"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: tokens.surfaceAlt,
+                  color: tokens.textPrimary,
+                  border: `1px solid ${tokens.border}`,
+                  borderRadius: 10,
+                  padding: "10px 14px",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  textDecoration: "none",
+                }}
+              >
+                Open Quick Buy
+              </a>
+              <a
+                href={quizHref}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: tokens.accent,
+                  color: "#fff",
+                  borderRadius: 10,
+                  padding: "10px 14px",
+                  fontSize: 14,
+                  fontWeight: 700,
+                  textDecoration: "none",
+                }}
+              >
+                Start the quiz
+              </a>
+            </div>
+          </section>
+
           {/* Who this is for */}
           {page.whoItIsFor.length > 0 && (
             <section style={cardStyle}>

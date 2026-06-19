@@ -13,6 +13,7 @@ import {
 	trackQuizAbandoned,
 	trackQuestionAnswered,
 } from '../../lib/analytics';
+import { useQuizEventLogger } from '../../components/useQuizEventLogger';
 
 interface Props {
 	questionnaire?: Questionnaire;
@@ -31,7 +32,7 @@ function trackEvent(name: string, params?: Record<string, string | number>) {
 function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath = '/mattress/results' }: Props) {
 	const resolvedQuestionnaire = questionnaireProp ?? mattressQuestionnaire;
 	const questions = resolvedQuestionnaire.questions;
-	const { answers, setAnswer } = useAppState();
+	const { answers, setAnswer, reset } = useAppState();
 	const [isHydrated, setIsHydrated] = useState(false);
 	const [current, setCurrent] = useState(0);
 	const router = useRouter();
@@ -40,18 +41,24 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	const seoSource = searchParams?.get('ref') ?? 'direct';
 	const q = questions[current];
 	const questionText = getQuestionTextForRegion(q.id, q.text, region);
+	const { log } = useQuizEventLogger();
 
 	const startedRef = useRef(false);
+	const abandonedRef = useRef(false);
 	useEffect(() => {
+		reset();
 		if (!startedRef.current) {
 			startedRef.current = true;
 			trackEvent('quiz_start', { quiz_id: resolvedQuestionnaire.id, seo_source: seoSource });
 			trackQuizStart(seoSource);
+			log({ event: 'quiz_start', quizId: resolvedQuestionnaire.id, source: seoSource });
 		}
 		return () => {
-			if (!completedRef.current) {
+			if (!completedRef.current && !abandonedRef.current) {
+				abandonedRef.current = true;
 				trackEvent('quiz_abandoned', { quiz_id: resolvedQuestionnaire.id, question_index: current, seo_source: seoSource });
 				trackQuizAbandoned(seoSource, questions[current]?.id ?? 'unknown');
+				log({ event: 'quiz_abandoned', quizId: resolvedQuestionnaire.id, questionId: questions[current]?.id ?? 'unknown', source: seoSource });
 			}
 		};
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -69,6 +76,7 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 		setAnswer(q.id, optionId);
 		trackEvent('question_answered', { quiz_id: resolvedQuestionnaire.id, question_id: q.id, answer: optionId, question_index: current, seo_source: seoSource });
 		trackQuestionAnswered(q.id, optionId);
+		log({ event: 'question_answered', quizId: resolvedQuestionnaire.id, questionId: q.id, answerId: optionId, source: seoSource });
 		questions.forEach(bq => {
 			if (bq.branch?.dependsOn === q.id && !bq.branch.values.includes(optionId)) {
 				setAnswer(bq.id, '');
@@ -91,8 +99,10 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 		} else {
 			// eslint-disable-next-line react-hooks/immutability
 			completedRef.current = true;
+			abandonedRef.current = true;
 			trackEvent('quiz_complete', { quiz_id: resolvedQuestionnaire.id, seo_source: seoSource });
 			trackQuizComplete(seoSource);
+			log({ event: 'quiz_complete', quizId: resolvedQuestionnaire.id, source: seoSource });
 			router.push(resultsPath);
 		}
 	};
