@@ -1,7 +1,66 @@
 "use client";
+import Image from "next/image";
+import Link from "next/link";
+import { useRegion } from "../../../core/geo/RegionContext";
+import { getRegionLinks } from "../../../config/mattress/buy-links";
+import { products } from "../../../config/mattress/products";
 import { useTheme } from "../../../core/theme";
 import type { MattressSeoPage } from "../../../config/mattress/seo-pages";
 import { mattressSeoPageMap } from "../../../config/mattress/seo-pages";
+
+const quickBuyBySlug: Record<string, { productId: string; bestFor: string; buttonLabel: string }> = {
+  "best-mattress-for-side-sleepers-uk": {
+    productId: "silentnight-3zone-memory-foam",
+    bestFor: "Built for softer pressure relief at the shoulder and hip.",
+    buttonLabel: "Shop side-sleeper pick",
+  },
+  "best-mattress-for-back-pain-uk": {
+    productId: "nectar-classic-hybrid-25cm",
+    bestFor: "Built for stronger lumbar support with a balanced medium-firm feel.",
+    buttonLabel: "Shop back-support pick",
+  },
+  "best-mattress-for-heavy-people-uk": {
+    productId: "sealy-steeple-ortho-plus",
+    bestFor: "Built for heavier loads, firmer support, and reinforced structure.",
+    buttonLabel: "Shop heavier-sleeper pick",
+  },
+  "best-mattress-for-couples-uk": {
+    productId: "simba-hybrid-pro",
+    bestFor: "Built for motion control, airflow, and shared-bed stability.",
+    buttonLabel: "Shop couples pick",
+  },
+  "best-cooling-mattress-uk": {
+    productId: "dormeo-octasmart-hybrid",
+    bestFor: "Built for hotter sleepers who need better airflow overnight.",
+    buttonLabel: "Shop cooling pick",
+  },
+  "best-hybrid-mattress-uk": {
+    productId: "otty-original-hybrid-2000",
+    bestFor: "Built for balanced spring support with foam comfort up top.",
+    buttonLabel: "Shop hybrid pick",
+  },
+  "best-budget-mattress-uk": {
+    productId: "jayBe-truecore-hybrid-2000",
+    bestFor: "Built for value-first shoppers who still need balanced support.",
+    buttonLabel: "Shop budget pick",
+  },
+  "best-mattress-under-500-uk": {
+    productId: "inofia-12in-hybrid",
+    bestFor: "Built to hit under-GBP500 budgets while keeping hybrid support.",
+    buttonLabel: "Shop under-GBP500 pick",
+  },
+};
+
+const quickBuyReasonBySlug: Record<string, string> = {
+  "best-mattress-for-side-sleepers-uk": "We use this preset because side sleepers usually need extra pressure relief at hips and shoulders before anything else.",
+  "best-mattress-for-back-pain-uk": "We use this preset because this topic is mainly about lumbar support and stable medium-firm alignment.",
+  "best-mattress-for-heavy-people-uk": "We use this preset because heavier sleepers usually need stronger structure and firmer long-term support.",
+  "best-mattress-for-couples-uk": "We use this preset because couples usually prioritize motion control, stability, and cooling across the whole bed.",
+  "best-cooling-mattress-uk": "We use this preset because this guide focuses on airflow and temperature control first.",
+  "best-hybrid-mattress-uk": "We use this preset because the guide is specifically about hybrid build quality and all-round balance.",
+  "best-budget-mattress-uk": "We use this preset because budget shoppers usually need the best support-per-pound starting point.",
+  "best-mattress-under-500-uk": "We use this preset because it fits a strict under-GBP500 target while keeping a balanced hybrid setup.",
+};
 
 /**
  * Renders an SEO landing page for a mattress keyword.
@@ -26,6 +85,173 @@ function formatReviewDate(iso: string): string {
   ];
   const [year, month, day] = iso.split("-").map(Number);
   return `${day} ${months[month - 1]} ${year}`;
+}
+
+function QuickBuySection({ pageSlug }: { pageSlug: string }) {
+  const { tokens } = useTheme();
+  const { region, isLoading } = useRegion();
+  const recommendation = quickBuyBySlug[pageSlug];
+
+  if (!recommendation) return null;
+
+  const product = products.find((item) => item.id === recommendation.productId);
+  if (!product) return null;
+
+  const displayRegion = isLoading ? "UK" : region;
+  const links = getRegionLinks(product.id, displayRegion);
+  const amazonLink =
+    links.find((link) => link.retailerKey === "amazon-uk" || link.retailerKey === "amazon-us")?.url ??
+    getRegionLinks(product.id, "UK").find((link) => link.retailerKey === "amazon-uk")?.url;
+
+  return (
+    <section
+      style={{
+        marginTop: 20,
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+        gap: 14,
+        alignItems: "stretch",
+      }}
+    >
+      <aside
+        style={{
+          background: tokens.surface,
+          border: `1px solid ${tokens.border}`,
+          borderRadius: 16,
+          padding: "16px 16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 10,
+        }}
+      >
+        <p
+          style={{
+            margin: 0,
+            fontSize: 11,
+            color: tokens.textPrimary,
+            fontWeight: 800,
+            letterSpacing: 0.5,
+            textTransform: "uppercase",
+            background: tokens.surfaceAlt,
+            borderRadius: 999,
+            padding: "6px 10px",
+            alignSelf: "flex-start",
+          }}
+        >
+          Quick Buy vs Quiz
+        </p>
+        <h2 style={{ margin: 0, fontSize: 20, color: tokens.textPrimary, lineHeight: 1.3 }}>
+          Choose the preset top pick, or use the quiz for a deeper fit
+        </h2>
+        <p style={{ margin: 0, fontSize: 14, color: tokens.textSecondary, lineHeight: 1.7 }}>
+          <strong>Quick Buy</strong> is the fastest path when you already know this page topic and want an immediate starting pick.
+        </p>
+        <p style={{ margin: 0, fontSize: 14, color: tokens.textSecondary, lineHeight: 1.7 }}>
+          <strong>Quiz</strong> is better when you want us to weigh sleep position, body profile, temperature preference, and budget before recommending a mattress.
+        </p>
+        <Link
+          href="/mattress/questionnaire?ref=quick-buy-vs-quiz"
+          style={{
+            marginTop: "auto",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: tokens.accent,
+            color: "#fff",
+            borderRadius: 999,
+            padding: "12px 16px",
+            fontWeight: 800,
+            textDecoration: "none",
+            width: "100%",
+          }}
+        >
+          Take the fitting quiz
+        </Link>
+      </aside>
+
+      <article
+        style={{
+          background: "#ffffff",
+          border: `1px solid ${tokens.border}`,
+          borderRadius: 16,
+          padding: "16px 16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: 8,
+        }}
+      >
+        <p
+          style={{
+            margin: 0,
+            fontSize: 11,
+            color: tokens.textPrimary,
+            fontWeight: 800,
+            letterSpacing: 0.5,
+            textTransform: "uppercase",
+            background: tokens.surfaceAlt,
+            borderRadius: 999,
+            padding: "6px 10px",
+            alignSelf: "flex-start",
+          }}
+        >
+          Quick Buy
+        </p>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <Image
+            src={product.imageUrl}
+            alt={`${product.brand} ${product.name}`}
+            width={90}
+            height={90}
+            style={{ objectFit: "contain", borderRadius: 8, flexShrink: 0, background: tokens.surface }}
+          />
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <h3 style={{ margin: 0, fontSize: 18, color: tokens.textPrimary }}>
+              {product.brand} {product.name}
+            </h3>
+            <p style={{ margin: 0, fontSize: 12, color: tokens.textSecondary, fontWeight: 700, lineHeight: 1.4 }}>
+              {recommendation.bestFor}
+            </p>
+          </div>
+        </div>
+
+        <p style={{ margin: 0, fontSize: 14, color: tokens.textSecondary, lineHeight: 1.6 }}>
+          {quickBuyReasonBySlug[pageSlug] ?? "This is the preset Quick Buy choice for this topic."}
+        </p>
+
+        <p style={{ margin: 0, fontSize: 13, color: tokens.textSecondary }}>
+          {typeof product.attributes?.rrp === "number" ? `Approx. GBP${product.attributes.rrp}` : "Check latest price"}
+        </p>
+
+        <Link
+          href={`/mattress/${pageSlug}`}
+          style={{ margin: 0, fontSize: 13, color: tokens.textPrimary, fontWeight: 700, textDecoration: "none" }}
+        >
+          Read full guide for this topic ->
+        </Link>
+
+        <a
+          href={amazonLink ?? "#"}
+          target="_blank"
+          rel="sponsored nofollow noopener noreferrer"
+          style={{
+            marginTop: "auto",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            background: tokens.accent,
+            color: "#fff",
+            borderRadius: 999,
+            padding: "11px 14px",
+            fontWeight: 800,
+            textDecoration: "none",
+            width: "100%",
+          }}
+        >
+          {recommendation.buttonLabel}
+        </a>
+      </article>
+    </section>
+  );
 }
 
 export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage }) {
@@ -211,56 +437,7 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
           </div>
 
           {/* Quick Buy vs Quiz */}
-          <section
-            style={{
-              ...cardStyle,
-              display: "flex",
-              flexDirection: "column",
-              gap: 10,
-            }}
-          >
-            <h2 style={h2Style}>Quick Buy vs Quiz</h2>
-            <p style={bodyStyle}>
-              Use <strong>Quick Buy</strong> if you already know the topic you care about and want a fast preset pick. Use the <strong>quiz</strong> if you want a fuller match based on your sleep position, body profile, and budget.
-            </p>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-              <a
-                href="/mattress/best-mattress#quick-buy-starting-points"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: tokens.surfaceAlt,
-                  color: tokens.textPrimary,
-                  border: `1px solid ${tokens.border}`,
-                  borderRadius: 10,
-                  padding: "10px 14px",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  textDecoration: "none",
-                }}
-              >
-                Open Quick Buy
-              </a>
-              <a
-                href={quizHref}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: tokens.accent,
-                  color: "#fff",
-                  borderRadius: 10,
-                  padding: "10px 14px",
-                  fontSize: 14,
-                  fontWeight: 700,
-                  textDecoration: "none",
-                }}
-              >
-                Start the quiz
-              </a>
-            </div>
-          </section>
+          <QuickBuySection pageSlug={page.slug} />
 
           {/* Who this is for */}
           {page.whoItIsFor.length > 0 && (
