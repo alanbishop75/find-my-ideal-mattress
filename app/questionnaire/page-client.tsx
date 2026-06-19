@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Questionnaire } from '../../core/types';
 import { useRegion } from '../../core/geo/RegionContext';
+import { useContext } from 'react';
 import { getOptionLabelForRegion, getQuestionTextForRegion } from '../../core/geo/content';
 import {
 	trackQuizStart,
@@ -14,6 +15,7 @@ import {
 	trackQuestionAnswered,
 } from '../../lib/analytics';
 import { useQuizEventLogger } from '../../components/useQuizEventLogger';
+import { QuizAbandonContext } from '../../components/QuizAbandonContext';
 
 interface Props {
 	questionnaire?: Questionnaire;
@@ -33,6 +35,7 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	const resolvedQuestionnaire = questionnaireProp ?? mattressQuestionnaire;
 	const questions = resolvedQuestionnaire.questions;
 	const { answers, setAnswer, reset } = useAppState();
+	const { setAbandonQuiz } = useContext(QuizAbandonContext);
 	const [isHydrated, setIsHydrated] = useState(false);
 	const [current, setCurrent] = useState(0);
 	const router = useRouter();
@@ -47,6 +50,14 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	const abandonedRef = useRef(false);
 	useEffect(() => {
 		reset();
+		setAbandonQuiz(() => () => {
+			if (!completedRef.current && !abandonedRef.current) {
+				abandonedRef.current = true;
+				trackEvent('quiz_abandoned', { quiz_id: resolvedQuestionnaire.id, question_index: current, seo_source: seoSource });
+				trackQuizAbandoned(seoSource, questions[current]?.id ?? 'unknown');
+				log({ event: 'quiz_abandoned', quizId: resolvedQuestionnaire.id, questionId: questions[current]?.id ?? 'unknown', source: seoSource });
+			}
+		});
 		if (!startedRef.current) {
 			startedRef.current = true;
 			trackEvent('quiz_start', { quiz_id: resolvedQuestionnaire.id, seo_source: seoSource });
@@ -54,6 +65,7 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 			log({ event: 'quiz_start', quizId: resolvedQuestionnaire.id, source: seoSource });
 		}
 		return () => {
+			setAbandonQuiz(null);
 			if (!completedRef.current && !abandonedRef.current) {
 				abandonedRef.current = true;
 				trackEvent('quiz_abandoned', { quiz_id: resolvedQuestionnaire.id, question_index: current, seo_source: seoSource });

@@ -7,6 +7,7 @@ import { ThemeProvider } from "../core/theme";
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import CookieBanner from "../components/CookieBanner";
+import { QuizAbandonProvider } from "../components/QuizAbandonProvider";
 import { categoryRegistry } from "../config/registry";
 import { categoryFromHost } from "../config/domain-map";
 import { CategoryProvider } from "../core/category-context";
@@ -123,9 +124,11 @@ export default async function RootLayout({
         <ThemeProvider themeName={activeTheme}>
           <CategoryProvider categoryId={categoryId} brandName={categoryRegistry[categoryId]?.meta.brandName ?? 'FindMyIdealMattress'}>
             <Header />
-            <main className="p-0 m-0">
-              <ClientRoot>{children}</ClientRoot>
-            </main>
+            <QuizAbandonProvider>
+              <main className="p-0 m-0">
+                <ClientRoot>{children}</ClientRoot>
+              </main>
+            </QuizAbandonProvider>
             <Footer />
             <CookieBanner />
           </CategoryProvider>

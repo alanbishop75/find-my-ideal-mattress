@@ -1,9 +1,12 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useQuizAbandon } from "./QuizAbandonContext";
 
 export function Header() {
+  const router = useRouter();
+  const { abandonQuiz } = useQuizAbandon();
   const pathname = usePathname();
   if (pathname === "/") return null;
   // Hide on SEO landing pages: /mattress/<slug> where slug is not questionnaire/results.
@@ -13,6 +16,14 @@ export function Header() {
       return null;
     }
   }
+  const handleHomeClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (abandonQuiz) {
+      e.preventDefault();
+      await Promise.resolve(abandonQuiz());
+      router.push("/");
+    }
+  };
+
   return (
     <header
       style={{
@@ -25,6 +36,7 @@ export function Header() {
       <Link
         href="/"
         aria-label="Find Your Ideal Mattress — home"
+        onClick={handleHomeClick}
         style={{
           display: "flex",
           flexDirection: "column",
