@@ -3,9 +3,10 @@
  *
  * SEO landing page definitions for FindYourIdealMattress (UK market).
  *
- * PHASE 1 STUB — pages array is intentionally empty at launch.
- * SEO content is a post-launch activity (Phase 5 of the playbook).
- * Each page needs 600+ words of original content before publishing.
+ * Mattress now ships with a full long-tail content cluster, matching the
+ * pattern used across the other product sites.
+ * Each page follows the same quiz-first structure and is designed to route
+ * users into /mattress/questionnaire after giving genuinely useful guidance.
  *
  * ──────────────────────────────────────────────────────────────────────────
  * TARGET KEYWORD CLUSTER — 8 pages (to be built post-launch)
@@ -49,7 +50,7 @@ export interface MattressSeoPage {
   lastReviewed: string;
 }
 
-const lastReviewed = "2026-05-04";
+const lastReviewed = "2026-06-18";
 
 // ──────────────────────────────────────────────────────────────────────────
 // PAGE 1 — Best Mattress for Side Sleepers UK

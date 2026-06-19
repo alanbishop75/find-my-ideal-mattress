@@ -205,7 +205,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: [],
+    US: usLink("B0GSS36HF8").US,
   },
   "nectar-hybrid-lite-20cm": {
     UK: [
@@ -220,7 +220,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: [],
+    US: usLink("B0F8CK9GWF").US,
   },
   "nectar-classic-hybrid-25cm": {
     UK: [
@@ -235,7 +235,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: [],
+    US: usLink("B0GPR7JP8M").US,
   },
   "otty-original-hybrid-2000": {
     UK: [
@@ -250,7 +250,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: [],
+    US: usLink("B01HS66RM8").US,
   },
   "sealy-steeple-ortho-plus": {
     UK: [
@@ -280,7 +280,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: [],
+    US: usLink("B09MR3FQK3").US,
   },
   "silentnight-miracoil-ortho": {
     UK: [
@@ -310,7 +310,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: [],
+    US: usLink("B076PLV4Z7").US,
   },
 };
 
