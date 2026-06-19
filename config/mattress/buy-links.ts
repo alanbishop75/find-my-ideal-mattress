@@ -23,6 +23,7 @@ const UK_TAG = "findyouridealmattress-21";
 const US_TAG = "findyouridealmattress-20";
 /** US Amazon link with tag embedded directly into /dp/ URL. */
 export function usLink(asin: string): BuyLinks {
+  const query = encodeURIComponent(asin.trim());
   return {
     UK: [],
     US: [
@@ -30,11 +31,12 @@ export function usLink(asin: string): BuyLinks {
         retailerKey: "amazon-us",
         retailerName: "Amazon US",
         region: "US",
-        url: `https://www.amazon.com/dp/${asin}?tag=${US_TAG}`,
+        // Search URLs are more resilient when a direct US /dp/ mapping is unavailable.
+        url: `https://www.amazon.com/s?k=${query}&tag=${US_TAG}`,
         expectedDomain: "amazon.com",
         isTemporary: false,
         source: "manual",
-        notes: `Verified ASIN ${asin} on Amazon US ${REVIEW_DATE}; tag=${US_TAG} embedded.`,
+        notes: `Amazon US search link for ASIN ${asin} (${REVIEW_DATE}); tag=${US_TAG} embedded.`,
         isPrimary: true,
       },
     ],
