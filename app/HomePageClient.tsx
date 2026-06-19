@@ -26,10 +26,10 @@ export default function HomePageClient() {
   ];
 
   const features = [
-    { icon: "Q", title: "Quick & easy", text: "A few quick questions, under 2 minutes" },
-    { icon: "P", title: "Personalised picks", text: "Scored against how you sleep" },
-    { icon: "S", title: "Better sleep", text: "Right mattress. Better nights." },
-    { icon: "$", title: "Every budget", text: "From value to premium" },
+    { icon: "📋", title: "Quick & easy", text: "A few quick questions, under 2 minutes" },
+    { icon: "🎯", title: "Personalised picks", text: "Scored against how you sleep" },
+    { icon: "🌙", title: "Better support", text: "Right mattress. Better sleep." },
+    { icon: "💷", title: "Every budget", text: "From value to premium" },
   ];
 
   return (

@@ -1,7 +1,7 @@
 import type { Region } from "./types";
 
-const HOMEPAGE_INTRO_UK = "Free, personalised pillow recommendations - no sign-up, no faff. Answer a few quick questions and we match you to the best pillow for how you sleep.";
-const HOMEPAGE_INTRO_US = "Free, personalized pillow recommendations - no sign-up, no hassle. Answer a few quick questions and we match you to the best pillow for how you sleep.";
+const HOMEPAGE_INTRO_UK = "Free, personalised mattress recommendations - no sign-up, no faff. Answer a few quick questions and we match you to the best mattress for how you sleep.";
+const HOMEPAGE_INTRO_US = "Free, personalized mattress recommendations - no sign-up, no hassle. Answer a few quick questions and we match you to the best mattress for how you sleep.";
 
 const QUESTION_TEXT_US_OVERRIDES: Record<string, string> = {};
 
