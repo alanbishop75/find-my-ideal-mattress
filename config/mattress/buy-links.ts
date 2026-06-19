@@ -252,7 +252,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: usProductPage(`https://www.amazon.co.uk/dp/B01HS66RM8?tag=${UK_TAG}`).US,
+    US: usProductPage(`https://www.amazon.com/dp/B01HS66RM8?tag=${US_TAG}`).US,
   },
   "sealy-steeple-ortho-plus": {
     UK: [
@@ -282,7 +282,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: usProductPage(`https://www.amazon.co.uk/dp/B09MR3FQK3?tag=${UK_TAG}`).US,
+    US: usProductPage(`https://www.amazon.com/dp/B09MR3FQK3?tag=${US_TAG}`).US,
   },
   "silentnight-miracoil-ortho": {
     UK: [
@@ -312,7 +312,7 @@ export const mattressBuyLinks: Record<string, BuyLinks> = {
         lastCheckedAt: REVIEW_DATE,
       },
     ],
-    US: usProductPage(`https://www.amazon.co.uk/dp/B076PLV4Z7?tag=${UK_TAG}`).US,
+    US: usProductPage(`https://www.amazon.com/dp/B076PLV4Z7?tag=${US_TAG}`).US,
   },
 };
 

@@ -13,6 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   return {
     title: config.meta.title,
     description: config.meta.description,
+    robots: { index: false, follow: true },
   };
 }
 

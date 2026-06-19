@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /mattress/questionnaire
+Disallow: /mattress/results
+Disallow: /questionnaire
+Disallow: /results
+
+Sitemap: https://www.findyouridealmattress.com/sitemap.xml
