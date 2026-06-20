@@ -1,7 +1,8 @@
 import type { MetadataRoute } from 'next';
+import { getRequiredSiteUrl } from '../lib/site-url';
 
 export default function robots(): MetadataRoute.Robots {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.findyouridealmattress.com';
+  const siteUrl = getRequiredSiteUrl();
   return {
     rules: [
       {

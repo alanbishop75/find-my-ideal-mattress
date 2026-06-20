@@ -9,9 +9,10 @@ import { Footer } from "../components/Footer";
 import CookieBanner from "../components/CookieBanner";
 import { QuizAbandonProvider } from "../components/QuizAbandonProvider";
 import { categoryRegistry } from "../config/registry";
-import { categoryFromHost } from "../config/domain-map";
+import { categoryFromHost, defaultCategoryId } from "../config/domain-map";
 import { CategoryProvider } from "../core/category-context";
 import { ThemeName, themeNames } from "../core/theme/tokens";
+import { getRequiredSiteUrl } from "../lib/site-url";
 import fs from "fs";
 import path from "path";
 
@@ -22,7 +23,7 @@ async function resolveCategoryIdForRequest(): Promise<string> {
   // Use the DEFAULT_CATEGORY_ID env var (or the domain-map default) to keep
   // metadata/layout resolution deterministic. Set this in .env.local and Vercel.
   if (process.env.NEXT_PHASE === BUILD_PHASE) {
-    return process.env.DEFAULT_CATEGORY_ID ?? "mattress";
+    return process.env.DEFAULT_CATEGORY_ID ?? defaultCategoryId;
   }
 
   const host = (await headers()).get("host") ?? "";
@@ -48,7 +49,7 @@ function resolveActiveTheme(categoryId: string): ThemeName {
 export async function generateMetadata(): Promise<Metadata> {
   const categoryId = await resolveCategoryIdForRequest();
   const config = categoryRegistry[categoryId];
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? `https://www.findyourideal${categoryId}.com`;
+  const siteUrl = getRequiredSiteUrl();
   const title = config?.meta.title ?? "FindYourIdealMattress — Find Your Perfect Mattress";
   const description = config?.meta.description ?? "Answer a few quick questions and get your personalised mattress recommendations. Free, no sign-up required.";
   const ogImage = "/opengraph-image";

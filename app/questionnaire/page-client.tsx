@@ -8,6 +8,7 @@ import { Questionnaire } from '../../core/types';
 import { useRegion } from '../../core/geo/RegionContext';
 import { useContext } from 'react';
 import { getOptionLabelForRegion, getQuestionTextForRegion } from '../../core/geo/content';
+import { defaultCategoryId } from '../../config/domain-map';
 import {
 	trackQuizStart,
 	trackQuizComplete,
@@ -31,7 +32,7 @@ function trackEvent(name: string, params?: Record<string, string | number>) {
 	}
 }
 
-function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath = '/mattress/results' }: Props) {
+function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath = `/${defaultCategoryId}/results` }: Props) {
 	const resolvedQuestionnaire = questionnaireProp ?? mattressQuestionnaire;
 	const questions = resolvedQuestionnaire.questions;
 	const { answers, setAnswer, reset } = useAppState();
