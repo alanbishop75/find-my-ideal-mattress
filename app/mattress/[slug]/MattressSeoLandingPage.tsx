@@ -105,6 +105,7 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
 
   return (
     <section
+      id="quick-buy-starting-point"
       style={{
         marginTop: 20,
         display: "grid",
@@ -390,7 +391,31 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
               {page.intro}
             </p>
 
-            {ctaButton("Find Your Ideal Mattress")}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
+              {ctaButton("Find Your Ideal Mattress")}
+              <span style={{ fontSize: 13, color: tokens.textSecondary }}>OR</span>
+              <a
+                href="#quick-buy-starting-point"
+                style={{
+                  marginTop: 8,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: "100%",
+                  maxWidth: 280,
+                  background: tokens.accent,
+                  color: "#fff",
+                  borderRadius: 10,
+                  height: 52,
+                  fontWeight: 700,
+                  fontSize: 18,
+                  textDecoration: "none",
+                  letterSpacing: 0.2,
+                }}
+              >
+                Quick Buy
+              </a>
+            </div>
 
             <p
               style={{
