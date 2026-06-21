@@ -19,13 +19,6 @@ export function Header() {
   const pathname = usePathname();
   const isQuizPage = Boolean(pathname && pathname.split("/").filter(Boolean).includes("questionnaire"));
   if (pathname === "/") return null;
-  // Hide on SEO landing pages: /mattress/<slug> where slug is not questionnaire/results.
-  if (pathname) {
-    const seg = pathname.split("/").filter(Boolean);
-    if (seg[0] === "mattress" && seg.length === 2 && seg[1] !== "questionnaire" && seg[1] !== "results") {
-      return null;
-    }
-  }
   const handleHomeClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (abandonQuiz) {
       e.preventDefault();
