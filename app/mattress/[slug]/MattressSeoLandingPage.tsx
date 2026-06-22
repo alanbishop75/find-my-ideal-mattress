@@ -106,6 +106,7 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
   return (
     <section
       id="quick-buy-starting-point"
+      className="quick-buy-grid"
       style={{
         marginTop: 20,
         display: "grid",
@@ -331,6 +332,11 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
         paddingRight: 16,
       }}
     >
+      <style>{`
+        @media (max-width: 640px) {
+          .quick-buy-grid { grid-template-columns: 1fr !important; }
+        }
+      `}</style>
       <main style={{ width: "100%", maxWidth: 640 }}>
         {/* Breadcrumb */}
         <nav
