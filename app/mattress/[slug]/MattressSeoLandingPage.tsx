@@ -1,7 +1,31 @@
 ﻿"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useRegion } from "../../../core/geo/RegionContext";
+import { getRegionLinks } from "../../../config/mattress/buy-links";
+import { products } from "../../../config/mattress/products";
+import { useTheme } from "../../../core/theme";
+import type { MattressSeoPage } from "../../../config/mattress/seo-pages";
+import { mattressSeoPageMap } from "../../../config/mattress/seo-pages";
+
+function slugifyHeading(value: string): string {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const NAVY = "#0b2545";
+const LIME = "#7dbe3a";
+const LIME_DARK = "#0b2545";
+const WHITE = "#ffffff";
+const SURFACE = "#f5f8fa";
+const BORDER = "#e1e8ed";
+const TEXT2 = "#516781";
+
+const quickBuyBySlug: Record<string, { productId: string; bestFor: string; buttonLabel: string }> = {
+  "best-mattress-for-side-sleepers": {
     productId: "silentnight-3zone-memory-foam",
     bestFor: "Built for softer pressure relief at the shoulder and hip.",
     buttonLabel: "Shop side-sleeper pick",
