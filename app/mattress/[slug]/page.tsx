@@ -29,6 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (LEGACY_UK_SLUG_REDIRECTS[slug]) return {};
   const page = mattressSeoPageMap[slug];
   if (!page) return {};
+  const pageUrl = `${SITE_URL}/mattress/${slug}`;
   return {
     title: page.metaTitle,
     description: page.metaDescription,
@@ -37,8 +38,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     openGraph: {
       title: page.metaTitle,
       description: page.metaDescription,
-      url: `${SITE_URL}/mattress/${slug}`,
+      url: pageUrl,
       type: "article",
+      images: [
+        {
+          url: `${SITE_URL}/images/logo.PNG`,
+          width: 768,
+          height: 768,
+          alt: page.h1,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: page.metaTitle,
+      description: page.metaDescription,
+      images: [`${SITE_URL}/images/logo.PNG`],
     },
   };
 }
@@ -86,19 +101,19 @@ export default async function Page({ params }: Props) {
     "@type": "Article",
     headline: page.h1,
     description: page.metaDescription,
-    inLanguage: "en",
+    inLanguage: "en-GB",
     mainEntityOfPage: pageUrl,
     dateModified: `${page.lastReviewed}T00:00:00Z`,
     datePublished: `${publishedDate}T00:00:00Z`,
     image: [
       {
         "@type": "ImageObject",
-        url: `${SITE_URL}/opengraph-image`,
-        width: 1200,
-        height: 630,
+        url: `${SITE_URL}/images/logo.PNG`,
+        width: 768,
+        height: 768,
       },
     ],
-    author: { "@type": "Organization", name: SEO_AUTHOR_NAME, url: SITE_URL },
+    author: { "@type": "Organization", name: "FindMyIdealMattress", url: SITE_URL },
     publisher: {
       "@type": "Organization",
       name: "FindMyIdealMattress",
