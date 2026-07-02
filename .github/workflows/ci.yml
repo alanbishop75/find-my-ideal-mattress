@@ -25,6 +25,8 @@ jobs:
         run: npm run test:unit
       - name: Config validation
         run: npm run validate:config
+      - name: Release gate
+        run: npm run validate:release-gate
       - name: Build
         run: npm run build
       - name: Install Playwright browsers

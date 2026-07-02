@@ -31,9 +31,6 @@ export function Footer() {
         <Link href="/about" style={{ color: tokens.textSecondary, textDecoration: "underline" }}>
           About
         </Link>
-        <Link href="/affiliate-disclosure" style={{ color: tokens.textSecondary, textDecoration: "underline" }}>
-          Affiliate Disclosure
-        </Link>
         <Link href="/contact" style={{ color: tokens.textSecondary, textDecoration: "underline" }}>
           Contact
         </Link>
@@ -42,6 +39,9 @@ export function Footer() {
         </Link>
         <Link href="/privacy-policy" style={{ color: tokens.textSecondary, textDecoration: "underline" }}>
           Privacy Policy
+        </Link>
+        <Link href="/affiliate-disclosure" style={{ color: tokens.textSecondary, textDecoration: "underline" }}>
+          Affiliate Disclosure
         </Link>
         <Link href="/terms" style={{ color: tokens.textSecondary, textDecoration: "underline" }}>
           Terms

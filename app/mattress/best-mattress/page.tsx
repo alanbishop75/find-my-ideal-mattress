@@ -1,12 +1,16 @@
 ﻿import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { mattressSeoPageMap } from "../../../config/mattress/seo-pages";
+import { products } from "../../../config/mattress/products";
+import { mattressComparisonPages } from "../../../config/mattress/comparison-pages";
 import { seoPalette } from "../../../config/mattress/seo-theme";
 import HubQuickBuySection from "./HubQuickBuySectionClient";
 
 const NAVY = seoPalette.navy;
 const LIME = seoPalette.lime;
 const SOFT_LIME = seoPalette.softLime;
+const WHITE = seoPalette.white;
 const SURFACE = seoPalette.surface;
 const BORDER = seoPalette.border;
 const TEXT = seoPalette.text;
@@ -37,6 +41,17 @@ const coreGuides = [
 ];
 
 const guideCards = coreGuides.map((slug) => mattressSeoPageMap[slug]).filter((page) => Boolean(page));
+
+const comparisonCards = mattressComparisonPages.map((page) => ({
+  icon: "🔎",
+  label: page.searchIntent,
+  title: page.h1,
+  summary: page.metaDescription,
+  leftProductId: page.leftProductId,
+  rightProductId: page.rightProductId,
+  slug: page.slug,
+  cta: "Open comparison page",
+}));
 
 const quickAnswerBullets = [
   "If your main issue is pressure or pain, prioritise support profile before price tier.",
@@ -109,7 +124,7 @@ export default function BestMattressHubPage() {
 
       <section
         style={{
-          background: "linear-gradient(135deg, #0b2545 0%, #0e2d52 55%, #143869 100%)",
+          background: "linear-gradient(135deg, #1a3d2f 0%, #1e4d38 55%, #245c42 100%)",
           color: "#ffffff",
           padding: "48px 20px 56px",
         }}
@@ -158,12 +173,12 @@ export default function BestMattressHubPage() {
               gap: 12,
               alignItems: "center",
               justifyContent: "space-between",
-              boxShadow: "0 2px 10px -7px rgba(8,26,49,0.28)",
+              boxShadow: "0 2px 10px -7px rgba(20,45,34,0.28)",
             }}
           >
             <div>
               <p style={{ margin: "0 0 4px", fontWeight: 700, color: NAVY }}>Start with a personalised fitting</p>
-              <p style={{ margin: 0, color: "rgba(11,37,69,0.78)", fontSize: 14 }}>
+              <p style={{ margin: 0, color: "rgba(26,61,47,0.78)", fontSize: 14 }}>
                 2-minute quiz. No sign-up. Recommendation based on how you sleep.
               </p>
             </div>
@@ -173,7 +188,7 @@ export default function BestMattressHubPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                background: "#123358",
+                background: NAVY,
                 color: "#ffffff",
                 borderRadius: 999,
                 padding: "12px 24px",
@@ -183,7 +198,7 @@ export default function BestMattressHubPage() {
                 whiteSpace: "nowrap",
               }}
             >
-              Start fitting now
+              Start Quiz now
             </Link>
           </div>
 
@@ -213,12 +228,12 @@ export default function BestMattressHubPage() {
               gap: 12,
               alignItems: "center",
               justifyContent: "space-between",
-              boxShadow: "0 2px 10px -7px rgba(8,26,49,0.28)",
+              boxShadow: "0 2px 10px -7px rgba(20,45,34,0.28)",
             }}
           >
             <div>
               <p style={{ margin: "0 0 4px", fontWeight: 700, color: NAVY }}>Quick Buy Guide</p>
-              <p style={{ margin: 0, color: "rgba(11,37,69,0.78)", fontSize: 14 }}>
+              <p style={{ margin: 0, color: "rgba(26,61,47,0.78)", fontSize: 14 }}>
                 Preset recommendations. Start exploring by sleep style or need.
               </p>
             </div>
@@ -228,7 +243,7 @@ export default function BestMattressHubPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                background: "#123358",
+                background: NAVY,
                 color: "#ffffff",
                 borderRadius: 999,
                 padding: "12px 24px",
@@ -250,13 +265,13 @@ export default function BestMattressHubPage() {
           style={{
             marginTop: 0,
             background: "#ffffff",
-            borderTop: `1px solid rgba(11,37,69,0.16)`,
-            borderRight: `1px solid rgba(11,37,69,0.16)`,
-            borderBottom: `1px solid rgba(11,37,69,0.16)`,
+            borderTop: `1px solid rgba(26,61,47,0.16)`,
+            borderRight: `1px solid rgba(26,61,47,0.16)`,
+            borderBottom: `1px solid rgba(26,61,47,0.16)`,
             borderLeft: `4px solid ${SOFT_LIME}`,
             borderRadius: 14,
             padding: "14px 16px 16px",
-            boxShadow: "0 4px 12px -12px rgba(11,37,69,0.35)",
+            boxShadow: "0 4px 12px -12px rgba(26,61,47,0.35)",
           }}
           aria-label="Jump links"
         >
@@ -276,6 +291,7 @@ export default function BestMattressHubPage() {
                 ["Decision matrix", "#decision-matrix"],
                 ["Quick Buy", "#quick-buy-starting-points"],
                 ["Browse guides", "#browse-guides"],
+                ["Compare products", "#compare-options"],
                 ["FAQ", "#faq"],
               ].map(([label, href]) => (
                 <Link
@@ -285,7 +301,7 @@ export default function BestMattressHubPage() {
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    border: `1px solid rgba(11,37,69,0.14)`,
+                    border: `1px solid rgba(26,61,47,0.14)`,
                     borderRadius: 999,
                     padding: "7px 14px",
                     color: NAVY,
@@ -516,6 +532,97 @@ export default function BestMattressHubPage() {
                 <span style={{ color: NAVY, fontWeight: 700, fontSize: 13 }}>Open guide →</span>
               </Link>
             ))}
+          </div>
+        </section>
+
+        <section
+          id="compare-options"
+          style={{
+            marginTop: 24,
+            background: "#ffffff",
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${SOFT_LIME}`,
+            borderRadius: 14,
+            padding: "22px 24px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: NAVY }}>Compare before you pick</h2>
+          <p style={{ margin: "0 0 14px", color: TEXT2, lineHeight: 1.7 }}>
+            These are direct product-vs-product comparisons for common searches like Simba vs Emma.
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+              gap: 10,
+            }}
+          >
+            {comparisonCards.map((card, index) => {
+              const leftProduct = card.leftProductId ? products.find((product) => product.id === card.leftProductId) : undefined;
+              const rightProduct = card.rightProductId ? products.find((product) => product.id === card.rightProductId) : undefined;
+              return (
+                <article
+                  key={card.slug}
+                  style={{
+                    border: `1px solid ${BORDER}`,
+                    borderLeft: `4px solid ${SOFT_LIME}`,
+                    borderRadius: 12,
+                    padding: "14px 14px 12px",
+                    background: "#fbfdfb",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                    minHeight: 0,
+                  }}
+                >
+                  <p style={{ margin: 0, color: NAVY, fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase" }}>
+                    #{index + 1} · {card.label}
+                  </p>
+                  <h3 style={{ margin: 0, color: NAVY, fontSize: 16, lineHeight: 1.35 }}>{card.title}</h3>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 8 }}>
+                    {[leftProduct, rightProduct].map((product) => (
+                      <div
+                        key={product?.id}
+                        style={{
+                          border: `1px solid ${BORDER}`,
+                          borderRadius: 12,
+                          background: WHITE,
+                          padding: 8,
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: 8,
+                        }}
+                      >
+                        {product ? (
+                          <>
+                            <Image
+                              src={product.imageUrl}
+                              alt={`${product.brand} ${product.name}`}
+                              width={120}
+                              height={120}
+                              style={{ width: "100%", height: 104, objectFit: "cover", borderRadius: 10 }}
+                            />
+                            <div>
+                              <p style={{ margin: "0 0 2px", color: NAVY, fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: "uppercase" }}>{product.brand}</p>
+                              <p style={{ margin: 0, color: NAVY, fontSize: 14, fontWeight: 800, lineHeight: 1.35 }}>{product.name}</p>
+                            </div>
+                          </>
+                        ) : null}
+                      </div>
+                    ))}
+                  </div>
+                  <p style={{ margin: 0, color: TEXT2, fontSize: 14, lineHeight: 1.6, flex: 1 }}>{card.summary}</p>
+                  <Link
+                    href={`/mattress/compare/${card.slug}`}
+                    style={{ color: NAVY, textDecoration: "none", fontWeight: 800, fontSize: 14, display: "inline-flex", alignItems: "center", gap: 6 }}
+                  >
+                    {card.cta} →
+                  </Link>
+                </article>
+              );
+            })}
           </div>
         </section>
 

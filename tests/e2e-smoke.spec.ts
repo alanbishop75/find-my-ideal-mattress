@@ -13,7 +13,7 @@ test.describe('FindMyIdealPillow MVP E2E Smoke', () => {
   test('Homepage renders and navigates to questionnaire', async ({ page }) => {
     await page.goto('/');
     await expect(page.getByRole('heading', { level: 1, name: /find your ideal pillow/i })).toBeVisible();
-    await page.getByRole('link', { name: /start fitting/i }).click();
+    await page.getByRole('link', { name: /start quiz/i }).click();
     await expect(page).toHaveURL(/questionnaire/);
   });
 

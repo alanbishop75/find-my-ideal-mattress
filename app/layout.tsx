@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "../core/theme";
 import { Footer } from "../components/Footer";
+import { Header } from "../components/Header";
 import CookieBanner from "../components/CookieBanner";
 import { QuizAbandonProvider } from "../components/QuizAbandonProvider";
 import { categoryRegistry } from "../config/registry";
@@ -126,6 +127,7 @@ export default async function RootLayout({
         <ThemeProvider themeName={activeTheme}>
           <CategoryProvider categoryId={categoryId} brandName={categoryRegistry[categoryId]?.meta.brandName ?? 'FindMyIdealMattress'}>
             <QuizAbandonProvider>
+              <Header />
               <main className="p-0 m-0">
                 <ClientRoot>{children}</ClientRoot>
               </main>

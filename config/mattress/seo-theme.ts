@@ -12,29 +12,32 @@
  * ONLY the hex values below. Do NOT change structure, spacing, or layout —
  * those are locked by the blueprint and shared with the golf golden source.
  *
- * Current values intentionally match the golf golden source so mattress SEO
- * pages render identically. To give mattress its own brand identity later,
- * swap these values (e.g. navy -> forest, lime -> green) in this one file.
+ * These values are the mattress brand forest-green palette taken from the
+ * homepage (app/HomePageClient.tsx). The homepage palette is the site-wide
+ * standard: the whole mattress site — homepage, hub, SEO detail, and compare —
+ * uses these exact colours so every surface renders in one consistent green.
+ * The `navy`/`lime` key NAMES are kept for structural parity with the golf/
+ * pillow blueprint; only the values differ.
  */
 export const seoPalette = {
-  /** Primary brand/ink colour — headings, dark hero gradient base. */
-  navy: "#0b2545",
-  /** Accent colour — pill CTAs, card left-border, buy buttons. */
-  lime: "#7dbe3a",
-  /** Text colour placed on top of the accent (matches navy for contrast). */
-  limeDark: "#0b2545",
-  /** Softer accent used for hub card left-borders and hero CTA panels. */
-  softLime: "#a8cf74",
+  /** Primary brand/ink colour (homepage FOREST) — headings, dark hero base. */
+  navy: "#1a3d2f",
+  /** Accent colour (homepage GREEN) — pill CTAs, card left-border, buy buttons. */
+  lime: "#3bb273",
+  /** Text colour placed on top of the accent (forest for contrast on green). */
+  limeDark: "#1a3d2f",
+  /** Softer accent (brand mint) used for hub card left-borders and hero CTA panels. */
+  softLime: "#7ed4a6",
   /** Pure white surfaces. */
   white: "#ffffff",
-  /** Page background + neutral image backdrop. */
-  surface: "#f5f8fa",
-  /** Hairline border colour. */
-  border: "#e1e8ed",
-  /** Primary body text on light surfaces. */
-  text: "#1f334c",
-  /** Secondary/muted body text. */
-  text2: "#516781",
+  /** Page background + neutral image backdrop (homepage SURFACE). */
+  surface: "#f6fbf7",
+  /** Hairline border colour (homepage BORDER). */
+  border: "#cbe3d3",
+  /** Primary body text on light surfaces (homepage TEXT_PRIMARY). */
+  text: "#1a3d2f",
+  /** Secondary/muted body text (homepage TEXT_SECONDARY). */
+  text2: "#4b6b57",
 } as const;
 
 export type SeoPalette = typeof seoPalette;

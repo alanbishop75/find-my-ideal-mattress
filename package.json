@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit",
     "test:unit": "jest --config jest.config.js",
     "validate:config": "jest --config jest.config.js lib/config-validation.test.ts",
+    "validate:release-gate": "node scripts/validate-release-gate.mjs",
     "test:e2e": "playwright test"
   },
   "dependencies": {

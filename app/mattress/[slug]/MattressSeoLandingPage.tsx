@@ -424,10 +424,10 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
         }
       `}</style>
 
-      {/* HERO — navy gradient, logo left */}
+      {/* HERO — forest-green gradient, logo left */}
       <section
         style={{
-          background: "linear-gradient(135deg, #0b2545 0%, #0e2d52 55%, #143869 100%)",
+          background: "linear-gradient(135deg, #1a3d2f 0%, #1e4d38 55%, #245c42 100%)",
           color: "#ffffff",
           padding: "48px 20px 56px",
           position: "relative",
@@ -745,7 +745,7 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
           <div
             style={{
               ...cardStyle,
-              background: "linear-gradient(135deg, #0b2545 0%, #143869 100%)",
+              background: "linear-gradient(135deg, #1a3d2f 0%, #245c42 100%)",
               border: "none",
               borderLeft: "none",
               display: "flex",
