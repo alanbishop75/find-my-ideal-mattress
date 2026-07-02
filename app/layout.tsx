@@ -4,7 +4,6 @@ import ClientRoot from "./client-root";
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "../core/theme";
-import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 import CookieBanner from "../components/CookieBanner";
 import { QuizAbandonProvider } from "../components/QuizAbandonProvider";
@@ -50,6 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const categoryId = await resolveCategoryIdForRequest();
   const config = categoryRegistry[categoryId];
   const siteUrl = getRequiredSiteUrl();
+  const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
   const title = config?.meta.title ?? "FindYourIdealMattress — Find Your Perfect Mattress";
   const description = config?.meta.description ?? "Answer a few quick questions and get your personalised mattress recommendations. Free, no sign-up required.";
   const ogImage = "/opengraph-image";
@@ -57,6 +57,7 @@ export async function generateMetadata(): Promise<Metadata> {
     metadataBase: new URL(siteUrl),
     title,
     description,
+    verification: googleSiteVerification ? { google: googleSiteVerification } : undefined,
     icons: {
       icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
     },
@@ -124,7 +125,6 @@ export default async function RootLayout({
       <body className="flex flex-col min-h-screen">
         <ThemeProvider themeName={activeTheme}>
           <CategoryProvider categoryId={categoryId} brandName={categoryRegistry[categoryId]?.meta.brandName ?? 'FindMyIdealMattress'}>
-            <Header />
             <QuizAbandonProvider>
               <main className="p-0 m-0">
                 <ClientRoot>{children}</ClientRoot>

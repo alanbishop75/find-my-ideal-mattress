@@ -6,12 +6,13 @@ import { useRegion } from "../../../core/geo/RegionContext";
 import { getRegionLinks } from "../../../config/mattress/buy-links";
 import { mattressSeoPageMap } from "../../../config/mattress/seo-pages";
 import { products } from "../../../config/mattress/products";
+import { seoPalette } from "../../../config/mattress/seo-theme";
 
-const FOREST = "#1a3d2f";
-const GREEN = "#3bb273";
-const SURFACE = "#f6fbf7";
-const BORDER = "#cbe3d3";
-const TEXT2 = "#4b6b57";
+const NAVY = seoPalette.navy;
+const LIME = seoPalette.lime;
+const SURFACE = seoPalette.surface;
+const BORDER = seoPalette.border;
+const TEXT2 = seoPalette.text2;
 
 const quickBuyBySlug: Record<string, { productId: string; bestFor: string; buttonLabel: string }> = {
   "best-mattress-for-side-sleepers": {
@@ -48,6 +49,15 @@ const quickBuyBySlug: Record<string, { productId: string; bestFor: string; butto
 
 const quickBuyGuides = Object.keys(quickBuyBySlug);
 
+const quickBuyReasonBySlug: Record<string, string> = {
+  "best-mattress-for-side-sleepers": "We use this preset because side sleepers usually need extra pressure relief at hips and shoulders before anything else.",
+  "best-mattress-for-back-pain": "We use this preset because this topic is mainly about lumbar support and stable medium-firm alignment.",
+  "best-mattress-for-heavy-people": "We use this preset because heavier sleepers usually need stronger structure and firmer long-term support.",
+  "best-mattress-for-couples": "We use this preset because couples usually prioritise motion control, stability, and cooling across the whole bed.",
+  "best-cooling-mattress": "We use this preset because this guide focuses on airflow and temperature control first.",
+  "best-budget-mattress": "We use this preset because budget shoppers usually need the best support-per-pound starting point.",
+};
+
 export default function HubQuickBuySection() {
   const { region, isLoading } = useRegion();
   const displayRegion = isLoading ? "UK" : region;
@@ -59,14 +69,14 @@ export default function HubQuickBuySection() {
         marginTop: 24,
         background: "#ffffff",
         border: `1px solid ${BORDER}`,
-        borderLeft: `4px solid ${GREEN}`,
+        borderLeft: `4px solid ${LIME}`,
         borderRadius: 14,
         padding: "20px 22px",
       }}
     >
-      <h2 style={{ margin: "0 0 8px", fontSize: 22, color: FOREST }}>Quick Buy starting points</h2>
+      <h2 style={{ margin: "0 0 8px", fontSize: 22, color: NAVY }}>Quick Buy starting points</h2>
       <p style={{ margin: "0 0 16px", color: TEXT2, lineHeight: 1.7 }}>
-        These are the fastest topic-based starting points if you already know the kind of mattress problem you want to solve.
+        These are the most common starting points we see. Each card links to a full guide and the preset product we have assigned to that topic.
       </p>
       <div
         style={{
@@ -96,18 +106,21 @@ export default function HubQuickBuySection() {
                 gap: 10,
               }}
             >
-              <p style={{ margin: 0, fontSize: 11, color: FOREST, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase" }}>
+              <p style={{ margin: 0, fontSize: 11, color: NAVY, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase" }}>
                 Quick Buy
               </p>
               <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
                 <Image src={product.imageUrl} alt={`${product.brand} ${product.name}`} width={72} height={72} style={{ objectFit: "contain", borderRadius: 8, background: "#ffffff", flexShrink: 0 }} />
                 <div style={{ minWidth: 0 }}>
-                  <h3 style={{ margin: 0, fontSize: 16, color: FOREST, lineHeight: 1.3 }}>{guide.h1}</h3>
+                  <h3 style={{ margin: 0, fontSize: 16, color: NAVY, lineHeight: 1.3 }}>{guide.h1}</h3>
                   <p style={{ margin: "4px 0 0", fontSize: 12, color: TEXT2, lineHeight: 1.45 }}>{recommendation.bestFor}</p>
                 </div>
               </div>
-              <Link href={`/mattress/${slug}`} style={{ color: FOREST, textDecoration: "none", fontSize: 13, fontWeight: 700 }}>
-                Open the full guide {"->"}
+              <p style={{ margin: 0, fontSize: 12, color: TEXT2, lineHeight: 1.5 }}>
+                {quickBuyReasonBySlug[slug]}
+              </p>
+              <Link href={`/mattress/${slug}`} style={{ color: NAVY, textDecoration: "none", fontSize: 13, fontWeight: 700 }}>
+                Open the full guide →
               </Link>
               <a
                 href={buyLink ?? `/mattress/${slug}`}
@@ -118,8 +131,8 @@ export default function HubQuickBuySection() {
                   display: "inline-flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  background: GREEN,
-                  color: FOREST,
+                  background: LIME,
+                  color: NAVY,
                   borderRadius: 999,
                   padding: "11px 14px",
                   fontWeight: 800,

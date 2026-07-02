@@ -1,14 +1,16 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { mattressSeoPageMap } from "../../../config/mattress/seo-pages";
+import { seoPalette } from "../../../config/mattress/seo-theme";
 import HubQuickBuySection from "./HubQuickBuySectionClient";
 
-const FOREST = "#1a3d2f";
-const GREEN = "#3bb273";
-const SURFACE = "#f6fbf7";
-const BORDER = "#cbe3d3";
-const TEXT = "#1a3d2f";
-const TEXT2 = "#4b6b57";
+const NAVY = seoPalette.navy;
+const LIME = seoPalette.lime;
+const SOFT_LIME = seoPalette.softLime;
+const SURFACE = seoPalette.surface;
+const BORDER = seoPalette.border;
+const TEXT = seoPalette.text;
+const TEXT2 = seoPalette.text2;
 
 export const metadata: Metadata = {
   title: "Best Mattress (2026): Find the Right Mattress for How You Sleep | FindYourIdeal",
@@ -37,7 +39,7 @@ const coreGuides = [
 const guideCards = coreGuides.map((slug) => mattressSeoPageMap[slug]).filter((page) => Boolean(page));
 
 const quickAnswerBullets = [
-  "If your main issue is pressure or pain, prioritize support profile before price tier.",
+  "If your main issue is pressure or pain, prioritise support profile before price tier.",
   "If you sleep hot or share a bed, cooling and motion control usually matter more than brand name.",
   "If budget is tight, start with value-focused hybrids and verify trial/return terms first.",
 ];
@@ -104,9 +106,10 @@ export default function BestMattressHubPage() {
   return (
     <div style={{ width: "100%", background: SURFACE }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+
       <section
         style={{
-          background: "linear-gradient(135deg, #1a3d2f 0%, #1e4d38 55%, #245c42 100%)",
+          background: "linear-gradient(135deg, #0b2545 0%, #0e2d52 55%, #143869 100%)",
           color: "#ffffff",
           padding: "48px 20px 56px",
         }}
@@ -114,21 +117,40 @@ export default function BestMattressHubPage() {
         <div style={{ maxWidth: 920, margin: "0 auto" }}>
           <div style={{ fontSize: 13, opacity: 0.7, marginBottom: 18 }}>
             <Link href="/" style={{ color: "inherit", textDecoration: "none" }}>Home</Link>
-              <span style={{ margin: "0 6px" }}>{">"}</span>
+            <span style={{ margin: "0 6px" }}>›</span>
             <span>Best Mattress</span>
           </div>
 
           <h1 style={{ margin: "0 0 12px 0", fontSize: "clamp(30px, 5vw, 46px)", lineHeight: 1.1, letterSpacing: -0.6 }}>
             Best Mattress: Find the Right Mattress for How You Sleep
           </h1>
-          <p style={{ margin: "0 0 24px", maxWidth: 760, color: "rgba(255,255,255,0.82)", fontSize: 17, lineHeight: 1.6 }}>
-            There is no single best mattress for everyone. The right choice depends on your sleep position, build, temperature, pressure sensitivity, and what kind of support you actually need through the night.
+          <p style={{ margin: "0 0 24px", maxWidth: 700, color: "rgba(255,255,255,0.82)", fontSize: 17, lineHeight: 1.6 }}>
+            There is no universally best mattress, because the right choice depends on your sleep position, body weight,
+            temperature, pressure sensitivity, and the kind of support you actually need through the night.
           </p>
+          <p style={{ margin: "0 0 20px", maxWidth: 760, color: "rgba(255,255,255,0.82)", fontSize: 17, lineHeight: 1.6 }}>
+            A side sleeper with hip and shoulder pressure usually needs a different mattress from someone with morning
+            back stiffness, and a hot sleeper or a couple sharing a bed often prioritises cooling and motion control over
+            brand name. This guide helps you narrow down the best mattress for how you sleep, then points you to the most
+            relevant topic pages and the fitting quiz if you want a more precise match.
+          </p>
+          <ul style={{ margin: "0 0 28px", paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+            {[
+              { icon: "🛌", label: "Pressure or pain?", text: "Start with support profile before price tier." },
+              { icon: "🌡️", label: "Sleep hot or share a bed?", text: "Prioritise cooling and motion control." },
+              { icon: "💷", label: "Budget is tight?", text: "Start with value-focused hybrids and check return terms." },
+            ].map((item) => (
+              <li key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: 10, color: "rgba(255,255,255,0.9)", fontSize: 15, lineHeight: 1.55 }}>
+                <span style={{ fontSize: 18, lineHeight: 1.3, flexShrink: 0 }}>{item.icon}</span>
+                <span><strong style={{ color: "#ffffff" }}>{item.label}</strong> {item.text}</span>
+              </li>
+            ))}
+          </ul>
 
           <div
             style={{
-              background: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(255,255,255,0.2)",
+              background: SOFT_LIME,
+              border: "1px solid rgba(255,255,255,0.18)",
               borderRadius: 14,
               padding: "18px 18px 20px",
               display: "flex",
@@ -136,11 +158,12 @@ export default function BestMattressHubPage() {
               gap: 12,
               alignItems: "center",
               justifyContent: "space-between",
+              boxShadow: "0 2px 10px -7px rgba(8,26,49,0.28)",
             }}
           >
             <div>
-              <p style={{ margin: "0 0 4px", fontWeight: 700 }}>Start with a personalised fitting</p>
-              <p style={{ margin: 0, color: "rgba(255,255,255,0.75)", fontSize: 14 }}>
+              <p style={{ margin: "0 0 4px", fontWeight: 700, color: NAVY }}>Start with a personalised fitting</p>
+              <p style={{ margin: 0, color: "rgba(11,37,69,0.78)", fontSize: 14 }}>
                 2-minute quiz. No sign-up. Recommendation based on how you sleep.
               </p>
             </div>
@@ -150,8 +173,8 @@ export default function BestMattressHubPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                background: GREEN,
-                color: FOREST,
+                background: "#123358",
+                color: "#ffffff",
                 borderRadius: 999,
                 padding: "12px 24px",
                 fontWeight: 800,
@@ -164,7 +187,16 @@ export default function BestMattressHubPage() {
             </Link>
           </div>
 
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, margin: "16px 0", opacity: 0.6 }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 12,
+              margin: "16px 0",
+              opacity: 0.6,
+            }}
+          >
             <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.2)" }} />
             <span style={{ fontSize: 14, fontWeight: 500 }}>OR</span>
             <div style={{ flex: 1, height: "1px", background: "rgba(255,255,255,0.2)" }} />
@@ -172,8 +204,8 @@ export default function BestMattressHubPage() {
 
           <div
             style={{
-              background: "rgba(255,255,255,0.08)",
-              border: "1px solid rgba(255,255,255,0.2)",
+              background: SOFT_LIME,
+              border: "1px solid rgba(255,255,255,0.18)",
               borderRadius: 14,
               padding: "18px 18px 20px",
               display: "flex",
@@ -181,12 +213,13 @@ export default function BestMattressHubPage() {
               gap: 12,
               alignItems: "center",
               justifyContent: "space-between",
+              boxShadow: "0 2px 10px -7px rgba(8,26,49,0.28)",
             }}
           >
             <div>
-              <p style={{ margin: "0 0 4px", fontWeight: 700 }}>Quick Buy Guide</p>
-              <p style={{ margin: 0, color: "rgba(255,255,255,0.75)", fontSize: 14 }}>
-                Preset mattress starting points by sleep style and problem type.
+              <p style={{ margin: "0 0 4px", fontWeight: 700, color: NAVY }}>Quick Buy Guide</p>
+              <p style={{ margin: 0, color: "rgba(11,37,69,0.78)", fontSize: 14 }}>
+                Preset recommendations. Start exploring by sleep style or need.
               </p>
             </div>
             <Link
@@ -195,8 +228,8 @@ export default function BestMattressHubPage() {
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                background: GREEN,
-                color: FOREST,
+                background: "#123358",
+                color: "#ffffff",
                 borderRadius: 999,
                 padding: "12px 24px",
                 fontWeight: 800,
@@ -211,115 +244,361 @@ export default function BestMattressHubPage() {
         </div>
       </section>
 
-      <div style={{ maxWidth: 920, margin: "0 auto", padding: "24px 20px 64px" }}>
-        <section id="quick-answer" style={{ background: "#ffffff", border: `1px solid ${BORDER}`, borderRadius: 14, padding: "22px 24px" }}>
-          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: TEXT }}>Quick answer</h2>
-          <p style={{ margin: 0, color: TEXT2, lineHeight: 1.7 }}>
-            Start with the quick-buy starting points if you already know your main problem, or use the quiz if you want a more tailored recommendation based on position, support needs, and budget.
-          </p>
-          <ul style={{ margin: "12px 0 0", paddingLeft: 18, color: TEXT2, lineHeight: 1.7 }}>
-            {quickAnswerBullets.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        </section>
-
-        <section id="how-to-think" style={{ marginTop: 18, background: "#ffffff", border: `1px solid ${BORDER}`, borderRadius: 14, padding: "20px 24px" }}>
-          <h2 style={{ margin: "0 0 10px", fontSize: 22, color: TEXT }}>How to think about the best mattress</h2>
-          <p style={{ margin: "0 0 10px", color: TEXT2, lineHeight: 1.7 }}>
-            The best mattress is not about brand rank; it is about matching support behavior to how you actually sleep.
-          </p>
-          <ul style={{ margin: 0, paddingLeft: 18, color: TEXT2, lineHeight: 1.7 }}>
-            <li>Prioritize sleep-position and pressure profile first.</li>
-            <li>Then check cooling and motion isolation if you sleep hot or share a bed.</li>
-            <li>Use price as a tie-breaker once fit is already right.</li>
-          </ul>
-        </section>
-
-        <section style={{ marginTop: 18, background: "#ffffff", border: `1px solid ${BORDER}`, borderRadius: 14, padding: "16px 20px" }}>
-          <p style={{ margin: "0 0 8px", fontWeight: 700, fontSize: 13, color: TEXT, letterSpacing: 0.2, textTransform: "uppercase" }}>On this page</p>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
-            {[
-              ["Quick answer", "#quick-answer"],
-              ["How to think", "#how-to-think"],
-              ["Decision matrix", "#decision-matrix"],
-              ["Quick Buy", "#quick-buy-starting-points"],
-              ["Browse guides", "#browse-guides"],
-              ["FAQ", "#faq"],
-            ].map(([label, href]) => (
-              <Link
-                key={href}
-                href={href}
-                style={{
-                  textDecoration: "none",
-                  fontSize: 13,
-                  fontWeight: 700,
-                  color: TEXT,
-                  border: `1px solid ${BORDER}`,
-                  borderRadius: 999,
-                  padding: "6px 12px",
-                  background: SURFACE,
-                }}
-              >
-                {label}
-              </Link>
-            ))}
+      <main style={{ maxWidth: 920, margin: "0 auto", padding: "24px 20px 64px" }}>
+        <section
+          id="jump-links"
+          style={{
+            marginTop: 0,
+            background: "#ffffff",
+            borderTop: `1px solid rgba(11,37,69,0.16)`,
+            borderRight: `1px solid rgba(11,37,69,0.16)`,
+            borderBottom: `1px solid rgba(11,37,69,0.16)`,
+            borderLeft: `4px solid ${SOFT_LIME}`,
+            borderRadius: 14,
+            padding: "14px 16px 16px",
+            boxShadow: "0 4px 12px -12px rgba(11,37,69,0.35)",
+          }}
+          aria-label="Jump links"
+        >
+          <div style={{ marginBottom: 10 }}>
+            <p style={{ margin: "0 0 3px", color: NAVY, fontSize: 13, fontWeight: 800, letterSpacing: 0.4, textTransform: "uppercase" }}>
+              On this page
+            </p>
+            <p style={{ margin: 0, color: TEXT2, fontSize: 13 }}>
+              Jump straight to the section you want.
+            </p>
           </div>
-        </section>
-
-        <section id="decision-matrix" style={{ marginTop: 22, background: "#ffffff", border: `1px solid ${BORDER}`, borderRadius: 14, padding: "20px 22px" }}>
-          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: TEXT }}>Decision matrix: where to start</h2>
-          <p style={{ margin: "0 0 14px", color: TEXT2, lineHeight: 1.7 }}>
-            If you are unsure which guide to open first, use this 2x2 starting matrix.
-          </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(210px, 1fr))", gap: 12 }}>
-            {decisionRows.map((row) => (
-              <article key={row.start} style={{ border: `1px solid ${BORDER}`, borderRadius: 12, padding: 14, background: SURFACE }}>
-                <p style={{ margin: "0 0 8px", fontSize: 20 }} aria-hidden>{row.icon}</p>
-                <h3 style={{ margin: "0 0 6px", fontSize: 16, color: TEXT }}>{row.profile}</h3>
-                <p style={{ margin: "0 0 10px", fontSize: 14, color: TEXT2, lineHeight: 1.5 }}>
-                  <strong>Prioritise:</strong> {row.prioritise}
-                </p>
-                <Link href={`/mattress/${row.start}`} style={{ color: TEXT, textDecoration: "none", fontWeight: 700, fontSize: 14 }}>
-                  Start here {"->"}
+          <div style={{ overflowX: "auto", WebkitOverflowScrolling: "touch" }}>
+            <div style={{ display: "flex", gap: 8, minWidth: "max-content" }}>
+              {[
+                ["Quick answer", "#quick-answer"],
+                ["How we rank", "#how-we-rank"],
+                ["Decision matrix", "#decision-matrix"],
+                ["Quick Buy", "#quick-buy-starting-points"],
+                ["Browse guides", "#browse-guides"],
+                ["FAQ", "#faq"],
+              ].map(([label, href]) => (
+                <Link
+                  key={href}
+                  href={href}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    border: `1px solid rgba(11,37,69,0.14)`,
+                    borderRadius: 999,
+                    padding: "7px 14px",
+                    color: NAVY,
+                    textDecoration: "none",
+                    fontSize: 13,
+                    fontWeight: 700,
+                    background: "#ffffff",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  {label}
                 </Link>
-              </article>
-            ))}
+              ))}
+            </div>
           </div>
+        </section>
+
+        <section
+          id="quick-answer"
+          style={{
+            marginTop: 14,
+            background: "#ffffff",
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${SOFT_LIME}`,
+            borderRadius: 14,
+            padding: "22px 24px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 10px 0", fontSize: 24, color: NAVY }}>Quick answer</h2>
+          <p style={{ margin: "0 0 10px", color: TEXT2, lineHeight: 1.7 }}>
+            If you want a fast starting point before diving into all guides, use this 30-second summary.
+          </p>
+          <ul style={{ margin: 0, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+            {quickAnswerBullets.map((line, index) => (
+              <li key={index} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 15, color: TEXT, lineHeight: 1.6 }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: LIME, flexShrink: 0, marginTop: 6 }} />
+                <span>{line}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section
+          id="how-we-rank"
+          style={{
+            marginTop: 16,
+            background: "#ffffff",
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${SOFT_LIME}`,
+            borderRadius: 14,
+            padding: "22px 24px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: NAVY }}>How we rank options on this page</h2>
+          <p style={{ margin: "0 0 10px", color: TEXT2, lineHeight: 1.7 }}>
+            We prioritise fit-to-profile first, then value and consistency. That means we favour options that solve your
+            main sleep problem before recommending premium cooling or feel benefits.
+          </p>
+          <ul style={{ margin: 0, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+            {[
+              { label: "Profile fit first:", text: "sleep position, body profile, and pressure needs." },
+              { label: "Value second:", text: "real-world UK price and trial/return terms." },
+              { label: "Comfort third:", text: "cooling and motion control matter once support is right." },
+            ].map((item) => (
+              <li key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 15, color: TEXT, lineHeight: 1.6 }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: LIME, flexShrink: 0, marginTop: 6 }} />
+                <span><strong>{item.label}</strong> {item.text}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section
+          id="decision-matrix"
+          style={{
+            marginTop: 16,
+            background: "#ffffff",
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${SOFT_LIME}`,
+            borderRadius: 14,
+            padding: "22px 24px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 10px", fontSize: 24, color: NAVY }}>Decision matrix: where to start</h2>
+          <p style={{ margin: "0 0 12px", color: TEXT2, lineHeight: 1.7 }}>
+            If you are not sure which guide to open first, start with the closest profile below.
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
+              gap: 10,
+            }}
+          >
+            {decisionRows.map((row) => {
+              const startPage = mattressSeoPageMap[row.start];
+              return (
+                <article
+                  key={row.start}
+                  style={{
+                    border: `1px solid ${BORDER}`,
+                    borderRadius: 10,
+                    padding: "13px 14px",
+                    background: "#f8fbfd",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 10,
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        width: 28,
+                        height: 28,
+                        borderRadius: "50%",
+                        background: "#eef5e5",
+                        border: `1px solid ${SOFT_LIME}`,
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        fontSize: 15,
+                        flexShrink: 0,
+                      }}
+                    >
+                      {row.icon}
+                    </span>
+                    <p style={{ margin: 0, color: NAVY, fontWeight: 800, fontSize: 15, lineHeight: 1.45 }}>{row.profile}</p>
+                  </div>
+
+                  <div>
+                    <p style={{ margin: "0 0 4px", color: NAVY, fontSize: 11, fontWeight: 800, letterSpacing: 0.4, textTransform: "uppercase" }}>
+                      Prioritise
+                    </p>
+                    <p style={{ margin: 0, color: TEXT2, fontSize: 14, lineHeight: 1.55 }}>{row.prioritise}</p>
+                  </div>
+
+                  <Link
+                    href={`/mattress/${row.start}`}
+                    style={{
+                      color: NAVY,
+                      textDecoration: "none",
+                      fontWeight: 800,
+                      fontSize: 14,
+                      marginTop: "auto",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 6,
+                    }}
+                  >
+                    Start here: {startPage?.h1 ?? "Open guide"} →
+                  </Link>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+
+        <section
+          style={{
+            marginTop: 16,
+            background: "#ffffff",
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${SOFT_LIME}`,
+            borderRadius: 14,
+            padding: "22px 24px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 10px 0", fontSize: 24, color: NAVY }}>How to think about the best mattress</h2>
+          <p style={{ margin: "0 0 10px", color: TEXT2, lineHeight: 1.7 }}>
+            Most sleepers lose more comfort from mismatch than from brand choice. A mattress that fits how you actually
+            sleep often performs better than a premium model chosen for marketing reasons.
+          </p>
+          <ul style={{ margin: 0, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+            {[
+              { label: "Waking with hip or shoulder pressure?", text: "Prioritise pressure relief and a medium feel." },
+              { label: "Stiff lower back in the morning?", text: "Prioritise firmer lumbar support and alignment." },
+              { label: "Already sleeping comfortably?", text: "You may benefit more from cooling and motion control." },
+            ].map((item) => (
+              <li key={item.label} style={{ display: "flex", alignItems: "flex-start", gap: 10, fontSize: 15, color: TEXT, lineHeight: 1.6 }}>
+                <span style={{ width: 8, height: 8, borderRadius: "50%", background: LIME, flexShrink: 0, marginTop: 6 }} />
+                <span><strong>{item.label}</strong> {item.text}</span>
+              </li>
+            ))}
+          </ul>
         </section>
 
         <HubQuickBuySection />
 
         <section id="browse-guides" style={{ marginTop: 24 }}>
-          <h2 style={{ margin: "0 0 14px 0", fontSize: 24, color: FOREST }}>Browse by sleep style and problem</h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: 14 }}>
+          <h2 style={{ margin: "0 0 14px 0", fontSize: 24, color: NAVY }}>Browse by sleep style and problem</h2>
+          <p style={{ margin: "0 0 14px", color: TEXT2, lineHeight: 1.7 }}>
+            Use these detailed guides if you want a deeper breakdown for your specific situation.
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+              gap: 14,
+            }}
+          >
             {guideCards.map((page) => (
-              <Link key={page.slug} href={`/mattress/${page.slug}`} style={{ background: "#ffffff", border: `1px solid ${BORDER}`, borderRadius: 12, padding: "16px 16px", textDecoration: "none", display: "block" }}>
-                <h3 style={{ margin: "0 0 8px", color: TEXT, fontSize: 17, lineHeight: 1.35 }}>{page.h1}</h3>
-                <p style={{ margin: 0, color: TEXT2, fontSize: 14, lineHeight: 1.6 }}>{page.metaDescription}</p>
+              <Link
+                key={page.slug}
+                href={`/mattress/${page.slug}`}
+                style={{
+                  background: "#ffffff",
+                  border: `1px solid ${BORDER}`,
+                  borderLeft: `4px solid ${SOFT_LIME}`,
+                  borderRadius: 12,
+                  padding: "16px 16px",
+                  textDecoration: "none",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 0,
+                }}
+              >
+                <h3 style={{ margin: "0 0 8px", color: NAVY, fontSize: 17, lineHeight: 1.35 }}>{page.h1}</h3>
+                <p style={{ margin: "0 0 12px", color: TEXT2, fontSize: 14, lineHeight: 1.6, flex: 1 }}>{page.metaDescription}</p>
+                <span style={{ color: NAVY, fontWeight: 700, fontSize: 13 }}>Open guide →</span>
               </Link>
             ))}
           </div>
         </section>
 
-        <section id="faq" style={{ marginTop: 24, background: "#ffffff", border: `1px solid ${BORDER}`, borderRadius: 14, padding: "20px 22px" }}>
-          <h2 style={{ margin: "0 0 12px", fontSize: 22, color: FOREST }}>Frequently asked questions</h2>
-          <div style={{ display: "grid", gap: 12 }}>
-            <article>
-              <h3 style={{ margin: "0 0 4px", fontSize: 16, color: TEXT }}>What is the best mattress overall?</h3>
-              <p style={{ margin: 0, color: TEXT2, lineHeight: 1.65 }}>There is no single best mattress for everyone. The best option depends on sleep position, pressure needs, heat profile, and budget.</p>
-            </article>
-            <article>
-              <h3 style={{ margin: "0 0 4px", fontSize: 16, color: TEXT }}>Should I use quick buy or take the quiz?</h3>
-              <p style={{ margin: 0, color: TEXT2, lineHeight: 1.65 }}>Use Quick Buy for a fast topic-based pick. Use the quiz when you want a more tailored match based on multiple factors together.</p>
-            </article>
-            <article>
-              <h3 style={{ margin: "0 0 4px", fontSize: 16, color: TEXT }}>How long does mattress fitting take?</h3>
-              <p style={{ margin: 0, color: TEXT2, lineHeight: 1.65 }}>Most users finish in around two minutes and get an immediate shortlist with reasons.</p>
-            </article>
+        <section
+          style={{
+            marginTop: 24,
+            background: "#ffffff",
+            borderTop: `1px solid ${BORDER}`,
+            borderRight: `1px solid ${BORDER}`,
+            borderBottom: `1px solid ${BORDER}`,
+            borderLeft: `4px solid ${SOFT_LIME}`,
+            borderRadius: 14,
+            padding: "20px 22px",
+          }}
+        >
+          <h2 style={{ margin: "0 0 8px", fontSize: 22, color: NAVY }}>Which mattress should I get right now?</h2>
+          <p style={{ margin: "0 0 14px", color: TEXT2, lineHeight: 1.7 }}>
+            If you want a fast answer, the fitting quiz is the best starting point. It compares your profile against
+            our recommendation logic and returns the most suitable options for how you sleep.
+          </p>
+          <Link
+            href="/mattress/questionnaire?ref=best-mattress-hub-bottom"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: LIME,
+              color: NAVY,
+              borderRadius: 999,
+              padding: "12px 24px",
+              fontWeight: 800,
+              fontSize: 15,
+              textDecoration: "none",
+            }}
+          >
+            Get my mattress recommendation
+          </Link>
+        </section>
+
+        <section id="faq" style={{ marginTop: 24 }}>
+          <h2 style={{ margin: "0 0 18px", fontSize: 24, color: NAVY }}>Frequently asked questions</h2>
+          <div
+            style={{
+              background: "#ffffff",
+              borderTop: `1px solid ${BORDER}`,
+              borderRight: `1px solid ${BORDER}`,
+              borderBottom: `1px solid ${BORDER}`,
+              borderLeft: `4px solid ${SOFT_LIME}`,
+              borderRadius: 14,
+              padding: "20px 22px",
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+              {[
+                {
+                  q: "What is the best mattress overall?",
+                  a: "There is no single best mattress for everyone. The best option depends on sleep position, pressure needs, heat profile, and budget.",
+                },
+                {
+                  q: "Should I use quick buy or take the quiz?",
+                  a: "Use Quick Buy for a fast topic-based pick. Use the quiz when you want a more tailored match based on multiple factors together.",
+                },
+                {
+                  q: "How long does mattress fitting take?",
+                  a: "Most users finish in around two minutes and get an immediate shortlist with reasons.",
+                },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  style={{
+                    borderTop: index > 0 ? `1px solid ${BORDER}` : "none",
+                    paddingTop: index > 0 ? 16 : 0,
+                    paddingBottom: 16,
+                  }}
+                >
+                  <p style={{ margin: "0 0 6px", color: NAVY, fontWeight: 800 }}>{item.q}</p>
+                  <p style={{ margin: 0, color: TEXT2, lineHeight: 1.7 }}>{item.a}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
-      </div>
+      </main>
     </div>
   );
 }

@@ -2,8 +2,30 @@
 
 Status: Active guardrail
 Purpose: Prevent format drift and enforce exact SEO page rendering parity.
-Visual golden source: golf SEO renderer in app/golf-ball/[slug]/GolfBallSeoLandingPage.tsx.
-Mattress implementation target: app/mattress/[slug]/MattressSeoLandingPage.tsx must match the golf renderer structure, layout, section behavior, and interaction pattern exactly.
+Visual golden source: golf SEO renderer in app/golf-ball/[slug]/GolfBallSeoLandingPage.tsx and golf hub in app/golf-ball/best-golf-ball/page.tsx.
+Mattress implementation targets:
+- Detail pages: app/mattress/[slug]/MattressSeoLandingPage.tsx
+- Hub page: app/mattress/best-mattress/page.tsx + app/mattress/best-mattress/HubQuickBuySectionClient.tsx
+must match the golf structure, layout, section behavior, and interaction pattern exactly.
+
+## Palette Strategy (Option B — shared structure, per-site palette object)
+
+- Structure/layout/spacing are LOCKED and shared with golf. Colours are the ONLY
+  per-site variable, and they live in ONE file: `config/mattress/seo-theme.ts` (`seoPalette`).
+- Every SEO/hub surface MUST import `seoPalette` and derive its local `NAVY/LIME/...`
+  constants from it. Do NOT hardcode hex values in components and do NOT read
+  `useTheme()`/`tokens.*` in any SEO/hub component.
+- To re-skin the mattress SEO surface, change ONLY the hex values in `seoPalette`.
+  Never change structure to change colour.
+- Current `seoPalette` values intentionally equal the golf golden source.
+
+## No Global Chrome On SEO/Hub Pages
+
+- Golf renders NO global `<Header>`; the navy hero IS the header. Mattress must match.
+- The app root layout MUST NOT render a global site header above SEO/hub pages
+  (this caused the "extra header" — a green bar stacked above the navy hero).
+- Exactly ONE header per page: the page's own hero. One palette per page across
+  hero, hub, and any chrome — never a different-coloured header above the hero.
 
 ## No-Drift Rule (Non-Negotiable)
 
@@ -14,6 +36,7 @@ Mattress implementation target: app/mattress/[slug]/MattressSeoLandingPage.tsx m
   - Route paths (/golf-ball/* to /mattress/*)
   - CTA label token (non-golf uses Start Quiz)
   - Data payload (whoItIsFor/sections/keyFactors/faq/relatedSlugs)
+  - Palette hex values via `seoPalette` (structure stays identical)
 - Not allowed:
   - Reordering sections
   - Replacing chip-style jump links with list-style links
@@ -29,14 +52,20 @@ Do NOT swap them for `useTheme()` tokens, brand colors, or "close enough" equiva
 
 ### Palette constants (declare at top of renderer)
 
+Derive from the single source of truth — do NOT hardcode hex values:
+
 ```
-const NAVY = "#0b2545";
-const LIME = "#7dbe3a";
-const LIME_DARK = "#0b2545";
-const WHITE = "#ffffff";
-const SURFACE = "#f5f8fa";
-const BORDER = "#e1e8ed";
-const TEXT2 = "#516781";
+import { seoPalette } from "../../../config/mattress/seo-theme";
+
+const NAVY = seoPalette.navy;        // "#0b2545"
+const LIME = seoPalette.lime;        // "#7dbe3a"
+const LIME_DARK = seoPalette.limeDark; // "#0b2545"
+const SOFT_LIME = seoPalette.softLime; // "#a8cf74" (hub accents)
+const WHITE = seoPalette.white;      // "#ffffff"
+const SURFACE = seoPalette.surface;  // "#f5f8fa"
+const BORDER = seoPalette.border;    // "#e1e8ed"
+const TEXT = seoPalette.text;        // "#1f334c" (hub body)
+const TEXT2 = seoPalette.text2;      // "#516781"
 ```
 
 ### Outer wrapper + mobile style block
@@ -144,6 +173,53 @@ padding: "24px 28px"; marginTop: 20; borderLeft: "4px solid LIME";
 - matching-quiz-works
 - slugified IDs for each educational H2 section
 
+## Hub Page (best-mattress) — Exact Spec
+
+Golden source: golf hub `app/golf-ball/best-golf-ball/page.tsx` + `HubQuickBuySectionClient.tsx`.
+The hub shares the SAME palette (`seoPalette`) and the SAME visual language as the detail pages.
+
+### Hub structure (exact order)
+
+1. FAQPage JSON-LD (`<script type="application/ld+json">`).
+2. Hero `<section>`: navy gradient `linear-gradient(135deg, #0b2545 0%, #0e2d52 55%, #143869 100%)`, `maxWidth 920`.
+   - Breadcrumb (Home › Best Mattress), H1 `clamp(30px,5vw,46px)`, two intro paragraphs.
+   - Icon bullet list (3 items, emoji + bold label + text) in white translucent text.
+   - CTA panel 1 (fitting): `background SOFT_LIME`, NAVY heading, dark button `#123358`.
+   - `OR` divider (two hairlines + centered `OR`).
+   - CTA panel 2 (Quick Buy): same SOFT_LIME panel, links to `#quick-buy-starting-points`.
+3. `<main maxWidth 920 padding "24px 20px 64px">`:
+   - `#jump-links` chip bar (SOFT_LIME left border, "On this page", horizontal scroll chips).
+   - `#quick-answer` — LIME-dot bullet list.
+   - `#how-we-rank` — LIME-dot bullet list.
+   - `#decision-matrix` — 2-col cards, circular emoji badge, "Prioritise" label, "Start here: <h1> →".
+   - "How to think about the best mattress" card — LIME-dot bullets.
+   - `<HubQuickBuySection>` (`#quick-buy-starting-points`).
+   - `#browse-guides` — auto-fit guide cards, each `borderLeft: 4px solid SOFT_LIME`, "Open guide →".
+   - Bottom CTA card — LIME pill "Get my mattress recommendation".
+   - `#faq` — accordion-style list, NAVY questions, TEXT2 answers.
+
+### Hub card pattern
+
+- All hub content cards: white bg, 3-sided `1px solid BORDER` + `borderLeft: 4px solid SOFT_LIME`, `borderRadius 14`, `padding "22px 24px"`.
+- Hub H2: `fontSize 24, color NAVY`. Body: `color TEXT2, lineHeight 1.7`. Bullet dot: 8px LIME circle.
+
+### Hub Quick Buy cards (HubQuickBuySectionClient)
+
+- Section: white card, `borderLeft: 4px solid LIME`.
+- Cards grid: `repeat(auto-fit, minmax(220px, 1fr))`, gap 14, cards on `SURFACE` bg.
+- Each card: "Quick Buy" eyebrow (NAVY), 72px product image, guide H1, bestFor line, reason line, "Open the full guide →" (NAVY), LIME pill buy button (`color NAVY`, full width, `rel="sponsored nofollow noopener noreferrer"`).
+
+### Hub required IDs
+
+- quick-buy-starting-points, quick-answer, how-we-rank, decision-matrix, browse-guides, faq, jump-links
+
+### Hub allowed omissions
+
+- The golf hub has a "Compare products" section fed by a comparison-pages config.
+  Mattress has no comparison-pages config, so that section AND its `#compare-options`
+  jump-link chip are omitted. If a mattress comparison config is added later, restore
+  both to match golf exactly.
+
 ## Pre-Release Checklist
 
 - Palette constants (NAVY/LIME/LIME_DARK/WHITE/SURFACE/BORDER/TEXT2) are declared and used — NO `useTheme`/`tokens.*` anywhere in the renderer.
@@ -159,3 +235,6 @@ padding: "24px 28px"; marginTop: 20; borderLeft: "4px solid LIME";
 - Hub bridge card points to /mattress/best-mattress.
 - Related guides render from relatedSlugs with internal links.
 - No section additions/removals/reorders relative to this blueprint.
+- Colours come only from `seoPalette`; no hardcoded hex in components; no `useTheme`/`tokens.*`.
+- No global site header renders above the hero (exactly one header per page).
+- Hub page matches the "Hub Page (best-mattress) — Exact Spec" section, including navy hero and SOFT_LIME accents.
