@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { mattressSeoPages, mattressSeoPageMap } from "../../../config/mattress/seo-pages";
+import { getRequiredSiteUrl } from "../../../lib/site-url";
 import MattressSeoLandingPage from "./MattressSeoLandingPage";
 
 type Props = { params: Promise<{ slug: string }> };
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.findmyidealmattress.com").replace(/\/$/, "");
+const SITE_URL = getRequiredSiteUrl();
+const SEO_AUTHOR_NAME = "FindMyIdealMattress Editorial Team";
 
 const LEGACY_UK_SLUG_REDIRECTS: Record<string, string> = {
   "best-mattress-for-side-sleepers-uk": "best-mattress-for-side-sleepers",
@@ -51,6 +53,7 @@ export default async function Page({ params }: Props) {
   if (!page) notFound();
 
   const pageUrl = `${SITE_URL}/mattress/${slug}`;
+  const publishedDate = page.datePublished ?? page.lastReviewed;
 
   const faqJsonLd =
     page.faq && page.faq.length > 0
@@ -86,7 +89,7 @@ export default async function Page({ params }: Props) {
     inLanguage: "en",
     mainEntityOfPage: pageUrl,
     dateModified: `${page.lastReviewed}T00:00:00Z`,
-    datePublished: `${page.lastReviewed}T00:00:00Z`,
+    datePublished: `${publishedDate}T00:00:00Z`,
     image: [
       {
         "@type": "ImageObject",
@@ -95,7 +98,7 @@ export default async function Page({ params }: Props) {
         height: 630,
       },
     ],
-    author: { "@type": "Organization", name: "FindMyIdealMattress", url: SITE_URL },
+    author: { "@type": "Organization", name: SEO_AUTHOR_NAME, url: SITE_URL },
     publisher: {
       "@type": "Organization",
       name: "FindMyIdealMattress",

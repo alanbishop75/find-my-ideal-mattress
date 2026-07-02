@@ -62,6 +62,84 @@ const quickBuyReasonBySlug: Record<string, string> = {
   "best-mattress-under-500": "We use this preset because it fits a strict under-GBP500 target while keeping a balanced hybrid setup.",
 };
 
+function productMatchesTopic(product: (typeof products)[number], slug: string): number {
+  const attrs = product.attributes ?? {};
+  const sleepPosition = attrs.sleepPosition;
+  const construction = attrs.construction;
+  const cooling = attrs.cooling;
+  const backSupport = attrs.backSupport;
+  const priceTier = attrs.priceTier;
+  const motionIsolation = attrs.motionIsolation;
+  const weightClass = attrs.weightClass;
+
+  let score = 0;
+
+  if (slug.includes("side-sleepers") && (sleepPosition === "side" || sleepPosition === "combination" || sleepPosition === "any")) score += 4;
+  if (slug.includes("back-pain") && (backSupport === "enhanced" || backSupport === "ortho")) score += 4;
+  if (slug.includes("heavy-people") && (weightClass === "heavy" || backSupport === "ortho")) score += 4;
+  if (slug.includes("couples") && (motionIsolation === "good" || motionIsolation === "excellent")) score += 4;
+  if (slug.includes("cooling") && cooling === true) score += 4;
+  if (slug.includes("hybrid") && construction === "hybrid") score += 4;
+  if ((slug.includes("budget") || slug.includes("under-500")) && (priceTier === "budget" || priceTier === "mid")) score += 4;
+
+  if (construction === "hybrid") score += 1;
+  if (motionIsolation === "excellent") score += 1;
+  if (backSupport === "enhanced") score += 1;
+
+  return score;
+}
+
+function formatConstruction(construction: string | undefined): string {
+  if (!construction) return "Balanced build";
+  return construction
+    .split("-")
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(" ");
+}
+
+function buildRankedOptions(slug: string): (typeof products)[number][] {
+  const quickBuyProductId = quickBuyBySlug[slug]?.productId;
+  const quickBuyProduct = quickBuyProductId ? products.find((item) => item.id === quickBuyProductId) : null;
+
+  const rankedPool = [...products]
+    .sort((a, b) => productMatchesTopic(b, slug) - productMatchesTopic(a, slug))
+    .filter((item, index, all) => all.findIndex((p) => p.id === item.id) === index);
+
+  const top = quickBuyProduct
+    ? [quickBuyProduct, ...rankedPool.filter((item) => item.id !== quickBuyProduct.id)]
+    : rankedPool;
+
+  return top.slice(0, 3);
+}
+
+function attributeChips(product: (typeof products)[number]): string[] {
+  const attrs = product.attributes ?? {};
+  const construction = typeof attrs.construction === "string" ? attrs.construction : undefined;
+  const firmness = typeof attrs.firmness === "string" ? attrs.firmness : undefined;
+  const cooling = attrs.cooling === true;
+
+  return [
+    `${formatConstruction(construction)} construction`,
+    `${(firmness ?? "balanced").replace("-", " ")} feel`,
+    cooling ? "Cooling profile" : "Neutral temperature",
+  ];
+}
+
+function bestForLine(product: (typeof products)[number]): string {
+  const attrs = product.attributes ?? {};
+  const sleepPosition = typeof attrs.sleepPosition === "string" ? attrs.sleepPosition : "any";
+  const position = sleepPosition === "any" ? "mixed sleep positions" : `${sleepPosition} sleepers`;
+  return `Best for ${position} needing consistent overnight support.`;
+}
+
+function reasonLine(product: (typeof products)[number]): string {
+  const attrs = product.attributes ?? {};
+  if (attrs.cooling === true) return "Included for better heat control and steadier overnight comfort.";
+  if (attrs.motionIsolation === "excellent") return "Included for stronger motion control and fewer partner disturbances.";
+  if (attrs.backSupport === "ortho") return "Included for firmer spinal support and longer-term structure.";
+  return "Included for balanced support, practical value, and reliable everyday comfort.";
+}
+
 /**
  * Renders an SEO landing page for a mattress keyword.
  *
@@ -262,6 +340,7 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
   const related = page.relatedSlugs
     .map((s) => mattressSeoPageMap[s])
     .filter((p): p is MattressSeoPage => Boolean(p));
+  const rankedOptions = buildRankedOptions(page.slug);
 
   const cardStyle: React.CSSProperties = {
     background: tokens.surface,
@@ -398,7 +477,7 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
             </p>
 
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
-              {ctaButton("Find Your Ideal Mattress")}
+              {ctaButton("Start Quiz")}
               <span style={{ fontSize: 13, color: tokens.textSecondary }}>OR</span>
               <a
                 href="#quick-buy-starting-point"
@@ -467,9 +546,6 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
             ))}
           </div>
 
-          {/* Quick Buy vs Quiz */}
-          <QuickBuySection pageSlug={page.slug} />
-
           {/* Who this is for */}
           {page.whoItIsFor.length > 0 && (
             <section style={cardStyle}>
@@ -492,8 +568,96 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
             </section>
           )}
 
+          <section style={cardStyle} id="jump-to-a-section">
+            <h2 style={h2Style}>Jump to a section</h2>
+            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+              <li style={bodyStyle}><a href="#quick-verdict" style={{ color: tokens.textPrimary, textDecoration: "none", fontWeight: 700 }}>Quick verdict</a></li>
+              <li style={bodyStyle}><a href="#best-options-at-a-glance" style={{ color: tokens.textPrimary, textDecoration: "none", fontWeight: 700 }}>Best options at a glance</a></li>
+              <li style={bodyStyle}><a href="#how-we-ranked" style={{ color: tokens.textPrimary, textDecoration: "none", fontWeight: 700 }}>How we ranked these options</a></li>
+              <li style={bodyStyle}><a href="#quick-buy-starting-point" style={{ color: tokens.textPrimary, textDecoration: "none", fontWeight: 700 }}>Quick Buy starting point</a></li>
+              <li style={bodyStyle}><a href="#matching-quiz-works" style={{ color: tokens.textPrimary, textDecoration: "none", fontWeight: 700 }}>How the matching quiz works</a></li>
+            </ul>
+          </section>
+
+          <section style={cardStyle} id="quick-verdict">
+            <h2 style={h2Style}>Quick verdict</h2>
+            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+              <li style={bodyStyle}>Use Quick Buy if you already know your primary problem and want a fast shortlist now.</li>
+              <li style={bodyStyle}>Use the quiz if you need us to balance support, temperature, and budget together.</li>
+              <li style={bodyStyle}>For most shoppers, the best result is the mattress that fits your position plus body profile.</li>
+            </ul>
+          </section>
+
+          <section style={cardStyle} id="best-options-at-a-glance">
+            <h2 style={h2Style}>Best options at a glance</h2>
+            <div style={{ display: "grid", gap: 12 }}>
+              {rankedOptions.map((product, index) => (
+                <article
+                  key={product.id}
+                  style={{
+                    border: `1px solid ${tokens.border}`,
+                    borderRadius: 12,
+                    padding: 14,
+                    background: "#ffffff",
+                    display: "grid",
+                    gap: 6,
+                  }}
+                >
+                  <p style={{ margin: 0, fontSize: 11, fontWeight: 800, color: tokens.textPrimary, textTransform: "uppercase", letterSpacing: 0.4 }}>
+                    #{index + 1} option
+                  </p>
+                  <p style={{ margin: 0, fontSize: 16, fontWeight: 800, color: tokens.textPrimary }}>
+                    {product.brand} {product.name}
+                  </p>
+                  <p style={{ margin: 0, fontSize: 13, color: tokens.textSecondary }}>
+                    {bestForLine(product)}
+                  </p>
+                  <p style={{ margin: 0, fontSize: 13, color: tokens.textSecondary }}>
+                    {reasonLine(product)}
+                  </p>
+                  <p style={{ margin: 0, fontSize: 13, color: tokens.textSecondary }}>
+                    {typeof product.attributes?.rrp === "number" ? `Approx. GBP${product.attributes.rrp}` : "Check latest price"}
+                  </p>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 2 }}>
+                    {attributeChips(product).map((chip) => (
+                      <span
+                        key={chip}
+                        style={{
+                          border: `1px solid ${tokens.border}`,
+                          borderRadius: 999,
+                          fontSize: 12,
+                          fontWeight: 700,
+                          color: tokens.textPrimary,
+                          background: tokens.surfaceAlt,
+                          padding: "4px 10px",
+                        }}
+                      >
+                        {chip}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+
+          <section style={cardStyle} id="how-we-ranked">
+            <h2 style={h2Style}>How we ranked these options</h2>
+            <p style={bodyStyle}>
+              We rank mattresses by topic-fit first, then adjust for support behavior, motion control, temperature profile, and realistic UK budget fit.
+            </p>
+            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+              <li style={bodyStyle}>Topic fit first: position and problem relevance carry the highest weight.</li>
+              <li style={bodyStyle}>Performance second: support depth, motion isolation, and cooling shape rank stability.</li>
+              <li style={bodyStyle}>Value always: we keep picks actionable with real-world UK price context.</li>
+            </ul>
+          </section>
+
+          {/* Quick Buy vs Quiz */}
+          <QuickBuySection pageSlug={page.slug} />
+
           {/* How the quiz works */}
-          <section style={cardStyle}>
+          <section style={cardStyle} id="matching-quiz-works">
             <h2 style={h2Style}>How the matching quiz works</h2>
             <ol
               style={{
@@ -617,12 +781,15 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
               color: tokens.textSecondary,
               textAlign: "center",
               marginTop: 20,
-              marginBottom: 0,
+              marginBottom: 6,
             }}
           >
             Last reviewed:{" "}
             {formatReviewDate(page.lastReviewed)}
             . We update this guide whenever our verified UK product list changes.
+          </p>
+          <p style={{ margin: 0, fontSize: 11, color: tokens.textSecondary, textAlign: "center" }}>
+            Generated with GitHub Copilot.
           </p>
         </article>
 

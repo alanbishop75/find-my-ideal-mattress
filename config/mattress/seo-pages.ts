@@ -47,6 +47,11 @@ export interface MattressSeoPage {
   sections: MattressSeoSection[];
   faq: { question: string; answer: string }[];
   relatedSlugs: string[];
+  /**
+   * Original publish date for schema/article metadata.
+   * Falls back to lastReviewed when omitted.
+   */
+  datePublished?: string;
   lastReviewed: string;
 }
 
