@@ -586,13 +586,35 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
 
           <section style={cardStyle} id="jump-to-a-section">
             <h2 style={h2Style}>Jump to a section</h2>
-            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
-              <li style={bodyStyle}><a href="#quick-verdict" style={{ color: tokens.textPrimary, textDecoration: "none", fontWeight: 700 }}>Quick verdict</a></li>
-              <li style={bodyStyle}><a href="#best-options-at-a-glance" style={{ color: tokens.textPrimary, textDecoration: "none", fontWeight: 700 }}>Best options at a glance</a></li>
-              <li style={bodyStyle}><a href="#how-we-ranked" style={{ color: tokens.textPrimary, textDecoration: "none", fontWeight: 700 }}>How we ranked these options</a></li>
-              <li style={bodyStyle}><a href="#quick-buy-starting-point" style={{ color: tokens.textPrimary, textDecoration: "none", fontWeight: 700 }}>Quick Buy starting point</a></li>
-              <li style={bodyStyle}><a href="#matching-quiz-works" style={{ color: tokens.textPrimary, textDecoration: "none", fontWeight: 700 }}>How the matching quiz works</a></li>
-            </ul>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+              {[
+                { label: "Quick verdict", href: "#quick-verdict" },
+                { label: "Best options at a glance", href: "#best-options-at-a-glance" },
+                { label: "How we ranked these options", href: "#how-we-ranked-these-options" },
+                { label: "Quick Buy starting point", href: "#quick-buy-starting-point" },
+                { label: "How the matching quiz works", href: "#matching-quiz-works" },
+              ].map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "10px 14px",
+                    borderRadius: 999,
+                    border: `1px solid ${tokens.border}`,
+                    background: tokens.surfaceAlt,
+                    color: tokens.textPrimary,
+                    textDecoration: "none",
+                    fontSize: 13,
+                    fontWeight: 700,
+                  }}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
           </section>
 
           <section style={cardStyle} id="quick-verdict">
@@ -657,7 +679,7 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
             </div>
           </section>
 
-          <section style={cardStyle} id="how-we-ranked">
+          <section style={cardStyle} id="how-we-ranked-these-options">
             <h2 style={h2Style}>How we ranked these options</h2>
             <p style={bodyStyle}>
               We rank mattresses by topic-fit first, then adjust for support behavior, motion control, temperature profile, and realistic UK budget fit.
@@ -671,6 +693,30 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
 
           {/* Quick Buy vs Quiz */}
           <QuickBuySection pageSlug={page.slug} />
+
+          <section style={cardStyle} id="hub-bridge">
+            <h2 style={h2Style}>Need the broader comparison?</h2>
+            <p style={bodyStyle}>
+              If you want the broader hub view, use the main mattress roundup instead of staying on this topic-specific page.
+            </p>
+            <Link
+              href="/mattress/best-mattress"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 12,
+                padding: "12px 16px",
+                borderRadius: 999,
+                background: NAVY,
+                color: WHITE,
+                textDecoration: "none",
+                fontWeight: 800,
+              }}
+            >
+              Open the main mattress guide
+            </Link>
+          </section>
 
           {/* How the quiz works */}
           <section style={cardStyle} id="matching-quiz-works">
@@ -698,7 +744,7 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
 
           {/* Educational sections */}
           {page.sections.map((section, idx) => (
-            <section key={idx} style={cardStyle}>
+            <section key={idx} style={cardStyle} id={slugifyHeading(section.h2)}>
               <h2 style={h2Style}>{section.h2}</h2>
               {section.body && <p style={bodyStyle}>{section.body}</p>}
               {section.subsections?.map((sub, j) => (
