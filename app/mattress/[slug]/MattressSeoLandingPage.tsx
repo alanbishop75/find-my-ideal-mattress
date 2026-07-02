@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useRegion } from "../../../core/geo/RegionContext";
 import { getRegionLinks } from "../../../config/mattress/buy-links";
 import { products } from "../../../config/mattress/products";
-import { useTheme } from "../../../core/theme";
 import type { MattressSeoPage } from "../../../config/mattress/seo-pages";
 import { mattressSeoPageMap } from "../../../config/mattress/seo-pages";
 
@@ -182,7 +181,6 @@ function formatReviewDate(iso: string): string {
 }
 
 function QuickBuySection({ pageSlug }: { pageSlug: string }) {
-  const { tokens } = useTheme();
   const { region, isLoading } = useRegion();
   const recommendation = quickBuyBySlug[pageSlug];
 
@@ -204,31 +202,32 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
       style={{
         marginTop: 20,
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+        gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
         gap: 14,
         alignItems: "stretch",
       }}
     >
       <aside
         style={{
-          background: tokens.surface,
-          border: `1px solid ${tokens.border}`,
-          borderRadius: 16,
-          padding: "16px 16px",
+          border: `1px solid ${BORDER}`,
+          borderRadius: 12,
+          padding: "14px 14px",
+          background: "#f0f7f4",
           display: "flex",
           flexDirection: "column",
           gap: 10,
+          minHeight: 360,
         }}
       >
         <p
           style={{
             margin: 0,
             fontSize: 11,
-            color: tokens.textPrimary,
+            color: NAVY,
             fontWeight: 800,
             letterSpacing: 0.5,
             textTransform: "uppercase",
-            background: tokens.surfaceAlt,
+            background: "#d4e8df",
             borderRadius: 999,
             padding: "6px 10px",
             alignSelf: "flex-start",
@@ -236,14 +235,14 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
         >
           Quick Buy vs Quiz
         </p>
-        <h2 style={{ margin: 0, fontSize: 20, color: tokens.textPrimary, lineHeight: 1.3 }}>
+        <h3 style={{ margin: 0, fontSize: 18, color: NAVY, lineHeight: 1.25 }}>
           Choose the preset top pick, or use the quiz for a deeper fit
-        </h2>
-        <p style={{ margin: 0, fontSize: 14, color: tokens.textSecondary, lineHeight: 1.7 }}>
-          <strong>Quick Buy</strong> is the fastest path when you already know this page topic and want an immediate starting pick.
+        </h3>
+        <p style={{ margin: 0, fontSize: 13, color: TEXT2, lineHeight: 1.7 }}>
+          <strong>Quick Buy</strong> is the fastest path when you already know the page topic. It shows the preset mattress we have assigned to this guide, so you can jump straight to a recommended option.
         </p>
-        <p style={{ margin: 0, fontSize: 14, color: tokens.textSecondary, lineHeight: 1.7 }}>
-          <strong>Quiz</strong> is better when you want us to weigh sleep position, body profile, temperature preference, and budget before recommending a mattress.
+        <p style={{ margin: 0, fontSize: 13, color: TEXT2, lineHeight: 1.7 }}>
+          <strong>Quiz</strong> is better if you want us to weigh up your sleep position, body profile, temperature preference and budget before recommending a mattress.
         </p>
         <Link
           href="/mattress/questionnaire?ref=quick-buy-vs-quiz"
@@ -252,8 +251,8 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
-            background: tokens.accent,
-            color: "#fff",
+            background: NAVY,
+            color: "#ffffff",
             borderRadius: 999,
             padding: "12px 16px",
             fontWeight: 800,
@@ -267,24 +266,25 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
 
       <article
         style={{
+          border: `1px solid ${BORDER}`,
+          borderRadius: 12,
+          padding: "14px 14px",
           background: "#ffffff",
-          border: `1px solid ${tokens.border}`,
-          borderRadius: 16,
-          padding: "16px 16px",
           display: "flex",
           flexDirection: "column",
           gap: 8,
+          minHeight: 360,
         }}
       >
         <p
           style={{
             margin: 0,
             fontSize: 11,
-            color: tokens.textPrimary,
+            color: NAVY,
             fontWeight: 800,
             letterSpacing: 0.5,
             textTransform: "uppercase",
-            background: tokens.surfaceAlt,
+            background: SURFACE,
             borderRadius: 999,
             padding: "6px 10px",
             alignSelf: "flex-start",
@@ -298,31 +298,28 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
             alt={`${product.brand} ${product.name}`}
             width={90}
             height={90}
-            style={{ objectFit: "contain", borderRadius: 8, flexShrink: 0, background: tokens.surface }}
+            style={{ objectFit: "contain", borderRadius: 8, flexShrink: 0, background: SURFACE }}
           />
           <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <h3 style={{ margin: 0, fontSize: 18, color: tokens.textPrimary }}>
+            <h3 style={{ margin: 0, fontSize: 18, color: NAVY }}>
               {product.brand} {product.name}
             </h3>
-            <p style={{ margin: 0, fontSize: 12, color: tokens.textSecondary, fontWeight: 700, lineHeight: 1.4 }}>
+            <p style={{ margin: 0, fontSize: 12, color: TEXT2, fontWeight: 700, lineHeight: 1.4 }}>
               {recommendation.bestFor}
             </p>
           </div>
         </div>
 
-        <p style={{ margin: 0, fontSize: 14, color: tokens.textSecondary, lineHeight: 1.6 }}>
+        <p style={{ margin: 0, fontSize: 13, color: TEXT2, lineHeight: 1.5 }}>
           {quickBuyReasonBySlug[pageSlug] ?? "This is the preset Quick Buy choice for this topic."}
         </p>
 
-        <p style={{ margin: 0, fontSize: 13, color: tokens.textSecondary }}>
-          {typeof product.attributes?.rrp === "number" ? `Approx. GBP${product.attributes.rrp}` : "Check latest price"}
+        <p style={{ margin: 0, fontSize: 13, color: TEXT2 }}>
+          {typeof product.attributes?.rrp === "number" ? `Approx. £${product.attributes.rrp}` : "Check latest price"}
         </p>
 
-        <Link
-          href={`/mattress/${pageSlug}`}
-          style={{ margin: 0, fontSize: 13, color: tokens.textPrimary, fontWeight: 700, textDecoration: "none" }}
-        >
-          Read full guide for this topic {"->"}
+        <Link href={`/mattress/${pageSlug}`} style={{ margin: 0, fontSize: 13, color: NAVY, fontWeight: 700, textDecoration: "none" }}>
+          Read full guide for this topic →
         </Link>
 
         <a
@@ -334,8 +331,8 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
             display: "inline-flex",
             alignItems: "center",
             justifyContent: "center",
-            background: tokens.accent,
-            color: "#fff",
+            background: LIME,
+            color: LIME_DARK,
             borderRadius: 999,
             padding: "11px 14px",
             fontWeight: 800,
@@ -351,189 +348,190 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
 }
 
 export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage }) {
-  const { tokens } = useTheme();
   const quizHref = `/mattress/questionnaire?ref=${page.slug}`;
   const related = page.relatedSlugs
     .map((s) => mattressSeoPageMap[s])
     .filter((p): p is MattressSeoPage => Boolean(p));
   const rankedOptions = buildRankedOptions(page.slug);
+  const hasQuickBuy = Boolean(quickBuyBySlug[page.slug]);
 
   const cardStyle: React.CSSProperties = {
-    background: tokens.surface,
-    border: `1px solid ${tokens.border}`,
+    background: WHITE,
+    border: `1px solid ${BORDER}`,
     borderRadius: 16,
     padding: "24px 28px",
     marginTop: 20,
+    borderLeft: `4px solid ${LIME}`,
   };
 
   const h2Style: React.CSSProperties = {
     fontSize: 20,
     fontWeight: 700,
-    color: tokens.textPrimary,
-    margin: "0 0 12px 0",
+    color: NAVY,
+    margin: "0 0 14px 0",
     lineHeight: 1.3,
   };
 
   const h3Style: React.CSSProperties = {
     fontSize: 16,
     fontWeight: 700,
-    color: tokens.textPrimary,
-    margin: "16px 0 6px 0",
+    color: NAVY,
+    margin: "18px 0 6px 0",
     lineHeight: 1.35,
   };
 
   const bodyStyle: React.CSSProperties = {
     fontSize: 15,
-    color: tokens.textSecondary,
-    lineHeight: 1.7,
+    color: TEXT2,
+    lineHeight: 1.75,
     margin: 0,
   };
 
   const ctaButton = (label: string) => (
-    <a
+    <Link
       href={quizHref}
       style={{
         marginTop: 8,
-        display: "flex",
+        display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        width: "100%",
-        background: tokens.accent,
-        color: "#fff",
-        borderRadius: 10,
-        height: 52,
-        fontWeight: 700,
-        fontSize: 18,
+        background: LIME,
+        color: LIME_DARK,
+        borderRadius: 999,
+        padding: "14px 30px",
+        fontWeight: 800,
+        fontSize: 16,
         textDecoration: "none",
         letterSpacing: 0.2,
+        boxShadow: "0 8px 24px -8px rgba(125,190,58,0.5)",
       }}
     >
       {label}
-    </a>
+    </Link>
   );
 
   return (
-    <div
-      style={{
-        width: "100%",
-        minHeight: "100svh",
-        background: tokens.background,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        paddingTop: 32,
-        paddingBottom: 48,
-        paddingLeft: 16,
-        paddingRight: 16,
-      }}
-    >
+    <div style={{ width: "100%", background: SURFACE }}>
       <style>{`
         @media (max-width: 640px) {
+          .seo-hero-row { justify-content: center !important; }
+          .seo-hero-logo { margin: 0 auto; }
+          .seo-hero-text { text-align: center !important; }
+          .seo-hero-text p { margin-left: auto !important; margin-right: auto !important; }
+          .seo-hero-cta { justify-content: center !important; }
           .quick-buy-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
-      <main style={{ width: "100%", maxWidth: 640 }}>
-        {/* Breadcrumb */}
-        <nav
-          aria-label="Breadcrumb"
-          style={{ fontSize: 13, color: tokens.textSecondary, marginBottom: 16 }}
-        >
-          <a href="/" style={{ color: tokens.textSecondary, textDecoration: "none" }}>
-            Home
-          </a>
-          <span style={{ margin: "0 6px" }}>{">"}</span>
-          <a
-            href="/mattress/questionnaire"
-            style={{ color: tokens.textSecondary, textDecoration: "none" }}
-          >
-            Mattress finder
-          </a>
-          <span style={{ margin: "0 6px" }}>{">"}</span>
-          <span style={{ color: tokens.textPrimary }}>{page.keyword}</span>
-        </nav>
 
-        <article>
-          {/* Hero */}
-          <header
-            style={{
-              background: tokens.surface,
-              border: `1px solid ${tokens.border}`,
-              borderRadius: 16,
-              padding: "32px 28px",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: 16,
-              boxShadow: "0 4px 24px rgba(0,0,0,0.05)",
-            }}
-          >
+      {/* HERO — navy gradient, logo left */}
+      <section
+        style={{
+          background: "linear-gradient(135deg, #0b2545 0%, #0e2d52 55%, #143869 100%)",
+          color: "#ffffff",
+          padding: "48px 20px 56px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <div aria-hidden style={{ position: "absolute", top: -80, right: -80, width: 280, height: 280, borderRadius: "50%", border: `2px solid ${LIME}`, opacity: 0.14 }} />
+
+        {/* Breadcrumb */}
+        <div style={{ maxWidth: 900, margin: "0 auto 24px", fontSize: 13, color: "rgba(255,255,255,0.55)" }}>
+          <Link href="/" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>Home</Link>
+          <span style={{ margin: "0 6px" }}>›</span>
+          <Link href="/mattress/best-mattress" style={{ color: "rgba(255,255,255,0.55)", textDecoration: "none" }}>Best Mattress</Link>
+          <span style={{ margin: "0 6px" }}>›</span>
+          <span style={{ color: "rgba(255,255,255,0.85)" }}>{page.keyword}</span>
+        </div>
+
+        <div
+          style={{
+            maxWidth: 900,
+            margin: "0 auto",
+            display: "flex",
+            alignItems: "center",
+            gap: 40,
+            flexWrap: "wrap",
+          }}
+          className="seo-hero-row"
+        >
+          {/* Logo */}
+          <div style={{ flexShrink: 0 }} className="seo-hero-logo">
+            <Image
+              src="/images/logo.PNG"
+              alt="Find Your Ideal Mattress"
+              width={120}
+              height={120}
+              style={{ borderRadius: "50%", display: "block", boxShadow: "0 8px 32px -8px rgba(0,0,0,0.5)" }}
+            />
+          </div>
+
+          {/* Heading + CTA */}
+          <div style={{ flex: "1 1 280px" }} className="seo-hero-text">
             <h1
               style={{
-                fontSize: 28,
-                fontWeight: 700,
-                color: tokens.textPrimary,
-                textAlign: "center",
-                margin: 0,
-                lineHeight: 1.25,
+                fontSize: "clamp(26px, 4vw, 42px)",
+                fontWeight: 800,
+                margin: "0 0 12px 0",
+                letterSpacing: -0.8,
+                lineHeight: 1.1,
               }}
             >
               {page.h1}
             </h1>
-
-            <p
-              style={{
-                fontSize: 15,
-                color: tokens.textSecondary,
-                textAlign: "center",
-                margin: 0,
-                lineHeight: 1.65,
-              }}
-            >
+            <p style={{ fontSize: 16, color: "rgba(255,255,255,0.78)", margin: "0 0 24px", lineHeight: 1.55, maxWidth: 520 }}>
               {page.intro}
             </p>
-
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 12, flexWrap: "wrap" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap" }} className="seo-hero-cta">
               {ctaButton("Start Quiz")}
-              <span style={{ fontSize: 13, color: tokens.textSecondary }}>OR</span>
-              <a
-                href="#quick-buy-starting-point"
-                style={{
-                  marginTop: 8,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  width: "100%",
-                  maxWidth: 280,
-                  background: tokens.accent,
-                  color: "#fff",
-                  borderRadius: 10,
-                  height: 52,
-                  fontWeight: 700,
-                  fontSize: 18,
-                  textDecoration: "none",
-                  letterSpacing: 0.2,
-                }}
-              >
-                Quick Buy
-              </a>
+              {hasQuickBuy ? (
+                <>
+                  <span style={{ color: "rgba(255,255,255,0.8)", fontWeight: 700, fontSize: 16 }}>Or</span>
+                  <Link
+                    href="#quick-buy-starting-point"
+                    style={{
+                      marginTop: 8,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      background: LIME,
+                      color: LIME_DARK,
+                      borderRadius: 999,
+                      padding: "14px 30px",
+                      fontWeight: 800,
+                      fontSize: 16,
+                      textDecoration: "none",
+                      letterSpacing: 0.2,
+                      boxShadow: "0 8px 24px -8px rgba(125,190,58,0.5)",
+                    }}
+                  >
+                    Quick Buy
+                  </Link>
+                </>
+              ) : null}
             </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 20, marginTop: 6, flexWrap: "wrap" }}>
+              <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>Fitting in less than a minute</span>
+              {hasQuickBuy ? <span style={{ fontSize: 13, color: "rgba(255,255,255,0.5)" }}>Top-rated picks, ready to buy</span> : null}
+            </div>
+          </div>
+        </div>
+      </section>
 
-            <p
-              style={{
-                fontSize: 13,
-                color: tokens.textSecondary,
-                textAlign: "center",
-                margin: 0,
-              }}
-            >
-              Takes under 2 minutes - No sign-up - Top retailers
-            </p>
-          </header>
+      {/* CONTENT */}
+      <div
+        style={{
+          maxWidth: 900,
+          margin: "0 auto",
+          padding: "0 20px 64px",
+        }}
+      >
+        <article>
 
-          {/* Trust strip */}
+          {/* Mini stats */}
           <div
             style={{
-              marginTop: 20,
+              marginTop: 24,
               display: "grid",
               gridTemplateColumns: "repeat(3, 1fr)",
               gap: 12,
@@ -541,50 +539,38 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
             }}
           >
             {[
-              { label: "Personalised", sub: "to how you sleep" },
-              { label: "2 minutes", sub: "start to finish" },
-              { label: "Independent", sub: "no brand bias" },
+              { icon: "🎯", label: "Personalised", sub: "to how you sleep" },
+              { icon: "⏱️", label: "2 minutes", sub: "start to finish" },
+              { icon: "📋", label: "Independent", sub: "no brand bias" },
             ].map((item) => (
               <div
                 key={item.label}
                 style={{
-                  background: tokens.surface,
-                  border: `1px solid ${tokens.border}`,
+                  background: "#ffffff",
+                  border: `1px solid ${BORDER}`,
                   borderRadius: 12,
-                  padding: "14px 8px",
+                  padding: "16px 8px",
                 }}
               >
-                <div style={{ fontSize: 14, fontWeight: 700, color: tokens.textPrimary }}>
-                  {item.label}
-                </div>
-                <div style={{ fontSize: 12, color: tokens.textSecondary }}>{item.sub}</div>
+                <div style={{ fontSize: 24, marginBottom: 4 }}>{item.icon}</div>
+                <div style={{ fontSize: 15, fontWeight: 800, color: NAVY }}>{item.label}</div>
+                <div style={{ fontSize: 12, color: TEXT2, marginTop: 2 }}>{item.sub}</div>
               </div>
             ))}
           </div>
 
-          {/* Who this is for */}
           {page.whoItIsFor.length > 0 && (
             <section style={cardStyle}>
               <h2 style={h2Style}>Is this guide for you?</h2>
-              <ul
-                style={{
-                  margin: 0,
-                  paddingLeft: 20,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 8,
-                }}
-              >
-                {page.whoItIsFor.map((line: string, i: number) => (
-                  <li key={i} style={bodyStyle}>
-                    {line}
-                  </li>
+              <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+                {page.whoItIsFor.map((line, index) => (
+                  <li key={index} style={bodyStyle}>{line}</li>
                 ))}
               </ul>
             </section>
           )}
 
-          <section style={cardStyle} id="jump-to-a-section">
+          <section style={cardStyle} aria-label="Jump links">
             <h2 style={h2Style}>Jump to a section</h2>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
               {[
@@ -594,79 +580,86 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
                 { label: "Quick Buy starting point", href: "#quick-buy-starting-point" },
                 { label: "How the matching quiz works", href: "#matching-quiz-works" },
               ].map((item) => (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    padding: "10px 14px",
+                    border: `1px solid ${BORDER}`,
                     borderRadius: 999,
-                    border: `1px solid ${tokens.border}`,
-                    background: tokens.surfaceAlt,
-                    color: tokens.textPrimary,
+                    padding: "8px 12px",
+                    color: NAVY,
                     textDecoration: "none",
                     fontSize: 13,
                     fontWeight: 700,
+                    background: WHITE,
                   }}
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
             </div>
           </section>
 
-          <section style={cardStyle} id="quick-verdict">
+          <section id="quick-verdict" style={cardStyle}>
             <h2 style={h2Style}>Quick verdict</h2>
-            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+            <p style={bodyStyle}>
+              If you want the shortest route to the right choice, start here.
+            </p>
+            <ul style={{ margin: "12px 0 0", paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
               <li style={bodyStyle}>Use Quick Buy if you already know your primary problem and want a fast shortlist now.</li>
               <li style={bodyStyle}>Use the quiz if you need us to balance support, temperature, and budget together.</li>
               <li style={bodyStyle}>For most shoppers, the best result is the mattress that fits your position plus body profile.</li>
             </ul>
           </section>
 
-          <section style={cardStyle} id="best-options-at-a-glance">
+          <section id="best-options-at-a-glance" style={cardStyle}>
             <h2 style={h2Style}>Best options at a glance</h2>
-            <div style={{ display: "grid", gap: 12 }}>
+            <p style={bodyStyle}>
+              These options cover the most common buying paths for {page.keyword.toLowerCase()}: strongest baseline fit, value route, and a balanced upgrade path.
+            </p>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: 12, marginTop: 14 }}>
               {rankedOptions.map((product, index) => (
-                <article
-                  key={product.id}
-                  style={{
-                    border: `1px solid ${tokens.border}`,
-                    borderRadius: 12,
-                    padding: 14,
-                    background: "#ffffff",
-                    display: "grid",
-                    gap: 6,
-                  }}
-                >
-                  <p style={{ margin: 0, fontSize: 11, fontWeight: 800, color: tokens.textPrimary, textTransform: "uppercase", letterSpacing: 0.4 }}>
+                <article key={product.id} style={{ border: `1px solid ${BORDER}`, borderRadius: 14, padding: 14, background: WHITE }}>
+                  <p style={{ margin: 0, fontSize: 11, color: NAVY, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase" }}>
                     #{index + 1} option
                   </p>
-                  <p style={{ margin: 0, fontSize: 16, fontWeight: 800, color: tokens.textPrimary }}>
-                    {product.brand} {product.name}
-                  </p>
-                  <p style={{ margin: 0, fontSize: 13, color: tokens.textSecondary }}>
-                    {bestForLine(product)}
-                  </p>
-                  <p style={{ margin: 0, fontSize: 13, color: tokens.textSecondary }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 12, marginTop: 10 }}>
+                    <Image
+                      src={product.imageUrl}
+                      alt={`${product.brand} ${product.name}`}
+                      width={84}
+                      height={84}
+                      style={{ objectFit: "contain", borderRadius: 8, flexShrink: 0, background: SURFACE }}
+                    />
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                      <h3 style={{ margin: 0, fontSize: 18, color: NAVY, lineHeight: 1.25 }}>
+                        {product.brand} {product.name}
+                      </h3>
+                      <p style={{ margin: 0, fontSize: 12, color: TEXT2, fontWeight: 700, lineHeight: 1.4 }}>
+                        {bestForLine(product)}
+                      </p>
+                    </div>
+                  </div>
+                  <p style={{ margin: "10px 0 0", fontSize: 13, color: TEXT2, lineHeight: 1.6 }}>
                     {reasonLine(product)}
                   </p>
-                  <p style={{ margin: 0, fontSize: 13, color: tokens.textSecondary }}>
-                    {typeof product.attributes?.rrp === "number" ? `Approx. GBP${product.attributes.rrp}` : "Check latest price"}
+                  <p style={{ margin: "10px 0 0", fontSize: 13, color: TEXT2 }}>
+                    {typeof product.attributes?.rrp === "number" ? `Approx. £${product.attributes.rrp}` : "Check latest price"}
                   </p>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 2 }}>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 8 }}>
                     {attributeChips(product).map((chip) => (
                       <span
                         key={chip}
                         style={{
-                          border: `1px solid ${tokens.border}`,
+                          border: `1px solid ${BORDER}`,
                           borderRadius: 999,
                           fontSize: 12,
                           fontWeight: 700,
-                          color: tokens.textPrimary,
-                          background: tokens.surfaceAlt,
+                          color: NAVY,
+                          background: WHITE,
                           padding: "4px 10px",
                         }}
                       >
@@ -679,12 +672,12 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
             </div>
           </section>
 
-          <section style={cardStyle} id="how-we-ranked-these-options">
+          <section id="how-we-ranked-these-options" style={cardStyle}>
             <h2 style={h2Style}>How we ranked these options</h2>
             <p style={bodyStyle}>
-              We rank mattresses by topic-fit first, then adjust for support behavior, motion control, temperature profile, and realistic UK budget fit.
+              We rank mattresses by topic-fit first, then adjust for support behaviour, motion control, temperature profile, and realistic UK budget fit.
             </p>
-            <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
+            <ul style={{ margin: "12px 0 0", paddingLeft: 20, display: "flex", flexDirection: "column", gap: 8 }}>
               <li style={bodyStyle}>Topic fit first: position and problem relevance carry the highest weight.</li>
               <li style={bodyStyle}>Performance second: support depth, motion isolation, and cooling shape rank stability.</li>
               <li style={bodyStyle}>Value always: we keep picks actionable with real-world UK price context.</li>
@@ -694,63 +687,54 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
           {/* Quick Buy vs Quiz */}
           <QuickBuySection pageSlug={page.slug} />
 
-          <section style={cardStyle} id="hub-bridge">
-            <h2 style={h2Style}>Need the broader comparison?</h2>
+          <section style={cardStyle}>
+            <h2 style={h2Style}>Want the full mattress overview?</h2>
             <p style={bodyStyle}>
-              If you want the broader hub view, use the main mattress roundup instead of staying on this topic-specific page.
+              If you want to compare the whole landscape before diving into specific sleep profiles,
+              start with our central guide.
             </p>
             <Link
               href="/mattress/best-mattress"
               style={{
+                marginTop: 12,
                 display: "inline-flex",
                 alignItems: "center",
                 justifyContent: "center",
-                marginTop: 12,
-                padding: "12px 16px",
+                background: WHITE,
+                color: NAVY,
+                border: `1px solid ${BORDER}`,
                 borderRadius: 999,
-                background: NAVY,
-                color: WHITE,
+                padding: "10px 18px",
+                fontWeight: 700,
+                fontSize: 14,
                 textDecoration: "none",
-                fontWeight: 800,
               }}
             >
-              Open the main mattress guide
+              Read: Best Mattress guide →
             </Link>
           </section>
 
-          {/* How the quiz works */}
-          <section style={cardStyle} id="matching-quiz-works">
+          <section id="matching-quiz-works" style={cardStyle}>
             <h2 style={h2Style}>How the matching quiz works</h2>
-            <ol
-              style={{
-                margin: 0,
-                paddingLeft: 20,
-                display: "flex",
-                flexDirection: "column",
-                gap: 10,
-              }}
-            >
+            <ol style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 10 }}>
               {[
                 "Answer a few quick questions about how you sleep",
                 "We match against mattresses verified on UK Amazon, scoring on fit, temperature and budget",
-                "Get a shortlist with reasons - not a single pushed product",
-              ].map((step, i) => (
-                <li key={i} style={bodyStyle}>
-                  {step}
-                </li>
+                "Get a shortlist with reasons, not just a single pushed product",
+              ].map((step, index) => (
+                <li key={index} style={bodyStyle}>{step}</li>
               ))}
             </ol>
           </section>
 
-          {/* Educational sections */}
-          {page.sections.map((section, idx) => (
-            <section key={idx} style={cardStyle} id={slugifyHeading(section.h2)}>
+          {page.sections.map((section, index) => (
+            <section key={index} id={slugifyHeading(section.h2)} style={cardStyle}>
               <h2 style={h2Style}>{section.h2}</h2>
-              {section.body && <p style={bodyStyle}>{section.body}</p>}
-              {section.subsections?.map((sub, j) => (
-                <div key={j}>
-                  <h3 style={h3Style}>{sub.h3}</h3>
-                  <p style={bodyStyle}>{sub.body}</p>
+              {section.body ? <p style={bodyStyle}>{section.body}</p> : null}
+              {section.subsections?.map((subsection, subsectionIndex) => (
+                <div key={subsectionIndex}>
+                  <h3 style={h3Style}>{subsection.h3}</h3>
+                  <p style={bodyStyle}>{subsection.body}</p>
                 </div>
               ))}
             </section>
@@ -760,73 +744,48 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
           <div
             style={{
               ...cardStyle,
+              background: "linear-gradient(135deg, #0b2545 0%, #143869 100%)",
+              border: "none",
+              borderLeft: "none",
               display: "flex",
               flexDirection: "column",
-              alignItems: "center",
-              gap: 12,
+              alignItems: "flex-start",
+              gap: 10,
             }}
           >
-            <p
-              style={{
-                ...bodyStyle,
-                textAlign: "center",
-                fontWeight: 600,
-                color: tokens.textPrimary,
-                fontSize: 16,
-              }}
-            >
-              Ready to skip the research?
+            <p style={{ margin: 0, fontWeight: 700, color: "#ffffff", fontSize: 18 }}>
+              Ready to stop guessing?
             </p>
-            <p style={{ ...bodyStyle, textAlign: "center" }}>
-              Answer a few quick questions and we&apos;ll match you to mattresses that fit
-              your build, position and budget.
+            <p style={{ margin: 0, fontSize: 15, color: "rgba(255,255,255,0.75)", lineHeight: 1.55 }}>
+              Answer a few quick questions and we&apos;ll match you to mattresses that fit your build, position and budget.
             </p>
             {ctaButton("Start the 2-minute quiz")}
           </div>
 
-          {/* Key factors */}
           {page.keyFactors.length > 0 && (
             <section style={cardStyle}>
               <h2 style={h2Style}>What our quiz looks at</h2>
-              <ul
-                style={{
-                  margin: 0,
-                  paddingLeft: 20,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 10,
-                }}
-              >
-                {page.keyFactors.map((factor, i) => (
-                  <li key={i} style={bodyStyle}>
-                    {factor}
-                  </li>
+              <ul style={{ margin: 0, paddingLeft: 20, display: "flex", flexDirection: "column", gap: 10 }}>
+                {page.keyFactors.map((factor, index) => (
+                  <li key={index} style={bodyStyle}>{factor}</li>
                 ))}
               </ul>
             </section>
           )}
 
-          {/* FAQ */}
           {page.faq.length > 0 && (
             <section style={cardStyle}>
               <h2 style={h2Style}>Frequently asked questions</h2>
               <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-                {page.faq.map((item, i) => (
+                {page.faq.map((item, index) => (
                   <div
-                    key={i}
+                    key={index}
                     style={{
-                      borderTop: i > 0 ? `1px solid ${tokens.border}` : "none",
-                      paddingTop: i > 0 ? 16 : 0,
+                      borderTop: index > 0 ? `1px solid ${BORDER}` : "none",
+                      paddingTop: index > 0 ? 16 : 0,
                     }}
                   >
-                    <p
-                      style={{
-                        fontSize: 15,
-                        fontWeight: 600,
-                        color: tokens.textPrimary,
-                        margin: "0 0 6px 0",
-                      }}
-                    >
+                    <p style={{ fontSize: 15, fontWeight: 700, color: NAVY, margin: "0 0 6px 0" }}>
                       {item.question}
                     </p>
                     <p style={bodyStyle}>{item.answer}</p>
@@ -836,58 +795,38 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
             </section>
           )}
 
-          {/* Last reviewed (E-E-A-T signal) */}
           <p
             style={{
               fontSize: 12,
-              color: tokens.textSecondary,
+              color: TEXT2,
               textAlign: "center",
-              marginTop: 20,
-              marginBottom: 6,
+              marginTop: 24,
+              marginBottom: 0,
             }}
           >
-            Last reviewed:{" "}
-            {formatReviewDate(page.lastReviewed)}
-            . We update this guide whenever our verified UK product list changes.
-          </p>
-          <p style={{ margin: 0, fontSize: 11, color: tokens.textSecondary, textAlign: "center" }}>
-            Generated with GitHub Copilot.
+            Last reviewed: {formatReviewDate(page.lastReviewed)}. We update this guide when
+            our verified UK mattress catalogue changes.
           </p>
         </article>
 
-        {/* Related guides */}
         {related.length > 0 && (
-          <aside style={cardStyle} aria-label="Related guides">
+          <aside style={{ ...cardStyle, borderLeft: `4px solid ${BORDER}` }} aria-label="Related guides">
             <h2 style={h2Style}>Related guides</h2>
-            <ul
-              style={{
-                margin: 0,
-                paddingLeft: 0,
-                listStyle: "none",
-                display: "flex",
-                flexDirection: "column",
-                gap: 10,
-              }}
-            >
-              {related.map((p) => (
-                <li key={p.slug}>
-                  <a
-                    href={`/mattress/${p.slug}`}
-                    style={{
-                      color: tokens.accent,
-                      textDecoration: "none",
-                      fontSize: 15,
-                      fontWeight: 600,
-                    }}
+            <ul style={{ margin: 0, paddingLeft: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 10 }}>
+              {related.map((relatedPage) => (
+                <li key={relatedPage.slug}>
+                  <Link
+                    href={`/mattress/${relatedPage.slug}`}
+                    style={{ color: LIME, textDecoration: "none", fontSize: 15, fontWeight: 600 }}
                   >
-                    {p.h1} {"->"}
-                  </a>
+                    {relatedPage.h1} →
+                  </Link>
                 </li>
               ))}
             </ul>
           </aside>
         )}
-      </main>
+      </div>
     </div>
   );
 }
