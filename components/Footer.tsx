@@ -7,15 +7,16 @@ import { useTheme } from "../core/theme";
 export function Footer() {
   const { tokens } = useTheme();
   const linkStyle = {
-    color: "rgba(255,255,255,0.78)",
+    color: tokens.textSecondary,
     textDecoration: "none",
     fontWeight: 500,
   } as const;
   return (
     <footer
       style={{
-        background: "#0b2545",
-        color: "rgba(255,255,255,0.7)",
+        background: tokens.surfaceAlt,
+        borderTop: `1px solid ${tokens.border}`,
+        color: tokens.textSecondary,
         padding: "32px 20px 24px",
         fontSize: 13,
         lineHeight: 1.7,
@@ -23,7 +24,7 @@ export function Footer() {
       }}
     >
       <div style={{ maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
-        <div style={{ marginBottom: 14, color: "#ffffff", fontWeight: 700, fontSize: 15, letterSpacing: 0.2 }}>
+        <div style={{ marginBottom: 14, color: tokens.textPrimary, fontWeight: 700, fontSize: 15, letterSpacing: 0.2 }}>
           Find Your <span style={{ color: tokens.accent }}>Ideal Mattress</span>
         </div>
         <nav
@@ -70,16 +71,16 @@ export function Footer() {
           X (Twitter)
         </a>
         </nav>
-        <p style={{ margin: "0 0 6px 0", fontSize: 12, color: "rgba(255,255,255,0.55)" }}>
+        <p style={{ margin: "0 0 6px 0", fontSize: 12, color: tokens.textSecondary }}>
           <em>
             Some links on this site are affiliate links. We may earn a small commission
             on qualifying purchases at no extra cost to you.
           </em>
         </p>
-        <p style={{ margin: "0 0 8px 0", fontSize: 12, color: "rgba(255,255,255,0.55)" }}>
-          Part of the <a href="https://www.findyourideal.info" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.78)" }}>FindYourIdeal network</a>.
+        <p style={{ margin: "0 0 8px 0", fontSize: 12, color: tokens.textSecondary }}>
+          Part of the <a href="https://www.findyourideal.info" target="_blank" rel="noopener noreferrer" style={{ color: tokens.textSecondary }}>FindYourIdeal network</a>.
         </p>
-        <p style={{ margin: 0, fontSize: 12, color: "rgba(255,255,255,0.45)" }}>
+        <p style={{ margin: 0, fontSize: 12, color: tokens.textSecondary, opacity: 0.88 }}>
           &copy; {new Date().getFullYear()} FindYourIdealMattress. All rights reserved.
         </p>
       </div>
