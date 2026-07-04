@@ -30,7 +30,7 @@ export const categoryRegistry: Record<string, CategoryConfig> = {
   'mattress': {
     id: 'mattress',
     meta: {
-      title: 'Free Mattress Fitting Quiz | Find Your Ideal Mattress',
+      title: 'Free Mattress Quiz | Find Your Ideal Mattress',
       description: 'Answer a few quick questions and get a free, personalised mattress recommendation tailored to how you sleep.',
       brandName: 'FindYourIdealMattress',
       hero: 'Answer a few questions.\nGet your ideal mattress.',
