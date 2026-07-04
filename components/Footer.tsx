@@ -28,6 +28,14 @@ export function Footer() {
         </em>
       </p>
       <nav style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap" }}>
+        <a
+          href="https://www.findyourideal.info"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: tokens.textSecondary, textDecoration: "underline" }}
+        >
+          FindYourIdeal Hub
+        </a>
         <Link href="/about" style={{ color: tokens.textSecondary, textDecoration: "underline" }}>
           About
         </Link>
@@ -55,6 +63,9 @@ export function Footer() {
           X (Twitter)
         </a>
       </nav>
+      <p style={{ margin: "8px 0 0 0" }}>
+        Part of the <a href="https://www.findyourideal.info" target="_blank" rel="noopener noreferrer" style={{ color: tokens.textSecondary, textDecoration: "underline" }}>FindYourIdeal network</a>.
+      </p>
 
     </footer>
   );
