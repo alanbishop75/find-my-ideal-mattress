@@ -1,9 +1,25 @@
-# Launch Readiness Review — find-my-ideal-pillow
+# Launch Readiness Review — find-my-ideal-mattress
 
 **Reviewer:** Claude Opus, acting as strict multi-discipline launch readiness review board
 **Date:** 30 April 2026
-**Project:** `find-my-ideal-pillow` (v0.1.0-dev)
+**Project:** `find-my-ideal-mattress` (v0.1.0-dev)
 **Scope:** Full pre-launch / pre-clone audit
+
+---
+
+## Launch Roadmap Delta (Logged 4 July 2026)
+
+Recent production changes now explicitly tracked:
+
+- Added reciprocal hub link in footer (`FindYourIdeal Hub`) for network-level internal linking.
+- Updated footer UI to match the canonical golf structure, then corrected background to mattress palette tokens.
+- Standardized browser tab branding: product-specific title format and product-specific favicon.
+- Simplified tab title copy from "Fitting Quiz" wording to cleaner "Quiz" wording.
+
+Roadmap impact:
+
+- Footer parity and cross-site trust linking are now live launch-baseline items.
+- Browser-level brand consistency is now implemented, not pending.
 
 ---
 
