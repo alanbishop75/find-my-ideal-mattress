@@ -156,6 +156,11 @@ function reasonLine(product: (typeof products)[number]): string {
   return "Included for balanced support, practical value, and reliable everyday comfort.";
 }
 
+function getAmazonLinkForRegion(productId: string, region: "UK" | "US"): string | undefined {
+  const retailerKeys = region === "US" ? ["amazon-us"] : ["amazon-uk"];
+  return getRegionLinks(productId, region).find((link) => retailerKeys.includes(link.retailerKey))?.url;
+}
+
 /**
  * Renders an SEO landing page for a mattress keyword.
  *
@@ -350,6 +355,8 @@ function QuickBuySection({ pageSlug }: { pageSlug: string }) {
 
 export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage }) {
   const quizHref = `/mattress/questionnaire?ref=${page.slug}`;
+  const { region, isLoading } = useRegion();
+  const displayRegion = isLoading ? "UK" : region;
   const related = page.relatedSlugs
     .map((s) => mattressSeoPageMap[s])
     .filter((p): p is MattressSeoPage => Boolean(p));
@@ -623,7 +630,10 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
               These options cover the most common buying paths for {page.keyword.toLowerCase()}: strongest baseline fit, value route, and a balanced upgrade path.
             </p>
             <div style={{ display: "grid", gap: 12, marginTop: 14 }}>
-              {rankedOptions.map((product, index) => (
+              {rankedOptions.map((product, index) => {
+                const amazonLink = getAmazonLinkForRegion(product.id, displayRegion);
+
+                return (
                 <article
                   key={product.id}
                   style={{
@@ -683,9 +693,32 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
                         </span>
                       ))}
                     </div>
+                    {amazonLink ? (
+                      <a
+                        href={amazonLink}
+                        target="_blank"
+                        rel="sponsored nofollow noopener noreferrer"
+                        style={{
+                          marginTop: 2,
+                          display: "inline-flex",
+                          alignItems: "center",
+                          justifyContent: "center",
+                          background: LIME,
+                          color: LIME_DARK,
+                          borderRadius: 999,
+                          padding: "10px 14px",
+                          fontWeight: 800,
+                          textDecoration: "none",
+                          width: "100%",
+                        }}
+                      >
+                        Buy on Amazon
+                      </a>
+                    ) : null}
                   </div>
                 </article>
-              ))}
+                );
+              })}
             </div>
           </section>
 
