@@ -12,6 +12,10 @@ export type MattressComparisonPage = {
     left: string;
     right: string;
   }>;
+  faq?: Array<{
+    question: string;
+    answer: string;
+  }>;
   verdict: string;
 };
 
@@ -126,9 +130,9 @@ export const mattressComparisonPages: MattressComparisonPage[] = [
   },
   {
     slug: "dormeo-octasmart-hybrid-vs-simba-hybrid-pro",
-    metaTitle: "Dormeo Octasmart Hybrid vs Simba Hybrid Pro (2026) | Premium Hybrids",
+    metaTitle: "Dormeo vs Simba (2026): Which Mattress Is Better?",
     metaDescription:
-      "Compare Dormeo Octasmart Hybrid vs Simba Hybrid Pro, two premium cooling hybrids, and shop both with UK and US buy links.",
+      "Compare Dormeo Octasmart vs Simba Hybrid Pro on cooling, support, motion isolation and value to decide which premium hybrid mattress suits you.",
     h1: "Dormeo Octasmart Hybrid vs Simba Hybrid Pro",
     intro:
       "Both are premium cooling hybrids aimed at hot sleepers who want zoned support without the bounce of a traditional spring mattress. The choice comes down to spring engineering, price and motion control.",
@@ -155,6 +159,28 @@ export const mattressComparisonPages: MattressComparisonPage[] = [
         label: "Decision rule",
         left: "Choose this for premium cooling support at a friendlier price",
         right: "Choose this if you want maximum support, cooling and edge strength",
+      },
+    ],
+    faq: [
+      {
+        question: "Is Dormeo or Simba better?",
+        answer:
+          "The Simba Hybrid Pro is better if reinforced edges and maximum engineered support are your priorities. The Dormeo Octasmart Hybrid is the stronger-value choice if you want premium cooling and responsive pressure relief at a lower price point.",
+      },
+      {
+        question: "Which is cooler, Dormeo Octasmart or Simba Hybrid Pro?",
+        answer:
+          "Both are designed for hot sleepers. Dormeo combines breathable Octaspring foam-spring technology with Aerocell foam, while Simba uses graphite-infused Simbatex foam and an aerocoil spring system for active heat dissipation.",
+      },
+      {
+        question: "Which is better for couples, Dormeo or Simba?",
+        answer:
+          "Both provide excellent motion isolation in our catalogue. Simba has the advantage for couples who use the full mattress width because it has reinforced edge support, while Dormeo uses standard edge support.",
+      },
+      {
+        question: "Is the Simba Hybrid Pro worth paying more for than Dormeo Octasmart?",
+        answer:
+          "It can be if reinforced edges, stronger zoned support and a highly engineered all-round build matter most. Dormeo is likely the better value when cooling, motion isolation and responsive pressure relief are the main priorities.",
       },
     ],
     verdict:

@@ -8,7 +8,7 @@
  *  - Every product has a buy-links map entry
  *  - All UK links are direct Amazon UK ASIN URLs (/dp/<ASIN>) with the
  *    correct associate tag
- *  - No US links yet
+ *  - Any US links are direct Amazon US ASIN URLs with the correct associate tag
  *  - All present link URLs start with https://
  */
 
@@ -46,9 +46,14 @@ describe('mattress buy-links — phase 5 (direct ASIN links)', () => {
     }
   });
 
-  it('no US buy-links in this phase', () => {
+  it('all present US links are non-temporary amazon.com direct ASIN URLs with the US associate tag', () => {
     for (const [, links] of Object.entries(mattressBuyLinks)) {
-      expect((links.US ?? []).length).toBe(0);
+      for (const link of links.US ?? []) {
+        expect(link.url).toMatch(/^https:\/\/www\.amazon\.com\/dp\/[A-Z0-9]{10}\?tag=findyouridealmattress-20$/);
+        expect(link.expectedDomain).toBe('amazon.com');
+        expect(link.isTemporary).toBe(false);
+        expect(link.source).toBe('manual');
+      }
     }
   });
 

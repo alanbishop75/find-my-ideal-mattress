@@ -76,9 +76,27 @@ export default async function Page({ params }: Props) {
     ],
   };
 
+  const faqJsonLd = page.faq?.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: page.faq.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: item.answer,
+          },
+        })),
+      }
+    : null;
+
   return (
     <div style={{ width: "100%", background: SURFACE }}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      {faqJsonLd ? (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      ) : null}
       <section
         style={{
           background: "linear-gradient(135deg, #1a3d2f 0%, #1e4d38 55%, #245c42 100%)",
@@ -283,6 +301,31 @@ export default async function Page({ params }: Props) {
           <h2 style={{ margin: "0 0 8px", fontSize: 22, color: NAVY }}>Bottom line</h2>
           <p style={{ margin: 0, color: TEXT2, lineHeight: 1.7 }}>{page.verdict}</p>
         </section>
+
+        {page.faq?.length ? (
+          <section
+            style={{
+              marginTop: 16,
+              background: WHITE,
+              borderTop: `1px solid ${BORDER}`,
+              borderRight: `1px solid ${BORDER}`,
+              borderBottom: `1px solid ${BORDER}`,
+              borderLeft: `4px solid ${SOFT_LIME}`,
+              borderRadius: 14,
+              padding: "20px 22px",
+            }}
+          >
+            <h2 style={{ margin: "0 0 14px", fontSize: 22, color: NAVY }}>Dormeo vs Simba FAQs</h2>
+            <div style={{ display: "grid", gap: 16 }}>
+              {page.faq.map((item) => (
+                <div key={item.question}>
+                  <h3 style={{ margin: "0 0 6px", color: NAVY, fontSize: 18 }}>{item.question}</h3>
+                  <p style={{ margin: 0, color: TEXT2, lineHeight: 1.7 }}>{item.answer}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
       </main>
     </div>
   );

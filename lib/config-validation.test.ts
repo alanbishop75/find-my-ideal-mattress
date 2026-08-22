@@ -2,6 +2,7 @@ import { products } from '../config/mattress/products';
 import { mattressBuyLinks } from '../config/mattress/buy-links';
 import { mattressQuestionnaire } from '../config/mattress/questionnaire';
 import { mattressSeoPages } from '../config/mattress/seo-pages';
+import { mattressComparisonPages } from '../config/mattress/comparison-pages';
 import { themeNames } from '../core/theme/tokens';
 import globalThemeConfig from '../config/global-theme.json';
 
@@ -100,6 +101,41 @@ describe('config validation', () => {
       expect(slugs.has(page.slug)).toBe(false);
       slugs.add(page.slug);
     }
+  });
+
+  it('comparison pages reference products and keep FAQ questions unique', () => {
+    const productIds = new Set(products.map((product) => product.id));
+    const slugs = new Set<string>();
+
+    for (const page of mattressComparisonPages) {
+      expect(page.metaTitle).toBeTruthy();
+      expect(page.metaDescription).toBeTruthy();
+      expect(productIds.has(page.leftProductId)).toBe(true);
+      expect(productIds.has(page.rightProductId)).toBe(true);
+      expect(page.leftProductId).not.toBe(page.rightProductId);
+      expect(slugs.has(page.slug)).toBe(false);
+      slugs.add(page.slug);
+
+      const questions = new Set<string>();
+      for (const item of page.faq ?? []) {
+        expect(item.question).toBeTruthy();
+        expect(item.answer).toBeTruthy();
+        expect(questions.has(item.question)).toBe(false);
+        questions.add(item.question);
+      }
+    }
+  });
+
+  it('Dormeo vs Simba comparison preserves query-aligned metadata and FAQs', () => {
+    const page = mattressComparisonPages.find(
+      (candidate) => candidate.slug === 'dormeo-octasmart-hybrid-vs-simba-hybrid-pro'
+    );
+
+    expect(page).toBeDefined();
+    expect(page?.metaTitle).toMatch(/^Dormeo vs Simba/);
+    expect(page?.metaDescription).toContain('Compare Dormeo Octasmart vs Simba Hybrid Pro');
+    expect(page?.faq?.length).toBeGreaterThanOrEqual(3);
+    expect(page?.faq?.some((item) => item.question === 'Is Dormeo or Simba better?')).toBe(true);
   });
 
   it('products include a valid RRP', () => {
