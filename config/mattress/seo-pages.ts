@@ -843,6 +843,11 @@ const under500Uk: MattressSeoPage = {
         "Several direct-to-consumer brands offer strong value at this price point by removing retail margin. Our quiz compares verified UK options on Amazon against your specific requirements, which gives you a more personalised shortlist than a generic top-10 list.",
     },
     {
+      question: "Are hybrid mattresses good for side sleepers under £500?",
+      answer:
+        "Yes. Toward the upper end of this budget, an entry-level hybrid can combine pocket-spring support with a foam comfort layer that gives the shoulder and hip more pressure relief than a basic sprung mattress. Side sleepers should still prioritise suitable firmness, a meaningful trial period, and enough comfort depth for their build.",
+    },
+    {
       question: "Should I buy a mattress online or in a store at this price?",
       answer:
         "Online-first brands at this price often offer better specification for the money and longer trial periods than in-store equivalents. The main advantage of in-store is touching the mattress before buying — though a few minutes lying down in a showroom is a poor substitute for sleeping on it for several weeks.",
