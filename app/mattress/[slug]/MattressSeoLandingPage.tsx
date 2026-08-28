@@ -78,6 +78,11 @@ const quickBuyReasonBySlug: Record<string, string> = {
   "best-mattress-under-500": "We use this preset because it fits a strict under-GBP500 target while keeping a balanced hybrid setup.",
 };
 
+const comparisonTitleBySlug: Record<string, string> = {
+  "best-cooling-mattress": "Best Cooling Mattresses Compared",
+  "best-mattress-for-back-pain": "Best Mattresses for Back Pain Compared",
+};
+
 function productMatchesTopic(product: (typeof products)[number], slug: string): number {
   const attrs = product.attributes ?? {};
   const sleepPosition = attrs.sleepPosition;
@@ -610,6 +615,37 @@ export default function MattressSeoLandingPage({ page }: { page: MattressSeoPage
                 </Link>
               ))}
             </div>
+            {comparisonTitleBySlug[page.slug] ? (
+              <div style={{ marginTop: 16, overflowX: "auto" }}>
+                <h3 style={{ margin: "0 0 10px", fontSize: 16, color: NAVY }}>{comparisonTitleBySlug[page.slug]}</h3>
+                <table style={{ width: "100%", borderCollapse: "collapse", minWidth: 640, background: WHITE, border: `1px solid ${BORDER}` }}>
+                  <thead>
+                    <tr style={{ background: SURFACE }}>
+                      <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: NAVY, borderBottom: `1px solid ${BORDER}` }}>Mattress</th>
+                      <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: NAVY, borderBottom: `1px solid ${BORDER}` }}>Construction</th>
+                      <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: NAVY, borderBottom: `1px solid ${BORDER}` }}>Firmness</th>
+                      <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: NAVY, borderBottom: `1px solid ${BORDER}` }}>Best For</th>
+                      <th style={{ textAlign: "left", padding: "10px 12px", fontSize: 12, color: NAVY, borderBottom: `1px solid ${BORDER}` }}>Price Check</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {rankedOptions.map((product) => {
+                      const attrs = product.attributes ?? {};
+                      const amazonLink = getAmazonLinkForRegion(product.id, displayRegion);
+                      return (
+                        <tr key={`${product.id}-decision-table`}>
+                          <td style={{ padding: "10px 12px", fontSize: 13, color: NAVY, borderBottom: `1px solid ${BORDER}`, fontWeight: 700 }}>{product.brand} {product.name}</td>
+                          <td style={{ padding: "10px 12px", fontSize: 13, color: TEXT2, borderBottom: `1px solid ${BORDER}` }}>{formatConstruction(typeof attrs.construction === "string" ? attrs.construction : undefined)}</td>
+                          <td style={{ padding: "10px 12px", fontSize: 13, color: TEXT2, borderBottom: `1px solid ${BORDER}`, textTransform: "capitalize" }}>{String(attrs.firmness ?? "balanced").replace("-", " ")}</td>
+                          <td style={{ padding: "10px 12px", fontSize: 13, color: TEXT2, borderBottom: `1px solid ${BORDER}` }}>{bestForLine(product)}</td>
+                          <td style={{ padding: "10px 12px", fontSize: 13, color: TEXT2, borderBottom: `1px solid ${BORDER}` }}>{amazonLink ? <a href={amazonLink} target="_blank" rel="sponsored nofollow noopener noreferrer" style={{ color: NAVY, fontWeight: 700, textDecoration: "underline" }}>Check current price</a> : "Check current price"}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
           </section>
 
           <section id="quick-verdict" style={cardStyle}>
