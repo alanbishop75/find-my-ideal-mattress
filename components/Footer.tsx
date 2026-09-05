@@ -36,14 +36,6 @@ export function Footer() {
             marginBottom: 18,
           }}
         >
-        <a
-          href="https://www.findyourideal.info"
-          target="_blank"
-          rel="noopener noreferrer"
-          style={linkStyle}
-        >
-          FindYourIdeal Hub
-        </a>
         <Link href="/about" style={linkStyle}>
           About
         </Link>
@@ -78,7 +70,7 @@ export function Footer() {
           </em>
         </p>
         <p style={{ margin: "0 0 8px 0", fontSize: 12, color: tokens.textSecondary }}>
-          Part of the <a href="https://www.findyourideal.info" target="_blank" rel="noopener noreferrer" style={{ color: tokens.textSecondary }}>FindYourIdeal network</a>.
+          <a href="https://www.findyourideal.info" rel="noopener" style={{ color: tokens.textSecondary }}>Part of the FindYourIdeal network</a>.
         </p>
         <p style={{ margin: 0, fontSize: 12, color: tokens.textSecondary, opacity: 0.88 }}>
           &copy; {new Date().getFullYear()} FindYourIdealMattress. All rights reserved.
