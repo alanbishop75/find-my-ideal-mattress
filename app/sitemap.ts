@@ -1,72 +1,65 @@
 import type { MetadataRoute } from 'next';
+import { mattressComparisonPages } from '../config/mattress/comparison-pages';
 import { mattressSeoPages } from '../config/mattress/seo-pages';
 import { getRequiredSiteUrl } from '../lib/site-url';
 
-const SITE_URL = getRequiredSiteUrl();
-const GENERATED_AT = new Date();
-
-function latestDate(dateA: Date, dateB: Date): Date {
-  return dateA > dateB ? dateA : dateB;
-}
-
 export default function sitemap(): MetadataRoute.Sitemap {
+  const siteUrl = getRequiredSiteUrl();
   const staticPages: MetadataRoute.Sitemap = [
     {
-      url: `${SITE_URL}/`,
-      lastModified: GENERATED_AT,
+      url: `${siteUrl}/`,
       changeFrequency: 'monthly',
       priority: 1,
     },
     {
-      url: `${SITE_URL}/mattress/best-mattress`,
-      lastModified: GENERATED_AT,
+      url: `${siteUrl}/mattress/best-mattress`,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
-      url: `${SITE_URL}/about`,
-      lastModified: GENERATED_AT,
+      url: `${siteUrl}/about`,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
-      url: `${SITE_URL}/affiliate-disclosure`,
-      lastModified: GENERATED_AT,
+      url: `${siteUrl}/affiliate-disclosure`,
       changeFrequency: 'yearly',
       priority: 0.2,
     },
     {
-      url: `${SITE_URL}/privacy-policy`,
-      lastModified: GENERATED_AT,
+      url: `${siteUrl}/privacy-policy`,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
-      url: `${SITE_URL}/terms`,
-      lastModified: GENERATED_AT,
+      url: `${siteUrl}/terms`,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
-      url: `${SITE_URL}/contact`,
-      lastModified: GENERATED_AT,
+      url: `${siteUrl}/contact`,
       changeFrequency: 'yearly',
       priority: 0.4,
     },
     {
-      url: `${SITE_URL}/faq`,
-      lastModified: GENERATED_AT,
+      url: `${siteUrl}/faq`,
       changeFrequency: 'monthly',
       priority: 0.5,
     },
   ];
 
   const seoLandingPages: MetadataRoute.Sitemap = mattressSeoPages.map((page) => ({
-    url: `${SITE_URL}/mattress/${page.slug}`,
-    lastModified: latestDate(new Date(page.lastReviewed), GENERATED_AT),
+    url: `${siteUrl}/mattress/${page.slug}`,
+    lastModified: new Date(page.lastReviewed),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
   }));
 
-  return [...staticPages, ...seoLandingPages];
+  const comparisonPages: MetadataRoute.Sitemap = mattressComparisonPages.map((page) => ({
+    url: `${siteUrl}/mattress/compare/${page.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...seoLandingPages, ...comparisonPages];
 }
