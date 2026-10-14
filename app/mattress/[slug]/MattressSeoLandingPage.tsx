@@ -62,8 +62,8 @@ const quickBuyBySlug: Record<string, { productId: string; bestFor: string; butto
   },
   "best-mattress-under-500": {
     productId: "inofia-12in-hybrid",
-    bestFor: "Built to hit under-GBP500 budgets while keeping hybrid support.",
-    buttonLabel: "Shop under-GBP500 pick",
+    bestFor: "A hybrid-support option for shoppers working to a £500 mattress budget; check the current size-specific price before buying.",
+    buttonLabel: "Check mattress price",
   },
 };
 
@@ -75,7 +75,7 @@ const quickBuyReasonBySlug: Record<string, string> = {
   "best-cooling-mattress": "We use this preset because this guide focuses on airflow and temperature control first.",
   "best-hybrid-mattress": "We use this preset because the guide is specifically about hybrid build quality and all-round balance.",
   "best-budget-mattress": "We use this preset because budget shoppers usually need the best support-per-pound starting point.",
-  "best-mattress-under-500": "We use this preset because it fits a strict under-GBP500 target while keeping a balanced hybrid setup.",
+  "best-mattress-under-500": "This preset starts with hybrid support for a £500 budget; confirm the current price for your required mattress size.",
 };
 
 function productMatchesTopic(product: (typeof products)[number], slug: string): number {
