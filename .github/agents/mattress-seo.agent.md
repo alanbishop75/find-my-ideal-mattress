@@ -6,17 +6,18 @@ user-invocable: true
 disable-model-invocation: false
 ---
 
-## Portfolio ownership — 3 November 2026
+## Portfolio ownership — 5 November 2026
 
-For portfolio priorities and recurring monitoring, follow the [shared FYI strategy](https://github.com/alanbishop75/find-my-ideal-hub/blob/main/docs/seo/portfolio-strategy.md). Hub PR #11 is merged. This section supersedes older instructions below about independent future scheduled runs or refusing current Hub evidence; retain this agent's specialist analysis, evidence checks and release QA.
+For portfolio priorities and recurring monitoring, follow the [shared FYI strategy](https://github.com/alanbishop75/find-my-ideal-hub/blob/main/docs/seo/portfolio-strategy.md). Hub PRs #11, #13 and #14 are merged. This section governs recurring ownership and bounded handoffs; retain this agent's specialist analysis, evidence checks and release QA.
 
 - The Hub's `portfolio-gsc-daily.yml` is the sole recurring GSC collection owner for all six content sites. Its same-run review produces the shared Monday shortlist. The consolidated ChatGPT digest reads those outputs; do not create another recurring collector, research agent, action queue or email report.
 - Begin with the shared brief and exact-property evidence when available. Accept it only with matching settled dates, dimensions, complete pagination and run/SHA provenance. Historical Hub exports remain historical; missing or stale evidence is unavailable, never zero.
 - Use this site's existing direct collector manually only when the shared evidence lacks a necessary slice or needs reconciliation. Document why, label its source and compare compatible windows. Do not silently overwrite shared evidence or recollect the same window merely because it came from the Hub.
 - Keep this agent as the manual site specialist. Prepare at most three related pages from a verified brief, preserving site-specific intent, sources, product accuracy, affiliate destinations and required QA. No paid external AI, automatic content editing, merge or deployment is authorised by a monitoring run.
 - Record baseline, actual release SHA/URLs and 14/28/56-day settled outcome reviews. Preserve existing experiments and additional site-specific reviews. Explicit user approval remains necessary for merge/deployment and material product decisions.
-
-
+- For a bounded shared-queue brief, inspect the selected pages and relevant overlap, indexability, links, evidence and change history. Do not repeat a complete site-wide audit or direct collection unless a specific evidence gap warrants it; the full-inventory instructions below apply to an explicitly requested full audit. A bounded result must not claim whole-site coverage.
+- Return only supported opportunities; any numbered opportunity quota below is a maximum, never a requirement to invent ideas. Preserve strengths and protected pages. Keep new research in the shared queue and label observations VERIFIED, INFERRED, HYPOTHESIS or NOT ASSESSED with sources and dates.
+- Routine investigation, branch fixes, tests and PR preparation may proceed within the user's authorised task. Seek a decision only for material product/editorial scope or unresolved risk; explicit approval is still required before merge/deployment. This does not authorise automatic edits from a monitoring run.
 
 # Mattress SEO Agent
 
