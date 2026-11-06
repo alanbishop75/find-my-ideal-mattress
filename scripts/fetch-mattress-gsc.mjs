@@ -2,6 +2,9 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { createRequire } from "node:module";
 import { google } from "googleapis";
+import { randomUUID } from "node:crypto";
+import { execFileSync } from "node:child_process";
+import { collectDays, DIMENSIONS, validateSnapshot } from "./mattress-seo-evidence.cjs";
 
 const require = createRequire(import.meta.url);
 const { MATTRESS_PROPERTY, assertMattressProperty } = require("./mattress-seo-policy.cjs");
@@ -36,13 +39,11 @@ try {
 } catch (error) {
   throw new Error(`Mattress Search Console access check failed for ${serviceAccountEmail} on ${MATTRESS_PROPERTY}. Add this exact account in Search Console Settings > Users and permissions as Full user, then rerun npm run seo:mattress:gsc-fetch. API detail: ${error.message}`);
 }
-const rows = [];
-for (let date = new Date(`${startDate}T00:00:00Z`); date <= new Date(`${endDate}T00:00:00Z`); date.setUTCDate(date.getUTCDate() + 1)) {
-  const day = date.toISOString().slice(0, 10);
-  const response = await client.searchanalytics.query({ siteUrl: MATTRESS_PROPERTY, requestBody: { startDate: day, endDate: day, dimensions: ["page", "query", "country", "device"], type: "web", rowLimit: 25000 } });
-  rows.push(...(response.data.rows ?? []).map((row) => ({ date: day, page: row.keys?.[0] ?? "", query: row.keys?.[1] ?? "", country: row.keys?.[2] ?? "", device: row.keys?.[3] ?? "", clicks: row.clicks ?? 0, impressions: row.impressions ?? 0, ctr: row.ctr ?? 0, averagePosition: row.position ?? 0 })));
-}
-const snapshot = { schemaVersion: 1, source: "direct-google-search-console", siteUrl: MATTRESS_PROPERTY, fetchedAt: new Date().toISOString(), dateRange: { startDate, endDate, excludedNewestDays: windows.excludedNewestDays }, dimensions: ["date", "page", "query", "country", "device"], rowCount: rows.length, limitations: ["API output is subject to Search Console row limits.", "This raw evidence makes no SEO recommendation."], rows };
+if (execFileSync("git", ["status", "--porcelain"], { cwd: root, encoding: "utf8" }).trim()) throw new Error("Commit or isolate working-tree changes before collecting evidence with source provenance.");
+const sourceCommit = execFileSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf8" }).trim();
+const { rows, pagination } = await collectDays((request) => client.searchanalytics.query(request), { startDate, endDate });
+const snapshot = { schemaVersion: 2, source: "direct-google-search-console", collectionId: randomUUID(), sourceCommit, siteUrl: MATTRESS_PROPERTY, fetchedAt: new Date().toISOString(), dateRange: { startDate, endDate, excludedNewestDays: windows.excludedNewestDays }, dimensions: DIMENSIONS, searchType: "web", dataState: "final", rowCount: rows.length, pagination, limitations: ["API query rows omit anonymised queries and may exclude other data; they are not site traffic totals.", "API pagination exhausted for every requested day; daily row-cap results are refused.", "This manual missing-slice collector is not the recurring owner and makes no SEO recommendation."], rows };
+validateSnapshot(snapshot, { startDate, endDate });
 const outputDirectory = path.join(root, "seo-results", "gsc", "direct");
 await fs.mkdir(outputDirectory, { recursive: true });
 const output = path.join(outputDirectory, `mattress-gsc-${startDate}-to-${endDate}.json`);

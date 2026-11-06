@@ -14,7 +14,7 @@ describe("Mattress SEO agent MVP structure", () => {
   it("requires full inventory, UK/US separation, credible sitemap dates, rendered links, and approval", () => {
     const agent = read(".github/agents/mattress-seo.agent.md");
     ["zero-impression", "UK and US", "rendered internal links", "Stop for approval before", "must not freeze useful work elsewhere"].forEach((phrase) => expect(agent).toContain(phrase));
-    expect(read("scripts/export-mattress-content-snapshot.mjs")).toContain("rendered-link-map");
-    expect(read("scripts/run-mattress-seo-report.mjs")).toContain("credible page-level modification date");
+    expect(read("scripts/mattress-seo-inventory.cjs")).toContain("rendered-link-map");
+    expect(read("scripts/mattress-seo-evidence.cjs")).toContain("credible page-level modification date");
   });
 });
