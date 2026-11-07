@@ -20,11 +20,21 @@ const isSeoRelevant=p=>/^(app\/|pages\/|src\/|content\/|config\/|data\/|public\/
 const affected=files.filter(p=>isSeoRelevant(p) && !/^scripts\/seo-quality-gate(?:\.test)?\.mjs$/.test(p));
 if(!affected.length){console.log('No SEO-relevant page or application files changed; handoff not required.');process.exit(0);}
 const hub=/https:\/\/github\.com\/alanbishop75\/find-my-ideal-hub\/pull\/(\d+)/i.exec(body);
-const review=/SEO Quality Gate verdict:\s*(PASS|FAIL|INSUFFICIENT_EVIDENCE)/i.exec(body);
-const evidence=/SEO Quality Gate evidence:\s*\S+/i.test(body);
-if(!hub||!review||review[1].toUpperCase()!=='PASS'||!evidence){
- console.error('SEO-relevant files changed: '+affected.join(', '));
- console.error('BLOCKED: PR body must link Hub quality-gate PR and include "SEO Quality Gate verdict: PASS" and "SEO Quality Gate evidence: <review reference>".');
- process.exit(1);
-}
-console.log('SEO handoff present; Hub PR #'+hub[1]+' cited. NOTE: this check does not authenticate Hub review or enforce reviewer approval; protect branch separately.');
+const record=/SEO Quality Gate record:\s*(docs\/seo\/quality-reviews\/[a-zA-Z0-9._-]+\.json)/i.exec(body);
+if(!hub||!record){console.error('BLOCKED: require Hub review PR URL and SEO Quality Gate record: docs/seo/quality-reviews/<name>.json');process.exit(1);}
+const api=async u=>{
+ const raw=execFileSync('curl',['--fail','--silent','--show-error','-H','Authorization: Bearer '+process.env.GH_TOKEN,'-H','Accept: application/vnd.github+json',u],{encoding:'utf8'});
+ return JSON.parse(raw);
+};
+try {
+ const pr=await api('https://api.github.com/repos/alanbishop75/find-my-ideal-hub/pulls/'+hub[1]);
+ if(!pr.merged_at||pr.base?.ref!=='main')throw Error('Hub review PR not merged to main');
+ const source=await api('https://api.github.com/repos/alanbishop75/find-my-ideal-hub/contents/'+record[1]+'?ref=main');
+ if(source.encoding!=='base64')throw Error('Hub review record not available');
+ const review=JSON.parse(Buffer.from(source.content.replace(/\\s/g,''),'base64').toString('utf8'));
+ if(review.verdict!=='PASS'||review.release?.approval!=='APPROVED'||review.release?.ci!=='PASS'||review.release?.preview!=='PASS')throw Error('Hub release gate not approved and verified');
+ if(review.siteRepository!==repo)throw Error('Hub review belongs to different repository');
+ if(!Array.isArray(review.changedPaths)||affected.some(p=>!review.changedPaths.includes(p)))throw Error('Unreviewed changed path');
+ if(review.release?.approvalReference===undefined)throw Error('Missing approval provenance');
+ console.log('Verified merged Hub review #'+hub[1]+' and approved record '+record[1]);
+}catch(e){console.error('BLOCKED: central review authentication failed: '+e.message);process.exit(1);}
