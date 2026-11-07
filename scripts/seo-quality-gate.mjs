@@ -33,7 +33,7 @@ try {
  if(!Array.isArray(changed)||!changed.some(x=>x.filename===record[1]))throw Error('Hub PR did not introduce the cited review record');
  const source=await api('https://api.github.com/repos/alanbishop75/find-my-ideal-hub/contents/'+record[1]+'?ref=main');
  if(source.encoding!=='base64')throw Error('Hub review record not available');
- const review=JSON.parse(Buffer.from(source.content.replace(/\\s/g,''),'base64').toString('utf8'));
+ const review=JSON.parse(Buffer.from(source.content.replace(/\s/g,''),'base64').toString('utf8'));
  if(review.verdict!=='PASS'||review.release?.approval!=='APPROVED'||review.release?.ci!=='PASS'||review.release?.preview!=='PASS')throw Error('Hub release gate not approved and verified');
  if(review.siteRepository!==repo)throw Error('Hub review belongs to different repository');
  if(!Array.isArray(review.changedPaths)||affected.some(p=>!review.changedPaths.includes(p)))throw Error('Unreviewed changed path');
