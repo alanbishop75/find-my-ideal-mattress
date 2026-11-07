@@ -16,7 +16,7 @@ try{
   if(++page>30)throw Error('PR too large to classify safely');
  }
 }catch(e){console.error('Unable to classify PR files:',e.message);process.exit(1);}
-const isSeoRelevant=p=>/^(app\/|pages\/|src\/|content\/|config\/|data\/|public\/|components\/|lib\/|scripts\/|next\.config|middleware|robots|sitemap)/i.test(p) && !/\.(test|spec)\.[cm]?[jt]sx?$/.test(p);
+const isSeoRelevant=p=> !/^(\.github\/|docs\/|scripts\/seo-quality-gate(?:\.test)?\.mjs$)/.test(p) && !/\.(test|spec)\.[cm]?[jt]sx?$/.test(p);
 const affected=files.filter(p=>isSeoRelevant(p) && !/^scripts\/seo-quality-gate(?:\.test)?\.mjs$/.test(p));
 if(!affected.length){console.log('No SEO-relevant page or application files changed; handoff not required.');process.exit(0);}
 const hub=/https:\/\/github\.com\/alanbishop75\/find-my-ideal-hub\/pull\/(\d+)/i.exec(body);
