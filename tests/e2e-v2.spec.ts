@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { completeQuestionnaire } from './helpers/questionnaire';
 
-test.describe('FindMyIdealPillow MVP E2E V2', () => {
+test.describe('FindYourIdealMattress MVP E2E V2', () => {
   test.setTimeout(60000);
 
   test.beforeEach(async ({ page }) => {
@@ -16,8 +16,8 @@ test.describe('FindMyIdealPillow MVP E2E V2', () => {
     await completeQuestionnaire(page);
 
     await expect(page).toHaveURL(/results/);
-    await expect(page.getByText(/best-fit pillows/i)).toBeVisible();
-    await expect(page.getByText(/Best Match/i)).toBeVisible();
-    await expect(page.getByText(/Best Value/i)).toBeVisible();
+    await expect(page.getByText(/best-fit mattresses/i)).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Your Best Match', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Best Value', exact: true })).toBeVisible();
   });
 });

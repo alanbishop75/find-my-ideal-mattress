@@ -42,7 +42,11 @@ function QuestionnairePageInner({ questionnaire: questionnaireProp, resultsPath 
 	const router = useRouter();
 	const { region } = useRegion();
 	const searchParams = useSearchParams();
-	const seoSource = searchParams?.get('ref') ?? 'direct';
+	const referralCategory = searchParams?.get('fyi_hub_category');
+	const referralCta = searchParams?.get('fyi_hub_cta');
+	const seoSource = searchParams?.get('ref') === 'hub'
+		? `hub:${referralCategory ?? 'unknown'}:${referralCta ?? 'unknown'}`
+		: searchParams?.get('ref') ?? 'direct';
 	const q = questions[current];
 	const questionText = getQuestionTextForRegion(q.id, q.text, region);
 	const { log } = useQuizEventLogger();

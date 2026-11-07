@@ -2,9 +2,9 @@ name: CI - Warning Checks
 
 on:
   pull_request:
-    branches: [ main ]
+    branches: [ main, master ]
   push:
-    branches: [ main ]
+    branches: [ main, master ]
   workflow_dispatch:
 
 permissions:
@@ -14,6 +14,8 @@ jobs:
   warning-checks:
     name: warning-checks
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SITE_URL: https://www.findyouridealmattress.com
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4

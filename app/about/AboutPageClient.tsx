@@ -23,6 +23,7 @@ export default function AboutPageClient() {
       <h1 style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>About FindYourIdealMattress</h1>
       <p style={{ fontSize: 17 }}>{intro}</p>
       <p>{regionalSummary}</p>
+      <p>Explore the wider <a href="https://www.findyourideal.info/mattress">Mattress Finder overview</a> on the FindYourIdeal hub.</p>
 
       <h2 style={{ fontSize: 20, fontWeight: 600, marginTop: 32, marginBottom: 8 }}>How it works</h2>
       <p>
