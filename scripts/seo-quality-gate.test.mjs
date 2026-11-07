@@ -6,5 +6,5 @@ test('requires merged Hub PR',()=>assert.match(src,/pr\.merged_at/));
 test('reads central review record from main',()=>assert.match(src,/quality-reviews/));
 test('requires independently recorded PASS and release approval',()=>assert.match(src,/review\.verdict!=='PASS'/));
 test('checks changed paths against Hub review',()=>assert.match(src,/affected\.some\(p=>!review\.changedPaths\.includes\(p\)\)/));
-test('paginates changed files',()=>assert.match(src,/page\+\+/));
+test('paginates changed files',()=>assert.match(src,/\+\+page/));
 test('fails closed on remote authentication errors',()=>assert.match(src,/central review authentication failed/));
