@@ -1,0 +1,26 @@
+name: SEO Quality Gate handoff
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  seo-quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Contract regression tests
+        run: node --test scripts/seo-quality-gate.test.mjs
+      - name: Validate SEO change handoff
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GH_REPO: ${{ github.repository }}
+          PR_BODY: ${{ toJSON(github.event.pull_request.body) }}
+        run: node scripts/seo-quality-gate.mjs
