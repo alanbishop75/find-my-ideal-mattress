@@ -23,8 +23,7 @@ function execute(scenario, prBody=body){
   'const u=process.argv.at(-1);const d=JSON.parse(process.env.MOCK_GH);\n'+
   'if(u.includes("/pulls/12/files"))console.log(JSON.stringify(d.files));\n'+
   'else if(u.includes("/pulls/99/files"))console.log(JSON.stringify(d.hubFiles));\n'+
-  'else if(u.includes("/pulls/99/reviews"))console.log(JSON.stringify(d.reviews));
-'+
+  'else if(u.includes("/pulls/99/reviews"))console.log(JSON.stringify(d.reviews));\n'+
   'else if(u.includes("/pulls/99"))console.log(JSON.stringify(d.hubPr));\n'+
   'else if(u.includes("/contents/"))console.log(JSON.stringify({encoding:"base64",content:Buffer.from(JSON.stringify(d.review)).toString("base64")}));\n'+
   'else process.exit(1);\n',{mode:0o755});
