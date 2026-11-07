@@ -23,6 +23,8 @@ function execute(scenario, prBody=body){
   'const u=process.argv.at(-1);const d=JSON.parse(process.env.MOCK_GH);\n'+
   'if(u.includes("/pulls/12/files"))console.log(JSON.stringify(d.files));\n'+
   'else if(u.includes("/pulls/99/files"))console.log(JSON.stringify(d.hubFiles));\n'+
+  'else if(u.includes("/pulls/99/reviews"))console.log(JSON.stringify(d.reviews));
+'+
   'else if(u.includes("/pulls/99"))console.log(JSON.stringify(d.hubPr));\n'+
   'else if(u.includes("/contents/"))console.log(JSON.stringify({encoding:"base64",content:Buffer.from(JSON.stringify(d.review)).toString("base64")}));\n'+
   'else process.exit(1);\n',{mode:0o755});
@@ -34,7 +36,8 @@ function execute(scenario, prBody=body){
 }
 const good={
  files:[{filename:'app/guide/page.tsx'}],
- hubPr:{merged_at:'2026-11-07T12:00:00Z',base:{ref:'main'}},
+ hubPr:{merged_at:'2026-11-07T12:00:00Z',base:{ref:'main'},user:{login:'author'}},
+ reviews:[{state:'APPROVED',user:{login:'independent-reviewer'}}],
  hubFiles:[{filename:recordPath}],
  review:{siteRepository:'alanbishop75/test-site',changedPaths:['app/guide/page.tsx'],verdict:'PASS',release:{approval:'APPROVED',approvalReference:'approval-123',ci:'PASS',preview:'PASS'}}
 };
@@ -46,3 +49,5 @@ test('review for different site is blocked',()=>assert.notEqual(execute({...good
 test('unreviewed additional file is blocked',()=>assert.notEqual(execute({...good,files:[...good.files,{filename:'lib/new-ranking.ts'}]}).status,0));
 test('unrecognised page file is not bypassed',()=>assert.notEqual(execute({...good,files:[{filename:'new-pages/hidden-seo.md'}]}).status,0));
 test('CI-only changes do not require a Hub record',()=>assert.equal(execute({...good,files:[{filename:'.github/workflows/ci.yml'}]},'').status,0));
+
+test('self-approved Hub PR cannot authorize release',()=>assert.notEqual(execute({...good,reviews:[{state:'APPROVED',user:{login:'author'}}]}).status,0));
