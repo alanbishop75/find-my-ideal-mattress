@@ -17,7 +17,7 @@ try{
  }
 }catch(e){console.error('Unable to classify PR files:',e.message);process.exit(1);}
 const isSeoRelevant=p=>/^(app\/|pages\/|src\/|content\/|config\/|data\/|public\/|components\/|lib\/|scripts\/|next\.config|middleware|robots|sitemap)/i.test(p) && !/\.(test|spec)\.[cm]?[jt]sx?$/.test(p);
-const affected=files.filter(isSeoRelevant);
+const affected=files.filter(p=>isSeoRelevant(p) && !/^scripts\/seo-quality-gate(?:\.test)?\.mjs$/.test(p));
 if(!affected.length){console.log('No SEO-relevant page or application files changed; handoff not required.');process.exit(0);}
 const hub=/https:\/\/github\.com\/alanbishop75\/find-my-ideal-hub\/pull\/(\d+)/i.exec(body);
 const review=/SEO Quality Gate verdict:\s*(PASS|FAIL|INSUFFICIENT_EVIDENCE)/i.exec(body);
