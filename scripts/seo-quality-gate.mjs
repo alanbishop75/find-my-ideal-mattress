@@ -29,6 +29,8 @@ const api=async u=>{
 try {
  const pr=await api('https://api.github.com/repos/alanbishop75/find-my-ideal-hub/pulls/'+hub[1]);
  if(!pr.merged_at||pr.base?.ref!=='main')throw Error('Hub review PR not merged to main');
+ const changed=await api('https://api.github.com/repos/alanbishop75/find-my-ideal-hub/pulls/'+hub[1]+'/files?per_page=100');
+ if(!Array.isArray(changed)||!changed.some(x=>x.filename===record[1]))throw Error('Hub PR did not introduce the cited review record');
  const source=await api('https://api.github.com/repos/alanbishop75/find-my-ideal-hub/contents/'+record[1]+'?ref=main');
  if(source.encoding!=='base64')throw Error('Hub review record not available');
  const review=JSON.parse(Buffer.from(source.content.replace(/\\s/g,''),'base64').toString('utf8'));
